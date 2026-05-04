@@ -12,6 +12,7 @@ dependencies = [
     "fuzzywuzzy>=0.18.0",
     "python-dotenv>=1.2.1",
     "python-levenshtein>=0.27.1",
+    "psycopg[binary]>=3.2.0",
     "pytz>=2025.2",
     "wagtail>=7.1.1",
     "wagtail-modelchooser>=4.0.1",
@@ -143,6 +144,13 @@ max-args = 15
 max-returns = 10
 max-branches = 30
 
+[tool.djlint]
+profile = "django"
+indent = 2
+max_line_length = 120
+format_css = true
+format_js = true
+
 # -- MyPy --
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]
@@ -155,7 +163,7 @@ exclude = [
 ]
 
 [tool.django-stubs]
-django_settings_module = "dio_website.settings"
+django_settings_module = "dio_website.settings.dev"
 
 # -- Vulture --
 [tool.vulture]
@@ -170,4 +178,9 @@ ignore_names = [
     "put",
     "delete",
     "head"
+]
+
+[dependency-groups]
+dev = [
+    "djlint>=1.36.4",
 ]
