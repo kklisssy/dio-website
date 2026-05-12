@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  {% for block in page.hero %}
+    {% if block.block_type == "hero" %}
+      <section class="hero">
+        <div class="hero__content">
+          <h1 class="heading_h1">{{ block.value.title }}</h1>
+          {% if block.value.text %}<div class="hero__text">{{ block.value.text|richtext }}</div>{% endif %}
+          {% if block.value.buttons %}
+            <div class="hero__buttons">
+              {% for button in block.value.buttons %}
+                <a href="{{ button.url }}"
+                   class="hero__button{% if button.is_secondary %} hero__button--secondary{% endif %}">
+                  {{ button.text }}
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        {% if block.value.image %}
+          <div class="hero__image">
+            {% image block.value.image max-900x700 as hero_image %}
+            <img
+              src="{{ hero_image.url }}"
+              width="{{ hero_image.width }}"
+              height="{{ hero_image.height }}"
+              alt="{{ block.value.title }}"
+            >
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
