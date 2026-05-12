@@ -1,0 +1,87 @@
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+<nav class="main-nav">
+  <div class="main-nav__container">
+    <div class="main-nav__brand">
+      <a href="{% slugurl 'home' %}" class="main-nav__brand-link">
+        {% get_settings use_default_site=True as settings %}
+        {% if settings.base.HeaderSettings.logo %}
+          {% image settings.base.HeaderSettings.logo width-80 height-80 as logo %}
+          <div class="main-nav__brand-logo">
+            <img src="{{ logo.url }}"
+                 alt="{{ settings.base.HeaderSettings.site_title|default:'Логотип сайта' }}"
+                 class="main-nav__brand-image">
+          </div>
+        {% else %}
+          <div class="main-nav__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
+              <path d="M16 0C7.164 0 0 7.164 0 16s7.164 16 16 16 16-7.164 16-16S24.836 0 16 0zm0 28C9.373 28 4 22.627 4 16S9.373 4 16 4s12 5.373 12 12-5.373 12-12 12z" />
+              <path d="M16 8c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm0 12c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z" />
+            </svg>
+          </div>
+        {% endif %}
+        <span class="main-nav__brand-name">{{ settings.base.HeaderSettings.site_title }}</span>
+      </a>
+    </div>
+
+    <div class="main-nav__menu">
+      <ul class="main-nav__list">
+        {% for item in settings.base.HeaderSettings.nav_items %}
+          <li class="main-nav__item {% if item.value.menu_type != 'none' %}main-nav__item--dropdown{% endif %}">
+            {% if item.value.menu_type == "none" %}
+              <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
+                 class="main-nav__link">{{ item.value.name }}</a>
+            {% else %}
+              <div class="main-nav__dropdown">
+                <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
+                   class="main-nav__dropdown-link">{{ item.value.name }}</a>
+                <button class="main-nav__dropdown-toggle" aria-expanded="false" type="button">
+                  <svg class="main-nav__dropdown-chevron"
+                       width="16"
+                       height="16"
+                       viewBox="0 0 16 16"
+                       fill="currentColor">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                {% if item.value.menu_type == "simple" %}
+                  <div class="main-nav__dropdown-menu">
+                    <div class="main-nav__dropdown-content">
+                      {% for subitem in item.value.simple_dropdown_items %}
+                        <a href="{% if subitem.page %}{{ subitem.page.url }}{% else %}{{ subitem.external_url|default:'#' }}{% endif %}"
+                           class="main-nav__dropdown-item">{{ subitem.name }}</a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="main-nav__actions">
+      <button onclick="document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });"
+              class="main-nav__cta"
+              type="button">
+        <svg class="main-nav__cta-border"
+             viewBox="0 0 160 45"
+             preserveAspectRatio="none">
+          <rect class="main-nav__cta-rect"
+                x="0"
+                y="0"
+                width="160"
+                height="45"
+                rx="8"
+                ry="8"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-dasharray="0 422"
+                stroke-dashoffset="0" />
+        </svg>
+        {{ settings.base.HeaderSettings.consultation_button_text }}
+      </button>
+    </div>
+  </div>
+</nav>
