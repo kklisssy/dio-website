@@ -1,0 +1,97 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if page.global_presence %}
+  {% for block in page.global_presence %}
+    {% if block.block_type == "presence" %}
+      <section class="global-presence-section">
+        <div class="container global-presence-section__container">
+          <div class="global-presence-section__content">
+            <h2 class="heading_h2">{{ block.value.title }}</h2>
+            {% if block.value.description %}<div class="list-content">{{ block.value.description|richtext }}</div>{% endif %}
+          </div>
+          {% if block.value.image %}
+            <div class="global-presence-section__image">
+              {% image block.value.image max-1100x760 as global_image %}
+              <img src="{{ global_image.url }}"
+                   width="{{ global_image.width }}"
+                   height="{{ global_image.height }}"
+                   alt="{{ block.value.title }}">
+            </div>
+          {% endif %}
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+  <style>
+      .global-presence-section {
+          padding: 100px 140px;
+      }
+
+      .global-presence-section__container {
+          display: grid;
+          grid-template-columns: minmax(360px, 0.82fr) minmax(560px, 1.18fr);
+          align-items: center;
+          gap: 72px;
+          margin: 0 auto;
+      }
+
+      .global-presence-section__content {
+          max-width: 720px;
+      }
+
+      .global-presence-section__title {
+          margin: 0 0 58px;
+          color: #111418;
+          font-size: 48px;
+          line-height: 1.08;
+          font-weight: 800;
+      }
+
+      .global-presence-section__image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .global-presence-section__image img {
+          display: block;
+          width: 100%;
+          max-width: 920px;
+          height: auto;
+          object-fit: contain;
+      }
+
+      @media (max-width: 1180px) {
+          .global-presence-section__container {
+              grid-template-columns: 1fr;
+              gap: 48px;
+          }
+
+          .global-presence-section__content {
+              max-width: none;
+          }
+
+          .global-presence-section__title {
+              margin-bottom: 34px;
+          }
+      }
+
+      @media (max-width: 640px) {
+          .global-presence-section {
+              padding: 56px 16px 64px;
+          }
+
+          .global-presence-section__title {
+              font-size: 36px;
+          }
+
+          .list-content {
+              font-size: 19px;
+          }
+
+          .list-content li {
+              padding-left: 36px;
+              font-size: 18px;
+          }
+      }
+  </style>
+{% endif %}

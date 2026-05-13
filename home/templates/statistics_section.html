@@ -1,0 +1,185 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+{% if page.achievements %}
+  <section class="statistics-section">
+    <div class="container statistics-section__container">
+      <div class="statistics-section__header">
+        <h2 class="statistics-section__title">Наши достижения в цифрах</h2>
+        <p class="statistics-section__text">
+          Результаты многолетней работы в сфере автоматизации бизнеса и внедрения информационных систем.
+        </p>
+      </div>
+      <ul class="statistics-section__grid" role="list">
+        {% for achievement in page.achievements %}
+          <li class="statistics-section__item">
+            <div class="statistics-section__value counter-element"
+                 data-value="{{ achievement.value.value }}"
+                 data-suffix="{{ achievement.value.suffix }}">0{{ achievement.value.suffix }}</div>
+            <h3 class="statistics-section__label">{{ achievement.value.label }}</h3>
+            {% if achievement.value.description %}
+              <div class="statistics-section__description">{{ achievement.value.description|richtext }}</div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  <style>
+      .statistics-section {
+          padding: 64px 0;
+      }
+
+      .statistics-section__container {
+          padding: 72px 72px 96px;
+          border-radius: 30px;
+          background: #ffffff;
+          box-shadow: 0 28px 70px rgba(15, 23, 42, 0.08);
+      }
+
+      .statistics-section__header {
+          margin: 0 auto 56px;
+          padding-bottom: 24px;
+          border-bottom: 1px solid #e7e3df;
+          text-align: center;
+      }
+
+      .statistics-section__title {
+          margin: 0 0 14px;
+          color: #111827;
+          font-size: 28px;
+          line-height: 1.2;
+          font-weight: 500;
+      }
+
+      .statistics-section__text {
+          margin: 0;
+          color: #4f5561;
+          font-size: 24px;
+          line-height: 1.45;
+      }
+
+      .statistics-section__grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 56px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .statistics-section__item {
+          text-align: center;
+      }
+
+      .statistics-section__value {
+          margin-bottom: 18px;
+          color: #111418;
+          font-size: 31px;
+          line-height: 1.1;
+          font-weight: 700;
+          transition: color 1s ease;
+      }
+
+      .statistics-section__value.animated {
+          color: #111418;
+      }
+
+      .statistics-section__label {
+          margin: 0;
+          color: #7b7f87;
+          font-size: 20px;
+          line-height: 1.45;
+          font-weight: 600;
+      }
+
+      .statistics-section__description {
+          margin-top: 14px;
+          color: #7b7f87;
+          font-size: 18px;
+          line-height: 1.55;
+      }
+
+      .statistics-section__description p {
+          margin: 0;
+      }
+
+      @media (max-width: 991px) {
+          .statistics-section__container {
+              padding: 56px 40px 64px;
+          }
+
+          .statistics-section__grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 36px;
+          }
+      }
+
+      @media (max-width: 640px) {
+          .statistics-section {
+              padding: 32px 16px;
+          }
+
+          .statistics-section__container {
+              padding: 36px 22px 44px;
+          }
+
+          .statistics-section__title {
+              font-size: 24px;
+          }
+
+          .statistics-section__text {
+              font-size: 18px;
+          }
+
+          .statistics-section__grid {
+              grid-template-columns: 1fr;
+          }
+      }
+  </style>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          function animateCounter(element, start, end, duration, suffix) {
+              let startTime = null;
+
+              function updateCounter(timestamp) {
+                  if (!startTime) {
+                      startTime = timestamp;
+                  }
+
+                  const progress = Math.min((timestamp - startTime) / duration, 1);
+                  const currentValue = Math.floor(progress * (end - start) + start);
+                  element.textContent = currentValue + suffix;
+
+                  if (progress < 1) {
+                      requestAnimationFrame(updateCounter);
+                  } else {
+                      element.classList.add("animated");
+                  }
+              }
+
+              requestAnimationFrame(updateCounter);
+          }
+
+          function isElementInViewport(element) {
+              const rect = element.getBoundingClientRect();
+              return rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
+          }
+
+          function handleCounters() {
+              document.querySelectorAll(".counter-element").forEach(function(counter) {
+                  if (!isElementInViewport(counter) || counter.classList.contains("animated")) {
+                      return;
+                  }
+
+                  const value = parseInt(counter.getAttribute("data-value"), 10) || 0;
+                  const suffix = counter.getAttribute("data-suffix") || "";
+                  animateCounter(counter, 0, value, 1000, suffix);
+              });
+          }
+
+          window.addEventListener("scroll", handleCounters, {
+              passive: true
+          });
+          handleCounters();
+      });
+  </script>
+{% endif %}

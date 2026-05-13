@@ -1,0 +1,176 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if page.work %}
+  {% for block in page.work %}
+    {% if block.block_type == "work_with" %}
+      <section class="work-with-section">
+        <div class="container work-with-section__container">
+          <div class="work-with-section__header">
+            <h2 class="heading_h2">{{ block.value.title }}</h2>
+            {% if block.value.intro %}<div class="work-with-section__intro">{{ block.value.intro|richtext }}</div>{% endif %}
+          </div>
+          <ul class="work-with-section__grid" role="list">
+            {% for card in block.value.cards %}
+              {% if card.image %}
+                {% image card.image fill-900x760 as card_image %}
+              {% endif %}
+              <li class="work-with-card"
+                  {% if card.image %}style="background-image: url('{{ card_image.url }}')"{% endif %}>
+                <div class="work-with-card__body">
+                  <h3 class="heading_h3">{{ card.title }}</h3>
+                  <div class="work-with-card__text">{{ card.text|richtext }}</div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+  <style>
+      .work-with-section {
+          padding: 64px 0;
+      }
+
+      .work-with-section__container {
+          margin: 0 auto;
+      }
+
+      .work-with-section__header {
+          max-width: 980px;
+          margin-bottom: 30px;
+      }
+
+      .work-with-section__intro {
+          margin-top: 18px;
+          color: #6d6d6d;
+          font-size: 22px;
+          line-height: 1.45;
+      }
+
+      .work-with-section__intro p {
+          margin: 0;
+      }
+
+      .work-with-section__grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .work-with-card {
+          position: relative;
+          overflow: hidden;
+          aspect-ratio: 1 / 1;
+          min-height: auto;
+          border-radius: 30px;
+          background-color: #f4f7fc;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+      }
+
+      .work-with-card::before {
+          position: absolute;
+          inset: 0;
+          content: "";
+          background: linear-gradient(180deg, rgba(244, 247, 252, 0.2) 0%, rgba(244, 247, 252, 0.72) 100%);
+          pointer-events: none;
+      }
+
+      .work-with-card__body {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          height: 100%;
+          box-sizing: border-box;
+          flex-direction: column;
+          padding: 48px 36px 36px;
+      }
+
+      .work-with-card__title {
+          margin: 0 0 24px;
+          color: #000000;
+          font-size: 28px;
+          line-height: 1;
+          font-weight: 600;
+      }
+
+      .work-with-card__text {
+          max-width: 520px;
+          color: #525456;
+          font-size: 20px;
+          line-height: 1.25;
+          font-weight: 400;
+      }
+
+      .work-with-card__text p {
+          margin: 0;
+      }
+
+      @media (max-width: 1180px) {
+          .work-with-section__grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .work-with-card__body {
+              padding: 44px 34px 34px;
+          }
+
+          .work-with-card__title {
+              font-size: 28px;
+          }
+
+          .work-with-card__text {
+              font-size: 20px;
+          }
+      }
+
+      @media (max-width: 640px) {
+          .work-with-section {
+              padding: 48px 16px 64px;
+          }
+
+          .work-with-section__header {
+              margin-bottom: 32px;
+          }
+
+          .work-with-section__title {
+              font-size: 36px;
+          }
+
+          .work-with-section__intro {
+              font-size: 18px;
+          }
+
+          .work-with-section__grid {
+              grid-template-columns: 1fr;
+              gap: 22px;
+          }
+
+          .work-with-card {
+              min-height: 420px;
+          }
+
+          .work-with-card__body {
+              height: 100%;
+              padding: 36px 28px;
+          }
+
+          .work-with-card__title {
+              font-size: 28px;
+          }
+
+          .work-with-card__text {
+              font-size: 19px;
+          }
+
+          .work-with-card__link {
+              font-size: 19px;
+          }
+      }
+  </style>
+{% endif %}
