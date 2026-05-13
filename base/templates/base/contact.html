@@ -1,0 +1,303 @@
+{% load wagtailsettings_tags %}
+{% get_settings %}
+{% with contact=settings.base.ContactSettings %}
+  <section class="contact-section" id="contacts">
+    <div class="container contact-section__container">
+      <div class="contact-card contact-card--info">
+        <span class="contact-card__badge">Контакты</span>
+        <h2 class="heading_h2">{{ contact.title }}</h2>
+        {% if contact.description %}<p class="contact-card__description">{{ contact.description }}</p>{% endif %}
+        <div class="contact-card__items">
+          {% if contact.phone %}
+            <div class="contact-info-item">
+              <h3 class="heading_h3">Телефон</h3>
+              <p class="contact-info-item__text">{{ contact.phone }}</p>
+            </div>
+          {% endif %}
+          {% if contact.email %}
+            <div class="contact-info-item">
+              <h3 class="heading_h3">Email</h3>
+              <p class="contact-info-item__text">
+                <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+              </p>
+            </div>
+          {% endif %}
+          {% if contact.address %}
+            <div class="contact-info-item">
+              <h3 class="heading_h3">Адрес</h3>
+              <p class="contact-info-item__text">{{ contact.address }}</p>
+            </div>
+          {% endif %}
+          {% if contact.working_hours %}
+            <div class="contact-info-item">
+              <h3 class="heading_h3">Режим работы</h3>
+              <p class="contact-info-item__text">{{ contact.working_hours }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="contact-card contact-card--form">
+        <h2 class="heading_h2">{{ contact.form_title }}</h2>
+        <form class="contact-form" method="post" action="">
+          {% csrf_token %}
+          <div class="contact-form__grid">
+            <label class="contact-form__field">
+              <span class="contact-form__label">Имя</span>
+              <input type="text" name="name" placeholder="Ваше имя" required>
+            </label>
+            <label class="contact-form__field">
+              <span class="contact-form__label">Компания</span>
+              <input type="text" name="company" placeholder="Название компании">
+            </label>
+            <label class="contact-form__field">
+              <span class="contact-form__label">Телефон</span>
+              <input type="tel" name="phone" placeholder="+7" required>
+            </label>
+            <label class="contact-form__field">
+              <span class="contact-form__label">Email</span>
+              <input type="email" name="email" placeholder="name@company.ru">
+            </label>
+          </div>
+          <label class="contact-form__field contact-form__field--wide">
+            <span class="contact-form__label">Краткое описание задачи</span>
+            <textarea name="message"
+                      placeholder="Опишите, какую задачу нужно решить"
+                      required></textarea>
+          </label>
+          <div class="contact-form__footer">
+            <button class="main-nav__cta" type="submit">{{ contact.submit_button_text }}</button>
+            {% if contact.form_note %}<p class="contact-form__note">{{ contact.form_note }}</p>{% endif %}
+          </div>
+          {% if contact.privacy_policy_text %}
+            <label class="contact-form__privacy">
+              <input class="contact-form__privacy-checkbox"
+                     type="checkbox"
+                     name="personal_data_agreement"
+                     required>
+              <span class="contact-form__privacy-text">{{ contact.privacy_policy_text|safe }}</span>
+            </label>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </section>
+  <style>
+      .contact-section {
+          padding: 77px 0 110px;
+          background: var(--color-page);
+      }
+
+      .contact-section__container {
+          display: grid;
+          grid-template-columns: minmax(420px, 0.95fr) minmax(520px, 1.05fr);
+          gap: 40px;
+          align-items: stretch;
+          min-height: 600px;
+      }
+
+      .contact-card {
+          border-radius: var(--radius-large);
+      }
+
+      .contact-card--info {
+          padding: 34px;
+          background:
+              radial-gradient(circle at 86% 12%, rgba(159, 48, 48, 0.42), transparent 34%),
+              linear-gradient(145deg, #30343b 0%, #22262d 100%);
+          color: #ffffff;
+      }
+
+      .contact-card__badge {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          padding: 10px 18px;
+          border-radius: var(--radius-pill);
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          font-size: 16px;
+          font-weight: 700;
+          text-transform: uppercase;
+      }
+
+      .contact-card__description {
+          margin: 0 0 24px;
+          max-width: 643px;
+          color: rgba(255, 255, 255, 0.86);
+          font-size: 20px;
+          line-height: 1.45;
+          font-weight: 500;
+      }
+
+      .contact-card__items {
+          display: grid;
+          gap: 14px;
+          margin-top: 26px;
+      }
+
+      .contact-info-item {
+          padding: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.08);
+      }
+
+      .contact-info-item__text {
+          margin: 0;
+          color: rgba(255, 255, 255, 0.86);
+          font-size: 18px;
+          line-height: 1.4;
+      }
+
+      .contact-card--form {
+          padding: 34px;
+          background: #ffffff;
+          box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+      }
+
+      .contact-form__grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px 16px;
+      }
+
+      .contact-form__field {
+          display: grid;
+          gap: 10px;
+      }
+
+      .contact-form__field--wide {
+          margin-top: 18px;
+      }
+
+      .contact-form__label {
+          color: #1f2329;
+          font-size: 16px;
+          font-weight: 800;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+          width: 100%;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          border-radius: 16px;
+          background: #ffffff;
+          color: var(--color-text);
+          font: inherit;
+          font-size: 18px;
+          outline: none;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .contact-form input {
+          min-height: 62px;
+          padding: 0 18px;
+      }
+
+      .contact-form textarea {
+          min-height: 150px;
+          resize: vertical;
+          padding: 18px;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+          border-color: var(--color-brand);
+          box-shadow: 0 0 0 4px rgba(159, 48, 48, 0.12);
+      }
+
+      .contact-form__footer {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          margin-top: 20px;
+      }
+
+      .contact-form__submit {
+          min-height: 58px;
+          padding: 0 28px;
+          border: 0;
+          border-radius: var(--radius-pill);
+          background: #d52535;
+          color: #ffffff;
+          font: inherit;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow: 0 18px 35px rgba(213, 37, 53, 0.22);
+      }
+
+      .contact-form__note {
+          margin: 0;
+          color: #69707d;
+          font-size: 16px;
+          line-height: 1.4;
+      }
+
+      .contact-form__privacy {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin-top: 22px;
+          color: #69707d;
+          cursor: pointer;
+      }
+
+      .contact-form .contact-form__privacy-checkbox {
+          width: 18px;
+          height: 18px;
+          min-height: 0;
+          flex: 0 0 18px;
+          margin: 0;
+          padding: 0;
+          accent-color: var(--color-brand);
+          border: 1px solid #8a9099;
+          box-shadow: none;
+          cursor: pointer;
+      }
+
+      .contact-form .contact-form__privacy-checkbox:focus,
+      .contact-form .contact-form__privacy-checkbox:focus-visible {
+          border-color: #8a9099;
+          outline: none;
+          box-shadow: none;
+      }
+
+      .contact-form__privacy-text {
+          color: #69707d;
+          line-height: 1.35;
+      }
+
+      .contact-form__privacy-text a {
+          color: #963d3d;
+          ;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+      }
+
+      @media (max-width: 1180px) {
+          .contact-section__container {
+              grid-template-columns: 1fr;
+          }
+      }
+
+      @media (max-width: 720px) {
+          .contact-section {
+              padding: 64px 0 72px;
+          }
+
+          .contact-card--info,
+          .contact-card--form {
+              padding: 24px;
+          }
+
+          .contact-form__grid {
+              grid-template-columns: 1fr;
+          }
+
+          .contact-form__footer {
+              align-items: flex-start;
+              flex-direction: column;
+          }
+      }
+  </style>
+{% endwith %}

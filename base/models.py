@@ -141,3 +141,107 @@ class HeaderSettings(BaseGenericSetting):
             heading="Основные настройки хедера",
         ),
     ]
+
+@register_setting
+class ContactSettings(BaseGenericSetting):
+
+    title = models.CharField(
+        max_length=255,
+        default="Обсудим ваш проект на базе 1С",
+        verbose_name="Заголовок",
+    )
+    description = models.TextField(
+        blank=True,
+        verbose_name="Описание",
+    )
+    phone = models.CharField(
+        max_length=50,
+        blank=True,
+        verbose_name="Телефон",
+    )
+    email = models.EmailField(
+        blank=True,
+        verbose_name="Email",
+    )
+    address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="Адрес",
+    )
+    working_hours = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="Режим работы",
+    )
+
+    form_title = models.CharField(
+        max_length=255,
+        default="Получить консультацию",
+        verbose_name="Заголовок формы",
+    )
+
+    submit_button_text = models.CharField(
+        max_length=100,
+        default="Отправить заявку",
+        verbose_name="Текст кнопки",
+    )
+
+    form_note = models.CharField(
+        max_length=255,
+        default="Ответим и предложим следующий шаг по проекту.",
+        verbose_name="Текст рядом с кнопкой",
+    )
+
+    privacy_policy_text = models.TextField(
+        default="Нажимая кнопку, вы соглашаетесь с <a href='/privacy-policy/'>политикой обработки персональных данных</a>",
+        verbose_name="Текст политики конфиденциальности"
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("title"),
+                FieldPanel("description"),
+            ],
+            heading="Основной текст",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("phone"),
+                FieldPanel("email"),
+                FieldPanel("address"),
+                FieldPanel("working_hours"),
+            ],
+            heading="Контакты",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("form_title"),
+                FieldPanel("submit_button_text"),
+                FieldPanel("form_note"),
+                FieldPanel("privacy_policy_text"),
+            ],
+            heading="Форма консультации",
+        ),
+    ]
+
+    class Meta:
+        verbose_name = "Контакты"
+
+
+class ConsultationRequest(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Имя")
+    company = models.CharField(max_length=255, blank=True, verbose_name="Компания")
+    phone = models.CharField(max_length=50, verbose_name="Телефон")
+    email = models.EmailField(blank=True, verbose_name="Email")
+    message = models.TextField(verbose_name="Краткое описание задачи")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
+    class Meta:
+        verbose_name = "Заявка на консультацию"
+        verbose_name_plural = "Заявки на консультацию"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name} — {self.phone}"
+
