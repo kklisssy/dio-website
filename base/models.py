@@ -10,6 +10,7 @@ from wagtail.blocks import (
 )
 from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
 from wagtail.fields import StreamField
+from wagtail.images.blocks import ImageChooserBlock
 
 
 @register_setting
@@ -173,25 +174,21 @@ class ContactSettings(BaseGenericSetting):
         blank=True,
         verbose_name="Режим работы",
     )
-
     form_title = models.CharField(
         max_length=255,
         default="Получить консультацию",
         verbose_name="Заголовок формы",
     )
-
     submit_button_text = models.CharField(
         max_length=100,
         default="Отправить заявку",
         verbose_name="Текст кнопки",
     )
-
     form_note = models.CharField(
         max_length=255,
         default="Ответим и предложим следующий шаг по проекту.",
         verbose_name="Текст рядом с кнопкой",
     )
-
     privacy_policy_text = models.TextField(
         default="Нажимая кнопку, вы соглашаетесь с <a href='/privacy-policy/'>политикой обработки персональных данных</a>",
         verbose_name="Текст политики конфиденциальности"
@@ -245,3 +242,120 @@ class ConsultationRequest(models.Model):
     def __str__(self):
         return f"{self.name} — {self.phone}"
 
+
+@register_setting
+class FooterSettings(BaseGenericSetting):
+    """Настройки футера сайта"""
+
+    # Секция ссылок
+    link_columns = StreamField(
+        [
+            (
+                "column",
+                StructBlock(
+                    [
+                        ("title", CharBlock(max_length=100, label="Заголовок колонки")),
+                        (
+                            "links",
+                            ListBlock(
+                                StructBlock(
+                                    [
+                                        ("text", CharBlock(max_length=100, label="Текст ссылки")),
+                                        ("url", URLBlock(required=False, label="Внешняя ссылка")),
+                                        ("page", PageChooserBlock(required=False, label="Страница")),
+                                    ]
+                                ),
+                                label="Ссылки",
+                            ),
+                        ),
+                    ],
+                    label="Колонка ссылок",
+                ),
+            )
+        ],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Колонки ссылок",
+    )
+
+    social_links = StreamField(
+        [
+            (
+                "social",
+                StructBlock(
+                    [
+                        ("title", CharBlock(max_length=100, default="Наши социальные сети", label="Заголовок колонки")),
+                        (
+                            "links",
+                            ListBlock(
+                                StructBlock(
+                                    [
+                                        ("text", CharBlock(max_length=50, label="Название")),
+                                        ("url", URLBlock(label="Ссылка")),
+                                        ("icon", ImageChooserBlock(required=False, label="Иконка")),
+                                    ]
+                                ),
+                                label="Соцсеть",
+                            ),
+                        ),
+                    ],
+                    label="Соцсети",
+                ),
+            )
+        ],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Соцсети",
+    )
+
+    bottom_links = StreamField(
+        [
+            (
+                "link",
+                StructBlock(
+                    [
+                        ("text", CharBlock(max_length=100, label="Текст")),
+                        ("url", URLBlock(required=False, label="Внешняя ссылка")),
+                        ("page", PageChooserBlock(required=False, label="Страница")),
+                    ],
+                    label="Нижняя ссылка",
+                ),
+            )
+        ],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Нижние ссылки",
+    )
+
+    # Кнопка "Связаться с нами"
+    footer_button = models.CharField(
+        max_length=50,
+        default="Связаться с нами",
+        verbose_name="Текст кнопки"
+    )
+    footer_button_href = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Ссылка кнопки (например, #contact или /contact)"
+    )
+
+    # Панели админки
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("link_columns"),
+            FieldPanel("social_links"),
+            FieldPanel("bottom_links"),
+            FieldPanel("footer_button"),
+            FieldPanel("footer_button_href"),
+        ], heading="Настройки футера"),
+    ]
+
+    class Meta:
+        verbose_name = "Футер"
+        verbose_name_plural = "Футер"
+
+    def get_preview_template(self, request, mode_name):
+        return "base.html"
+
+    def get_preview_context(self, request, mode_name):
+        return {"settings": self}
