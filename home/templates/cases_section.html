@@ -1,0 +1,192 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% with cases=page.get_cases %}
+  {% if cases %}
+    <section class="cases-section" aria-labelledby="cases-section-title">
+      <div class="container cases-section__container">
+        <header class="cases-section__header">
+          <p class="cases-section__eyebrow">Успешные проекты</p>
+          <h2 id="cases-section-title"
+              class="cases-section__title heading heading--h2">Наши кейсы</h2>
+        </header>
+        <ul class="cases-list" role="list">
+          {% for case in cases %}
+            <li class="case-card">
+              <a class="case-card__link" href="{% pageurl case %}">
+                <div class="case-card__media">
+                  {% if case.customer_logo %}
+                    {% image case.customer_logo max-180x90 as case_logo %}
+                    <img src="{{ case_logo.url }}"
+                         width="{{ case_logo.width }}"
+                         height="{{ case_logo.height }}"
+                         alt="{{ case.customer_name }}">
+                  {% elif case.main_image %}
+                    {% image case.main_image fill-180x90 as case_image %}
+                    <img src="{{ case_image.url }}"
+                         width="{{ case_image.width }}"
+                         height="{{ case_image.height }}"
+                         alt="">
+                  {% endif %}
+                </div>
+                <div class="case-card__content">
+                  <span class="case-card__tag">{{ case.get_industry_display }}</span>
+                  <h3 class="case-card__title heading heading--h3">{{ case.title }}</h3>
+                  {% if case.intro %}<div class="case-card__intro text text--sm">{{ case.intro|richtext }}</div>{% endif %}
+                </div>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+    <style>
+        .cases-section {
+            padding: 84px 0 96px;
+            background: #f7f7f7;
+        }
+
+        .cases-section__container {
+            display: grid;
+            gap: 62px;
+        }
+
+        .cases-section__header {
+            display: grid;
+            gap: 18px;
+        }
+
+        .cases-section__eyebrow {
+            margin: 0;
+            color: #7e838c;
+            font-size: 18px;
+            line-height: 1.2;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .cases-section__title {
+            --heading-size: 44px;
+            --heading-line-height: 1.1;
+        }
+
+        .cases-list {
+            display: grid;
+            gap: 42px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .case-card__link {
+            display: grid;
+            grid-template-columns: 170px minmax(0, 1fr);
+            gap: 42px;
+            align-items: center;
+            min-height: 246px;
+            padding: 52px 64px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 24px;
+            background: #ffffff;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+            transition:
+                transform 0.22s ease,
+                box-shadow 0.22s ease;
+        }
+
+        .case-card__link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+        }
+
+        .case-card__media {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 96px;
+        }
+
+        .case-card__media img {
+            max-width: 160px;
+            max-height: 92px;
+            object-fit: contain;
+        }
+
+        .case-card__content {
+            display: grid;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .case-card__tag {
+            display: inline-flex;
+            width: fit-content;
+            align-items: center;
+            min-height: 40px;
+            padding: 0 22px;
+            border-radius: var(--radius-pill);
+            background: #a8171b;
+            color: #ffffff;
+            font-size: 18px;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .case-card__title {
+            --heading-size: 25px;
+            --heading-line-height: 1.25;
+            --heading-weight: 700;
+        }
+
+        .case-card__intro {
+            max-width: 1220px;
+            color: #111418;
+            --text-size: 20px;
+            --text-line-height: 1.45;
+        }
+
+        .case-card__intro p {
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .cases-section {
+                padding: 64px 0 72px;
+            }
+
+            .cases-section__container {
+                gap: 38px;
+            }
+
+            .case-card__link {
+                grid-template-columns: 1fr;
+                gap: 28px;
+                min-height: 0;
+                padding: 36px 30px;
+            }
+
+            .case-card__media {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .case-card__link {
+                padding: 28px 22px;
+                border-radius: 18px;
+            }
+
+            .cases-section__title {
+                --heading-size: 36px;
+            }
+
+            .case-card__title {
+                --heading-size: 23px;
+            }
+
+            .case-card__intro {
+                --text-size: 18px;
+            }
+        }
+    </style>
+  {% endif %}
+{% endwith %}

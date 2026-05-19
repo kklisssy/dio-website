@@ -227,6 +227,10 @@ class HomePage(Page):
         FieldPanel('global_presence'),
     ]
 
+    def get_cases(self, count=6):
+        from cases.models import SingleCasePage
+        return SingleCasePage.objects.live().order_by("-project_date")[:count]
+
     def get_services(self, count=6):
         from services.models import SingleServicePage
         return SingleServicePage.objects.live().order_by("-date")[:count]
