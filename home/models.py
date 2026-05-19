@@ -20,6 +20,26 @@ class HeroButtonBlock(blocks.StructBlock):
         label="Вторичная кнопка",
     )
 
+class HeroFeaturesBlock(blocks.StructBlock):
+    """Блок для отображения свойств hero"""
+
+    title = blocks.TextBlock(max_length=50, required=True, label="Заголовок свойства")
+    description = blocks.TextBlock(max_length=200, required=False, label="Короткое описание")
+    link_text = blocks.CharBlock(
+        max_length=50,
+        required=False,
+        default="Подробнее",
+        label="Текст ссылки",
+    )
+    page = blocks.PageChooserBlock(
+        required=False,
+        label="Страница",
+    )
+    external_url = blocks.URLBlock(
+        required=False,
+        label="Внешняя ссылка",
+    )
+
 
 class HeroBlock(blocks.StructBlock):
     """Блок для hero"""
@@ -161,6 +181,14 @@ class HomePage(Page):
         verbose_name="Hero секция",
     )
 
+    hero_features = StreamField(
+        [("feature", HeroFeaturesBlock())],
+        blank=False,
+        default=list,
+        use_json_field=True,
+        verbose_name="Карточки под hero"
+    )
+
     achievements = StreamField(
         [("achievement", MainAchievementBlock())],
         blank=True,
@@ -192,11 +220,16 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('hero'),
+        FieldPanel("hero_features"),
         FieldPanel('achievements'),
         FieldPanel('work'),
         FieldPanel('partners'),
         FieldPanel('global_presence'),
     ]
+
+    def get_services(self, count=6):
+        from services.models import SingleServicePage
+        return SingleServicePage.objects.live().order_by("-date")[:count]
 
     class Meta:
         verbose_name = "Главная страница"

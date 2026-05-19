@@ -4,15 +4,15 @@
 {% block content %}
   {% for block in page.hero %}
     {% if block.block_type == "hero" %}
-      <section class="hero">
+      <section class="container hero">
         <div class="hero__content">
-          <h1 class="heading_h1">{{ block.value.title }}</h1>
-          {% if block.value.text %}<div class="hero__text">{{ block.value.text|richtext }}</div>{% endif %}
+          <h1 class="heading heading--h1">{{ block.value.title }}</h1>
+          {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
           {% if block.value.buttons %}
-            <div class="hero__buttons">
+            <div class="buttons__cta">
               {% for button in block.value.buttons %}
                 <a href="{{ button.url }}"
-                   class="hero__button{% if button.is_secondary %} hero__button--secondary{% endif %}">
+                   class="button__cta{% if button.is_secondary %} button__cta--secondary{% endif %}">
                   {{ button.text }}
                 </a>
               {% endfor %}
@@ -22,17 +22,34 @@
         {% if block.value.image %}
           <div class="hero__image">
             {% image block.value.image max-900x700 as hero_image %}
-            <img
-              src="{{ hero_image.url }}"
-              width="{{ hero_image.width }}"
-              height="{{ hero_image.height }}"
-              alt="{{ block.value.title }}"
-            >
+            <img src="{{ hero_image.url }}"
+                 width="{{ hero_image.width }}"
+                 height="{{ hero_image.height }}"
+                 alt="{{ block.value.title }}">
           </div>
         {% endif %}
       </section>
     {% endif %}
   {% endfor %}
+  {% if page.hero_features %}
+    <ul class="hero-features" role="list">
+      {% for feature in page.hero_features %}
+        <li class="hero-feature-card">
+          <h3 class="hero-feature-card__title heading heading--h3">{{ feature.value.title }}</h3>
+          {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
+          {% if feature.value.page %}
+            <a class="text text--semibold hero-feature-card__link"
+               href="{{ feature.value.page.url }}">{{ feature.value.link_text }}</a>
+          {% elif feature.value.external_url %}
+            <a class="text text--semibold hero-feature-card__link"
+               href="{{ feature.value.external_url }}">{{ feature.value.link_text }}</a>
+          {% else %}
+            <span class="text text--semibold hero-feature-card__link">{{ feature.value.link_text }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
   {% include "statistics_section.html" %}
   {% include "work_with_section.html" %}
   {% include "global_presence_section.html" %}
