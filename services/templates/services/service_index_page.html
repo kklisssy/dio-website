@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <section class="service-index">
+    <div class="container service-index__container">
+      <header class="service-index__header">
+        <h1 class="service-index__title heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<div class="service-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+      </header>
+      {% if service_categories %}
+        <nav class="service-index__filters" aria-label="Категории услуг">
+          <a class="service-index__filter{% if not current_category %} service-index__filter--active{% endif %}"
+             href="{% pageurl page %}">Все</a>
+          {% for category_value, category_label in service_categories %}
+            <a class="service-index__filter{% if current_category == category_value %} service-index__filter--active{% endif %}"
+               href="{% pageurl page %}?category={{ category_value }}">{{ category_label }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+      {% if services %}
+        <ul class="services-grid" role="list">
+          {% for service in services %}
+            <li class="service-card{% if forloop.counter == 3 or forloop.counter == 4 %} service-card--accent{% endif %}">
+              <a class="service-card__link" href="{% pageurl service %}">
+                <div class="service-card__content">
+                  <p class="service-card__category">{{ service.get_category_display }}</p>
+                  <h2 class="service-card__title heading heading--h3">{{ service.headline|default:service.title }}</h2>
+                  {% if service.intro %}<p class="service-card__text">{{ service.intro }}</p>{% endif %}
+                </div>
+                <span class="service-card__more">
+                  Подробнее
+                  <span class="service-card__arrow" aria-hidden="true"></span>
+                </span>
+                {% if service.image %}
+                  {% image service.image fill-760x520 as service_image %}
+                  <img class="service-card__image"
+                       src="{{ service_image.url }}"
+                       width="{{ service_image.width }}"
+                       height="{{ service_image.height }}"
+                       alt="">
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if services.paginator.num_pages > 1 %}
+          <nav class="service-index__pagination" aria-label="Пагинация услуг">
+            {% if services.has_previous %}
+              <a href="?page={{ services.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Назад</a>
+            {% endif %}
+            <span>{{ services.number }} / {{ services.paginator.num_pages }}</span>
+            {% if services.has_next %}
+              <a href="?page={{ services.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Вперед</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% else %}
+        <p class="service-index__empty text text--md">Услуги скоро появятся.</p>
+      {% endif %}
+    </div>
+  </section>
+  {% include "services/services_cards_styles.html" %}
+  <style>
+      .service-index {
+          padding: 150px 0 96px;
+      }
+
+      .service-index__container {
+          display: grid;
+          gap: 48px;
+      }
+
+      .service-index__header {
+          display: grid;
+          gap: 24px;
+          max-width: 980px;
+      }
+
+      .service-index__title {
+          color: #000000;
+      }
+
+      .service-index__filters {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+      }
+
+      .service-index__filter {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 44px;
+          padding: 0 20px;
+          border: 1px solid rgba(11, 54, 151, 0.2);
+          border-radius: var(--radius-pill);
+          color: #000000;
+          font-weight: 600;
+      }
+
+      .service-index__filter--active {
+          background: #51120c;
+          color: #ffffff;
+      }
+
+      .service-index__pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          color: #970b0b;
+          font-size: 20px;
+          font-weight: 700;
+      }
+
+      @media (max-width: 720px) {
+          .service-index {
+              padding: 110px 0 64px;
+          }
+      }
+  </style>
+{% endblock %}

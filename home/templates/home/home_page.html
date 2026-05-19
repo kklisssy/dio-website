@@ -45,6 +45,7 @@
                href="{{ feature.value.external_url }}">{{ feature.value.link_text }}</a>
           {% else %}
             <span class="text text--semibold hero-feature-card__link">{{ feature.value.link_text }}</span>
+            <span class="service-card__arrow" aria-hidden="true"></span>
           {% endif %}
         </li>
       {% endfor %}
@@ -52,5 +53,6 @@
   {% endif %}
   {% include "statistics_section.html" %}
   {% include "work_with_section.html" %}
+  {% include "services_section.html" %}
   {% include "global_presence_section.html" %}
 {% endblock %}

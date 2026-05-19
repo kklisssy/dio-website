@@ -1,0 +1,63 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% with services=page.get_services %}
+  {% if services %}
+    <section class="services-section" aria-labelledby="services-section-title">
+      <div class="container services-section__container">
+        <h2 id="services-section-title"
+            class="services-section__title heading heading--h2">Услуги</h2>
+        <ul class="services-grid" role="list">
+          {% for service in services %}
+            <li class="service-card">
+              <a class="service-card__link" href="{% pageurl service %}">
+                <div class="service-card__content">
+                  <p class="service-card__category">{{ service.get_category_display }}</p>
+                  <h3 class="service-card__title heading heading--h3">{{ service.headline|default:service.title }}</h3>
+                  {% if service.intro %}<p class="service-card__text">{{ service.intro }}</p>{% endif %}
+                </div>
+                <span class="service-card__more">
+                  Подробнее
+                  <span class="service-card__arrow" aria-hidden="true"></span>
+                </span>
+                {% if service.image %}
+                  {% image service.image fill-760x520 as service_image %}
+                  <img class="service-card__image"
+                       src="{{ service_image.url }}"
+                       width="{{ service_image.width }}"
+                       height="{{ service_image.height }}"
+                       alt="">
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+    {% include "services/services_cards_styles.html" %}
+    <style>
+        .services-section {
+            padding: 64px 0 72px;
+        }
+
+        .services-section__container {
+            display: grid;
+            gap: 72px;
+        }
+
+        @media (max-width: 1180px) {
+            .services-section__container {
+                gap: 48px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .services-section {
+                padding: 48px 0 56px;
+            }
+
+            .services-section__container {
+                gap: 32px;
+            }
+        }
+    </style>
+  {% endif %}
+{% endwith %}

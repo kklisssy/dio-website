@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'base',
     'home',
+    'services',
     'wagtail.contrib.table_block',
     'wagtail.contrib.settings',
     "wagtail.contrib.forms",
@@ -58,8 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles', 
-    'django.contrib.postgres',   
+    'django.contrib.staticfiles',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [

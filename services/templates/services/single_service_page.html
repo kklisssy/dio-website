@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="single-service">
+    <header class="container single-service__hero">
+      <div class="single-service__hero-content">
+        <p class="single-service__category">{{ page.get_category_display }}</p>
+        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<p class="single-service__intro text text--md">{{ page.intro }}</p>{% endif %}
+      </div>
+      {% if page.image %}
+        <div class="single-service__image">
+          {% image page.image fill-760x520 as service_image %}
+          <img src="{{ service_image.url }}"
+               width="{{ service_image.width }}"
+               height="{{ service_image.height }}"
+               alt="">
+        </div>
+      {% endif %}
+    </header>
+    {% if page.content %}
+      <div class="container single-service__content">
+        {% for block in page.content %}
+          <section class="single-service__block single-service__block--{{ block.block_type }}">
+            {% if block.block_type == "text_section" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <div class="list-content">{{ block.value.text|richtext }}</div>
+            {% elif block.block_type == "feature_list" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <ul class="single-service__cards" role="list">
+                {% for item in block.value.items %}
+                  <li class="single-service__card">
+                    {% if item.icon %}
+                      {% image item.icon max-64x64 as item_icon %}
+                      <img src="{{ item_icon.url }}"
+                           width="{{ item_icon.width }}"
+                           height="{{ item_icon.height }}"
+                           alt="">
+                    {% endif %}
+                    <h3 class="heading heading--h3">{{ item.title }}</h3>
+                    {% if item.text %}<div class="text text--md">{{ item.text|richtext }}</div>{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% elif block.block_type == "steps" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <ol class="single-service__steps">
+                {% for item in block.value.items %}
+                  <li>
+                    <h3 class="heading heading--h3">{{ item.title }}</h3>
+                    {% if item.text %}<div class="text text--md">{{ item.text|richtext }}</div>{% endif %}
+                  </li>
+                {% endfor %}
+              </ol>
+            {% elif block.block_type == "image_text" %}
+              <div class="single-service__image-text single-service__image-text--{{ block.value.image_position }}">
+                {% if block.value.image %}
+                  {% image block.value.image fill-640x420 as block_image %}
+                  <img src="{{ block_image.url }}"
+                       width="{{ block_image.width }}"
+                       height="{{ block_image.height }}"
+                       alt="">
+                {% endif %}
+                <div>
+                  <h2 class="heading heading--h2">{{ block.value.title }}</h2>
+                  <div class="list-content">{{ block.value.text|richtext }}</div>
+                </div>
+              </div>
+            {% elif block.block_type == "faq" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <div class="single-service__faq">
+                {% for item in block.value.items %}
+                  <details>
+                    <summary>{{ item.question }}</summary>
+                    <div class="text text--md">{{ item.answer|richtext }}</div>
+                  </details>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+  <style>
+      .single-service {
+          padding: 150px 0 96px;
+      }
+
+      .single-service__hero {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(360px, 0.7fr);
+          gap: 48px;
+          align-items: center;
+          margin-bottom: 80px;
+      }
+
+      .single-service__hero-content {
+          display: grid;
+          gap: 24px;
+      }
+
+      .single-service__category {
+          margin: 0;
+          color: #970b0b;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+      }
+
+      .single-service__image img {
+          width: 100%;
+          border-radius: 22px;
+          object-fit: cover;
+      }
+
+      .single-service__content,
+      .single-service__block {
+          display: grid;
+          gap: 36px;
+      }
+
+      .single-service__cards {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 18px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .single-service__card {
+          display: grid;
+          gap: 18px;
+          padding: 34px;
+          border-radius: 22px;
+          background: #f3f6fc;
+      }
+
+      .single-service__steps {
+          display: grid;
+          gap: 18px;
+          margin: 0;
+          padding: 0;
+          list-style-position: inside;
+      }
+
+      .single-service__image-text {
+          display: grid;
+          grid-template-columns: minmax(320px, 0.7fr) minmax(0, 1fr);
+          gap: 40px;
+          align-items: center;
+      }
+
+      .single-service__image-text--right img {
+          order: 2;
+      }
+
+      .single-service__image-text img {
+          width: 100%;
+          border-radius: 22px;
+      }
+
+      .single-service__faq {
+          display: grid;
+          gap: 12px;
+      }
+
+      .single-service__faq details {
+          padding: 24px 28px;
+          border-radius: 18px;
+          background: #f3f6fc;
+      }
+
+      .single-service__faq summary {
+          cursor: pointer;
+          color: #970b0b;
+          font-size: 22px;
+          font-weight: 700;
+      }
+
+      @media (max-width: 900px) {
+
+          .single-service__hero,
+          .single-service__image-text,
+          .single-service__cards {
+              grid-template-columns: 1fr;
+          }
+
+          .single-service__image-text--right img {
+              order: 0;
+          }
+      }
+  </style>
+{% endblock %}
