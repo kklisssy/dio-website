@@ -6,7 +6,9 @@
         <div class="container work-with-section__container">
           <div class="work-with-section__header">
             <h2 class="heading heading--h2">{{ block.value.title }}</h2>
-            {% if block.value.intro %}<div class="work-with-section__intro text text--md">{{ block.value.intro|richtext }}</div>{% endif %}
+            {% if block.value.intro %}
+              <div class="work-with-section__intro text text--md">{{ block.value.intro|richtext }}</div>
+            {% endif %}
           </div>
           <ul class="work-with-section__grid" role="list">
             {% for card in block.value.cards %}
@@ -86,7 +88,7 @@
           height: 100%;
           box-sizing: border-box;
           flex-direction: column;
-          padding: 48px 36px 36px;
+          padding: 80px 30px;
       }
 
       .work-with-card__title {
