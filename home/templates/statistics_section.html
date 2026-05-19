@@ -3,8 +3,8 @@
   <section class="statistics-section">
     <div class="container statistics-section__container">
       <div class="statistics-section__header">
-        <h2 class="statistics-section__title">Наши достижения в цифрах</h2>
-        <p class="statistics-section__text">
+        <h3 class="statistics-section__title heading heading--h3">Наши достижения в цифрах</h3>
+        <p class="text text--xl">
           Результаты многолетней работы в сфере автоматизации бизнеса и внедрения информационных систем.
         </p>
       </div>
@@ -14,9 +14,11 @@
             <div class="statistics-section__value counter-element"
                  data-value="{{ achievement.value.value }}"
                  data-suffix="{{ achievement.value.suffix }}">0{{ achievement.value.suffix }}</div>
-            <h3 class="statistics-section__label">{{ achievement.value.label }}</h3>
+            <h3 class="text text--xl statistics-section__label">{{ achievement.value.label }}</h3>
             {% if achievement.value.description %}
-              <div class="statistics-section__description">{{ achievement.value.description|richtext }}</div>
+              <div class="statistics-section__description text text--relaxed text--soft">
+                {{ achievement.value.description|richtext }}
+              </div>
             {% endif %}
           </li>
         {% endfor %}
@@ -24,15 +26,9 @@
     </div>
   </section>
   <style>
-      .statistics-section {
-          padding: 64px 0;
-      }
-
       .statistics-section__container {
-          padding: 72px 72px 96px;
-          border-radius: 30px;
-          background: #ffffff;
-          box-shadow: 0 28px 70px rgba(15, 23, 42, 0.08);
+          padding: 72px 72px;
+          border-radius: var(--radius-large);
       }
 
       .statistics-section__header {
@@ -44,17 +40,6 @@
 
       .statistics-section__title {
           margin: 0 0 14px;
-          color: #111827;
-          font-size: 28px;
-          line-height: 1.2;
-          font-weight: 500;
-      }
-
-      .statistics-section__text {
-          margin: 0;
-          color: #4f5561;
-          font-size: 24px;
-          line-height: 1.45;
       }
 
       .statistics-section__grid {
@@ -72,7 +57,6 @@
 
       .statistics-section__value {
           margin-bottom: 18px;
-          color: #111418;
           font-size: 31px;
           line-height: 1.1;
           font-weight: 700;
@@ -84,18 +68,11 @@
       }
 
       .statistics-section__label {
-          margin: 0;
-          color: #7b7f87;
-          font-size: 20px;
-          line-height: 1.45;
-          font-weight: 600;
+          color: #111418;
       }
 
       .statistics-section__description {
           margin-top: 14px;
-          color: #7b7f87;
-          font-size: 18px;
-          line-height: 1.55;
       }
 
       .statistics-section__description p {
@@ -123,11 +100,11 @@
           }
 
           .statistics-section__title {
-              font-size: 24px;
+              --heading-size: 24px;
           }
 
           .statistics-section__text {
-              font-size: 18px;
+              --text-size: 18px;
           }
 
           .statistics-section__grid {

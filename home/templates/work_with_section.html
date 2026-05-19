@@ -5,8 +5,8 @@
       <section class="work-with-section">
         <div class="container work-with-section__container">
           <div class="work-with-section__header">
-            <h2 class="heading_h2">{{ block.value.title }}</h2>
-            {% if block.value.intro %}<div class="work-with-section__intro">{{ block.value.intro|richtext }}</div>{% endif %}
+            <h2 class="heading heading--h2">{{ block.value.title }}</h2>
+            {% if block.value.intro %}<div class="work-with-section__intro text text--md">{{ block.value.intro|richtext }}</div>{% endif %}
           </div>
           <ul class="work-with-section__grid" role="list">
             {% for card in block.value.cards %}
@@ -16,8 +16,8 @@
               <li class="work-with-card"
                   {% if card.image %}style="background-image: url('{{ card_image.url }}')"{% endif %}>
                 <div class="work-with-card__body">
-                  <h3 class="heading_h3">{{ card.title }}</h3>
-                  <div class="work-with-card__text">{{ card.text|richtext }}</div>
+                  <h3 class="work-with-card__title heading heading--h3 heading--semibold">{{ card.title }}</h3>
+                  <div class="work-with-card__text text text--md text--tight">{{ card.text|richtext }}</div>
                 </div>
               </li>
             {% endfor %}
@@ -42,9 +42,7 @@
 
       .work-with-section__intro {
           margin-top: 18px;
-          color: #6d6d6d;
-          font-size: 22px;
-          line-height: 1.45;
+          --text-size: 22px;
       }
 
       .work-with-section__intro p {
@@ -94,17 +92,12 @@
       .work-with-card__title {
           margin: 0 0 24px;
           color: #000000;
-          font-size: 28px;
-          line-height: 1;
-          font-weight: 600;
+          --heading-line-height: 1;
       }
 
       .work-with-card__text {
           max-width: 520px;
           color: #525456;
-          font-size: 20px;
-          line-height: 1.25;
-          font-weight: 400;
       }
 
       .work-with-card__text p {
@@ -121,11 +114,11 @@
           }
 
           .work-with-card__title {
-              font-size: 28px;
+              --heading-size: 28px;
           }
 
           .work-with-card__text {
-              font-size: 20px;
+              --text-size: 20px;
           }
       }
 
@@ -138,12 +131,8 @@
               margin-bottom: 32px;
           }
 
-          .work-with-section__title {
-              font-size: 36px;
-          }
-
           .work-with-section__intro {
-              font-size: 18px;
+              --text-size: 18px;
           }
 
           .work-with-section__grid {
@@ -161,11 +150,11 @@
           }
 
           .work-with-card__title {
-              font-size: 28px;
+              --heading-size: 28px;
           }
 
           .work-with-card__text {
-              font-size: 19px;
+              --text-size: 19px;
           }
 
           .work-with-card__link {

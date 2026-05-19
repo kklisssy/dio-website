@@ -5,39 +5,41 @@
     <div class="container contact-section__container">
       <div class="contact-card contact-card--info">
         <span class="contact-card__badge">Контакты</span>
-        <h2 class="heading_h2">{{ contact.title }}</h2>
-        {% if contact.description %}<p class="contact-card__description">{{ contact.description }}</p>{% endif %}
+        <h2 class="heading heading--h2 heading--inverse">{{ contact.title }}</h2>
+        {% if contact.description %}
+          <p class="contact-card__description text text--md text--strong text--inverse">{{ contact.description }}</p>
+        {% endif %}
         <div class="contact-card__items">
           {% if contact.phone %}
             <div class="contact-info-item">
-              <h3 class="heading_h3">Телефон</h3>
-              <p class="contact-info-item__text">{{ contact.phone }}</p>
+              <h3 class="heading heading--inverse text--md">Телефон</h3>
+              <p class="contact-info-item__text text text--inverse">{{ contact.phone }}</p>
             </div>
           {% endif %}
           {% if contact.email %}
             <div class="contact-info-item">
-              <h3 class="heading_h3">Email</h3>
-              <p class="contact-info-item__text">
+              <h3 class="heading heading--inverse text text--md">Email</h3>
+              <p class="contact-info-item__text text text--inverse">
                 <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
               </p>
             </div>
           {% endif %}
           {% if contact.address %}
             <div class="contact-info-item">
-              <h3 class="heading_h3">Адрес</h3>
-              <p class="contact-info-item__text">{{ contact.address }}</p>
+              <h3 class="heading heading--inverse text--md">Адрес</h3>
+              <p class="contact-info-item__text text text--inverse">{{ contact.address }}</p>
             </div>
           {% endif %}
           {% if contact.working_hours %}
             <div class="contact-info-item">
-              <h3 class="heading_h3">Режим работы</h3>
-              <p class="contact-info-item__text">{{ contact.working_hours }}</p>
+              <h3 class="heading heading--inverse text--md">Режим работы</h3>
+              <p class="contact-info-item__text text text--inverse">{{ contact.working_hours }}</p>
             </div>
           {% endif %}
         </div>
       </div>
       <div class="contact-card contact-card--form">
-        <h2 class="heading_h2">{{ contact.form_title }}</h2>
+        <h2 class="heading heading--h2">{{ contact.form_title }}</h2>
         <form class="contact-form" method="post" action="">
           {% csrf_token %}
           <div class="contact-form__grid">
@@ -51,7 +53,7 @@
             </label>
             <label class="contact-form__field">
               <span class="contact-form__label">Телефон</span>
-              <input type="tel" name="phone" placeholder="+7" required>
+              <input type="tel" name="phone" placeholder="+7 (999) 999-99-99" required>
             </label>
             <label class="contact-form__field">
               <span class="contact-form__label">Email</span>
@@ -65,7 +67,7 @@
                       required></textarea>
           </label>
           <div class="contact-form__footer">
-            <button class="main-nav__cta" type="submit">{{ contact.submit_button_text }}</button>
+            <button class="button__cta" type="submit">{{ contact.submit_button_text }}</button>
             {% if contact.form_note %}<p class="contact-form__note">{{ contact.form_note }}</p>{% endif %}
           </div>
           {% if contact.privacy_policy_text %}
@@ -99,6 +101,10 @@
           border-radius: var(--radius-large);
       }
 
+      .contact-card .heading--h2 {
+          margin-bottom: 24px;
+      }
+
       .contact-card--info {
           padding: 34px;
           background:
@@ -123,10 +129,6 @@
       .contact-card__description {
           margin: 0 0 24px;
           max-width: 643px;
-          color: rgba(255, 255, 255, 0.86);
-          font-size: 20px;
-          line-height: 1.45;
-          font-weight: 500;
       }
 
       .contact-card__items {
@@ -142,11 +144,12 @@
           background: rgba(255, 255, 255, 0.08);
       }
 
+      .contact-info-item .heading {
+          margin-bottom: 10px;
+      }
+
       .contact-info-item__text {
           margin: 0;
-          color: rgba(255, 255, 255, 0.86);
-          font-size: 18px;
-          line-height: 1.4;
       }
 
       .contact-card--form {
@@ -172,8 +175,8 @@
 
       .contact-form__label {
           color: #1f2329;
-          font-size: 16px;
-          font-weight: 800;
+          font-size: 22px;
+          font-weight: 600;
       }
 
       .contact-form input,
@@ -269,7 +272,6 @@
 
       .contact-form__privacy-text a {
           color: #963d3d;
-          ;
           text-decoration: underline;
           text-underline-offset: 3px;
       }

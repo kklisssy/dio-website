@@ -5,7 +5,7 @@
       <section class="global-presence-section">
         <div class="container global-presence-section__container">
           <div class="global-presence-section__content">
-            <h2 class="heading_h2">{{ block.value.title }}</h2>
+            <h2 class="global-presence-section__title heading heading--h2">{{ block.value.title }}</h2>
             {% if block.value.description %}<div class="list-content">{{ block.value.description|richtext }}</div>{% endif %}
           </div>
           {% if block.value.image %}
@@ -41,9 +41,7 @@
       .global-presence-section__title {
           margin: 0 0 58px;
           color: #111418;
-          font-size: 48px;
-          line-height: 1.08;
-          font-weight: 800;
+          --heading-line-height: 1.08;
       }
 
       .global-presence-section__image {
@@ -81,7 +79,7 @@
           }
 
           .global-presence-section__title {
-              font-size: 36px;
+              --heading-size: 36px;
           }
 
           .list-content {
