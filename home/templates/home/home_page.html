@@ -39,13 +39,21 @@
           {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
           {% if feature.value.page %}
             <a class="text text--semibold hero-feature-card__link"
-               href="{{ feature.value.page.url }}">{{ feature.value.link_text }}</a>
+               href="{{ feature.value.page.url }}">
+              {{ feature.value.link_text }}
+              <span class="hero-feature-card__arrow" aria-hidden="true"></span>
+            </a>
           {% elif feature.value.external_url %}
             <a class="text text--semibold hero-feature-card__link"
-               href="{{ feature.value.external_url }}">{{ feature.value.link_text }}</a>
+               href="{{ feature.value.external_url }}">
+              {{ feature.value.link_text }}
+              <span class="hero-feature-card__arrow" aria-hidden="true"></span>
+            </a>
           {% else %}
-            <span class="text text--semibold hero-feature-card__link">{{ feature.value.link_text }}</span>
-            <span class="service-card__arrow" aria-hidden="true"></span>
+            <span class="text text--semibold hero-feature-card__link">
+              {{ feature.value.link_text }}
+              <span class="hero-feature-card__arrow" aria-hidden="true"></span>
+            </span>
           {% endif %}
         </li>
       {% endfor %}

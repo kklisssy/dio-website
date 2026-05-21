@@ -2,18 +2,18 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-  <section class="service-index">
-    <div class="container service-index__container">
-      <header class="service-index__header">
+  <section class="service-index page-section">
+    <div class="container service-index__container page-section__container">
+      <header class="service-index__header page-header">
         <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
         {% if page.intro %}<div class="service-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
       </header>
       {% if service_categories %}
-        <nav class="service-index__filters" aria-label="Категории услуг">
-          <a class="service-index__filter{% if not current_category %} service-index__filter--active{% endif %}"
+        <nav class="service-index__filters filter-list" aria-label="Категории услуг">
+          <a class="service-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
              href="{% pageurl page %}">Все</a>
           {% for category_value, category_label in service_categories %}
-            <a class="service-index__filter{% if current_category == category_value %} service-index__filter--active{% endif %}"
+            <a class="service-index__filter filter-pill{% if current_category == category_value %} filter-pill--active{% endif %}"
                href="{% pageurl page %}?category={{ category_value }}">{{ category_label }}</a>
           {% endfor %}
         </nav>
@@ -60,43 +60,7 @@
       {% endif %}
     </div>
   </section>
-  {% include "services/services_cards_styles.html" %}
   <style>
-      .service-index {
-          padding: 110px 0 96px;
-      }
-
-      .service-index__container {
-          display: grid;
-          gap: 48px;
-      }
-
-      .service-index__header {
-          max-width: 980px;
-      }
-
-      .service-index__filters {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-      }
-
-      .service-index__filter {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 44px;
-          padding: 0 20px;
-          border: 1px solid rgba(11, 54, 151, 0.2);
-          border-radius: var(--radius-pill);
-          font-weight: 600;
-      }
-
-      .service-index__filter--active {
-          background: var(--color-brand);
-          color: #ffffff;
-      }
-
       .service-index__pagination {
           display: flex;
           align-items: center;
@@ -107,10 +71,5 @@
           font-weight: 700;
       }
 
-      @media (max-width: 720px) {
-          .service-index {
-              padding: 110px 0 64px;
-          }
-      }
   </style>
 {% endblock %}
