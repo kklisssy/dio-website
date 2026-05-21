@@ -12,13 +12,13 @@
         <div class="contact-card__items">
           {% if contact.phone %}
             <div class="contact-info-item">
-              <h3 class="heading heading--inverse text--md">Телефон</h3>
+              <h3 class="contact-form__label contact-info-item__label">Телефон</h3>
               <p class="contact-info-item__text text text--inverse">{{ contact.phone }}</p>
             </div>
           {% endif %}
           {% if contact.email %}
             <div class="contact-info-item">
-              <h3 class="heading heading--inverse text text--md">Email</h3>
+              <h3 class="contact-form__label contact-info-item__label">Email</h3>
               <p class="contact-info-item__text text text--inverse">
                 <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
               </p>
@@ -26,13 +26,13 @@
           {% endif %}
           {% if contact.address %}
             <div class="contact-info-item">
-              <h3 class="heading heading--inverse text--md">Адрес</h3>
+              <h3 class="contact-form__label contact-info-item__label">Адрес</h3>
               <p class="contact-info-item__text text text--inverse">{{ contact.address }}</p>
             </div>
           {% endif %}
           {% if contact.working_hours %}
             <div class="contact-info-item">
-              <h3 class="heading heading--inverse text--md">Режим работы</h3>
+              <h3 class="contact-form__label contact-info-item__label">Режим работы</h3>
               <p class="contact-info-item__text text text--inverse">{{ contact.working_hours }}</p>
             </div>
           {% endif %}
@@ -177,6 +177,12 @@
           color: #1f2329;
           font-size: 22px;
           font-weight: 600;
+          margin: 0;
+          margin-bottom: 5px;
+      }
+
+      .contact-info-item__label {
+          color: #ffffff;
       }
 
       .contact-form input,
