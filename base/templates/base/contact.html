@@ -70,15 +70,16 @@
             <button class="button__cta" type="submit">{{ contact.submit_button_text }}</button>
             {% if contact.form_note %}<p class="contact-form__note">{{ contact.form_note }}</p>{% endif %}
           </div>
-          {% if contact.privacy_policy_text %}
-            <label class="contact-form__privacy">
-              <input class="contact-form__privacy-checkbox"
-                     type="checkbox"
-                     name="personal_data_agreement"
-                     required>
-              <span class="contact-form__privacy-text">{{ contact.privacy_policy_text|safe }}</span>
-            </label>
-          {% endif %}
+          <label class="contact-form__privacy">
+            <input class="contact-form__privacy-checkbox"
+                   type="checkbox"
+                   name="personal_data_agreement"
+                   required>
+            <p class="contact-form__privacy-text">
+              Нажимая кнопку, вы соглашаетесь c
+              <a href="/privacy-policy/">политикой обработки персональных данных</a>.
+            </p>
+          </label>
         </form>
       </div>
     </div>

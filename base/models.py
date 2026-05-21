@@ -189,10 +189,6 @@ class ContactSettings(BaseGenericSetting):
         default="Ответим и предложим следующий шаг по проекту.",
         verbose_name="Текст рядом с кнопкой",
     )
-    privacy_policy_text = models.TextField(
-        default="Нажимая кнопку, вы соглашаетесь с <a href='/privacy-policy/'>политикой обработки персональных данных</a>",
-        verbose_name="Текст политики конфиденциальности"
-    )
 
     panels = [
         MultiFieldPanel(
@@ -216,7 +212,6 @@ class ContactSettings(BaseGenericSetting):
                 FieldPanel("form_title"),
                 FieldPanel("submit_button_text"),
                 FieldPanel("form_note"),
-                FieldPanel("privacy_policy_text"),
             ],
             heading="Форма консультации",
         ),
