@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "JetBrains Sans";
+  src: url("../fonts/JetBrainsSans-VF.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-page: #ffffff;
   --color-surface: #f2f2f2;
@@ -9,7 +17,7 @@
   --color-border: rgba(0, 0, 0, 0.08);
   --color-shadow: rgba(0, 0, 0, 0.25);
 
-  --font-main: Arial, Helvetica, sans-serif;
+  --font-main: "JetBrains Sans", Arial, Helvetica, sans-serif;
   --container-width: 1628px;
   --container-padding: 48px;
   --hero-width: 1570px;
@@ -165,19 +173,24 @@ a {
   font-size: 24px;
   line-height: 1.35;
   font-weight: 600;
+  margin: 0;
 }
 
 .list-content p {
   margin: 0 0 34px;
 }
 
-.list-content ul,
-.list-content ol {
+.list-content :is(ul, ol),
+.list-content:is(ul, ol) {
   display: grid;
-  gap: 25px;
-  margin: 34px 0 0;
+  gap: var(--list-gap, 36px);
+  margin: var(--list-margin, 34px 0 0);
   padding: 0;
   list-style: none;
+}
+
+.list-content:is(ul, ol) {
+  --list-margin: 0;
 }
 
 .list-content li {
@@ -186,6 +199,7 @@ a {
   font-size: 23px;
   line-height: 1.35;
   font-weight: 400;
+  list-style: none;
 }
 
 .list-content li::before {
@@ -489,12 +503,25 @@ a {
 }
 
 .hero-feature-card__link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 10px;
   margin-top: auto;
   line-height: 1.2;
   color: var(--color-text);
 }
 
-.hero-feature-card__link:hover::after {
+.hero-feature-card__arrow {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 9px solid currentColor;
+  transition: transform 0.2s ease;
+}
+
+.hero-feature-card__link:hover .hero-feature-card__arrow {
   transform: translateX(4px);
 }
 
