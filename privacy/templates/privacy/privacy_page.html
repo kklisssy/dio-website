@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="privacy-page page-section page-section--deep">
+    <header class="container privacy-page__header page-header">
+      <p class="privacy-page__eyebrow eyebrow">Документы</p>
+      <h1 class="heading heading--h1">{{ page.title }}</h1>
+    </header>
+
+    {% if page.content %}
+      <div class="container privacy-page__content stack-grid">
+        {% for block in page.content %}
+          {% if block.block_type == "text" %}
+            <section class="privacy-page__block privacy-page__richtext rich-content surface-card">
+              {{ block.value|richtext }}
+            </section>
+          {% elif block.block_type == "table" %}
+            <section class="privacy-page__block privacy-page__table-wrap custom-table-wrapper surface-card">
+              {% include_block block %}
+            </section>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+
+  <style>
+      .privacy-page__header {
+          margin-bottom: 56px;
+      }
+
+      .privacy-page__content {
+          --stack-gap: 34px;
+          max-width: 1180px;
+      }
+
+      .privacy-page__block {
+          padding: 42px;
+      }
+
+      @media (max-width: 720px) {
+          .privacy-page__header h1 {
+              --heading-size: 40px;
+          }
+
+          .privacy-page__block {
+              padding: 28px 22px;
+          }
+      }
+  </style>
+{% endblock %}
