@@ -39,6 +39,26 @@ class RichTextSectionBlock(blocks.StructBlock):
         label = "Текстовая секция"
 
 
+class ListItemBlock(blocks.StructBlock):
+    text = blocks.CharBlock(required=True, label="Текст пункта")
+
+    class Meta:
+        icon = "list-ul"
+        label = "Пункт списка"
+
+
+class SimpleListBlock(blocks.StructBlock):
+    title = blocks.CharBlock(
+        required=False,
+        label="Заголовок блока",
+    )
+    items = blocks.ListBlock(ListItemBlock(), label="Пункты")
+
+    class Meta:
+        icon = "list-ul"
+        label = "Обычный список"
+
+
 class FeatureItemBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, label="Заголовок")
     text = blocks.RichTextBlock(
@@ -53,7 +73,7 @@ class FeatureItemBlock(blocks.StructBlock):
         label = "Пункт"
 
 
-class FeatureListBlock(blocks.StructBlock):
+class FeaturesBlock(blocks.StructBlock):
     title = blocks.CharBlock(
         required=False,
         default="Преимущества",
@@ -62,8 +82,8 @@ class FeatureListBlock(blocks.StructBlock):
     items = blocks.ListBlock(FeatureItemBlock(), label="Список пунктов")
 
     class Meta:
-        icon = "list-ul"
-        label = "Список преимуществ"
+        icon = "tasks"
+        label = "Преимущества"
 
 
 class StepItemBlock(blocks.StructBlock):
@@ -161,7 +181,8 @@ class SingleServicePage(Page):
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
-            ("feature_list", FeatureListBlock()),
+            ("simple_list", SimpleListBlock()),
+            ("features", FeaturesBlock()),
             ("steps", StepsBlock()),
             ("image_text", ImageTextBlock()),
             ("faq", FaqBlock()),
