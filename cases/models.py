@@ -166,7 +166,7 @@ class SingleCasePage(Page):
     parent_page_types: ClassVar[list[str]] = ["cases.CaseIndexPage"]
     subpage_types: ClassVar[list[str]] = []
 
-    template = "cases/case_study_page.html"
+    template = "cases/single_case_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -203,7 +203,7 @@ class CaseIndexPage(Page):
     subpage_types: ClassVar[list[str]] = ["cases.SingleCasePage"]
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
 
-    template = "cases/case_study_index_page.html"
+    template = "cases/case_index_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)

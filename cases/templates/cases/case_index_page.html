@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <section class="case-index page-section">
+    <div class="container case-index__container page-section__container">
+      <header class="case-index__header page-header">
+        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<div class="case-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+      </header>
+      {% if industry_choices %}
+        <nav class="case-index__filters filter-list" aria-label="Отрасли">
+          <a class="case-index__filter filter-pill{% if not current_industry %} filter-pill--active{% endif %}"
+             href="{% pageurl page %}">Все</a>
+          {% for industry_value, industry_label in industry_choices %}
+            <a class="case-index__filter filter-pill{% if current_industry == industry_value %} filter-pill--active{% endif %}"
+               href="{% pageurl page %}?industry={{ industry_value }}">{{ industry_label }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+      {% if cases %}
+        <ul class="cases-list grid-list" role="list">
+          {% for case in cases %}
+            <li class="case-card">
+              <a class="case-card__link hover-card" href="{% pageurl case %}">
+                <div class="case-card__media">
+                  {% if case.customer_logo %}
+                    {% image case.customer_logo max-180x90 as case_logo %}
+                    <img src="{{ case_logo.url }}"
+                         width="{{ case_logo.width }}"
+                         height="{{ case_logo.height }}"
+                         alt="{{ case.customer_name }}">
+                  {% elif case.main_image %}
+                    {% image case.main_image fill-180x90 as case_image %}
+                    <img src="{{ case_image.url }}"
+                         width="{{ case_image.width }}"
+                         height="{{ case_image.height }}"
+                         alt="">
+                  {% endif %}
+                </div>
+                <div class="case-card__content">
+                  <span class="case-card__tag">{{ case.get_industry_display }}</span>
+                  <h3 class="case-card__title heading">{{ case.title }}</h3>
+                  {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
+                </div>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if cases.paginator.num_pages > 1 %}
+          <nav class="cases-index__pagination" aria-label="Пагинация кейсов">
+            {% if cases.has_previous %}
+              <a href="?page={{ cases.previous_page_number }}{% if current_industry %}&industry={{ current_industry }}{% endif %}">Назад</a>
+            {% endif %}
+            <span>{{ cases.number }} / {{ cases.paginator.num_pages }}</span>
+            {% if cases.has_next %}
+              <a href="?page={{ cases.next_page_number }}{% if current_industry %}&industry={{ current_industry }}{% endif %}">Вперед</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% else %}
+        <p class="cases-index__empty text text--md">Кейсы скоро появятся.</p>
+      {% endif %}
+    </div>
+  </section>
+  <style>
+      .cases-index__pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+      }
+
+      .cases-index__pagination a {
+          font-weight: 700;
+          color: var(--color-brand);
+      }
+
+      .cases-index__empty {
+          margin: 0;
+      }
+
+  </style>
+{% endblock %}
