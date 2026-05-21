@@ -39,7 +39,7 @@
 
       .work-with-section__header {
           max-width: 980px;
-          margin-bottom: 30px;
+          margin-bottom: 50px;
       }
 
       .work-with-section__intro {
@@ -77,8 +77,14 @@
           position: absolute;
           inset: 0;
           content: "";
-          background: linear-gradient(180deg, rgba(244, 247, 252, 0.2) 0%, rgba(244, 247, 252, 0.72) 100%);
+          background:
+              linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.62) 100%),
+              rgba(255, 255, 255, 0.58);
           pointer-events: none;
+      }
+
+      .work-with-card:hover {
+          transform: translateY(-4px);
       }
 
       .work-with-card__body {
