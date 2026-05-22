@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <section class="service-1c-index page-section">
+    <div class="container service-1c-index__container page-section__container">
+      <header class="service-1c-index__header page-header">
+        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<div class="service-1c-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+      </header>
+      {% if services_1c %}
+        <ul class="services-grid" role="list">
+          {% for service in services_1c %}
+            <li class="service-card">
+              <a class="service-card__link" href="{% pageurl service %}">
+                <div class="service-card__content">
+                  <h2 class="service-card__title heading heading--h3">{{ service.headline|default:service.title }}</h2>
+                  {% if service.intro %}<p class="service-card__text">{{ service.intro }}</p>{% endif %}
+                </div>
+                <span class="service-card__more">
+                  Подробнее
+                  <span class="service-card__arrow" aria-hidden="true"></span>
+                </span>
+                {% if service.image %}
+                  {% image service.image fill-760x520 as service_image %}
+                  <img class="service-card__image"
+                       src="{{ service_image.url }}"
+                       width="{{ service_image.width }}"
+                       height="{{ service_image.height }}"
+                       alt="">
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="service-1c-index__empty text text--md">Сервисы 1С скоро появятся.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}
