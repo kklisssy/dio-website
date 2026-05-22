@@ -176,21 +176,3 @@ class ProductIndexPage(Page):
     class Meta:
         verbose_name = "Лента продуктов"
         verbose_name_plural = "Ленты продуктов"
-
-
-class ProductBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        max_length=100,
-        required=True,
-        label="Заголовок секции продуктов",
-    )
-    show_count = blocks.IntegerBlock(
-        default=3,
-        min_value=1,
-        max_value=12,
-        label="Количество продуктов для показа",
-    )
-
-    class Meta:
-        icon = "doc-full"
-        label = "Блок продуктов"
