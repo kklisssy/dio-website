@@ -2,21 +2,22 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-  <article class="single-service-1c">
-    <header class="container single-service-1c__hero">
-      <div class="single-service-1c__hero-content">
-        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-        {% if page.intro %}<p class="single-service-1c__intro text text--md">{{ page.intro }}</p>{% endif %}
-      </div>
+  <article class="catalog-detail">
+    <header class="catalog-detail__hero">
       {% if page.image %}
-        <div class="single-service-1c__image">
-          {% image page.image fill-760x520 as service_image %}
-          <img src="{{ service_image.url }}"
-               width="{{ service_image.width }}"
-               height="{{ service_image.height }}"
-               alt="">
-        </div>
+        {% image page.image fill-1500x760 as service_image %}
+        <img class="catalog-detail__hero-image"
+             src="{{ service_image.url }}"
+             width="{{ service_image.width }}"
+             height="{{ service_image.height }}"
+             alt="">
       {% endif %}
+      <div class="container catalog-detail__hero-inner">
+        <div class="catalog-detail__hero-content">
+          <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
+        </div>
+      </div>
     </header>
     {% if page.content %}
       <div class="single-service-1c__content">
@@ -27,7 +28,8 @@
                 <h2 class="heading heading--h2 heading--inverse">{{ block.value.title }}</h2>
                 {% if block.value.text %}<p class="single-service-1c__cta-text">{{ block.value.text }}</p>{% endif %}
                 {% if block.value.button_url %}
-                  <a class="single-service-1c__cta-button" href="{{ block.value.button_url }}">{{ block.value.button_text }}</a>
+                  <a class="single-service-1c__cta-button"
+                     href="{{ block.value.button_url }}">{{ block.value.button_text }}</a>
                 {% else %}
                   <span class="single-service-1c__cta-button">{{ block.value.button_text }}</span>
                 {% endif %}
@@ -66,29 +68,14 @@
     {% endif %}
   </article>
   <style>
-      .single-service-1c {
-          padding: 150px 0 96px;
-      }
-
-      .single-service-1c__hero {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(320px, 0.7fr);
-          gap: 56px;
-          align-items: center;
-          margin-bottom: 80px;
-      }
-
-      .single-service-1c__hero-content,
       .single-service-1c__content,
       .single-service-1c__block {
           display: grid;
           gap: 36px;
       }
 
-      .single-service-1c__image img {
-          width: 100%;
-          border-radius: 22px;
-          object-fit: cover;
+      .single-service-1c__content {
+          padding-top: 50px;
       }
 
       .single-service-1c__cards {
@@ -132,14 +119,15 @@
           min-height: 48px;
           margin-top: 52px;
           padding: 0 28px;
-          border: 2px solid rgba(0, 0, 0, 0.7);
+          border: 2px solid #ffffff;
           border-radius: 8px;
-          color: #050505;
+          color: #ffffff;
           font-size: 18px;
           font-weight: 500;
       }
 
       @media (max-width: 900px) {
+
           .single-service-1c__hero,
           .single-service-1c__cards {
               grid-template-columns: 1fr;

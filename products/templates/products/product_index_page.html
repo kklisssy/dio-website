@@ -20,27 +20,19 @@
         </nav>
       {% endif %}
       {% if products %}
-        <ul class="services-grid" role="list">
+        <ul class="catalog-grid" role="list">
           {% for product in products %}
-            <li class="service-card">
-              <a class="service-card__link" href="{% pageurl product %}">
-                <div class="service-card__content">
-                  {% if product.category %}<p class="service-card__category">{{ product.category.name }}</p>{% endif %}
-                  <h2 class="service-card__title heading heading--h3">{{ product.headline|default:product.title }}</h2>
-                  {% if product.intro %}<p class="service-card__text">{{ product.intro }}</p>{% endif %}
+            <li class="catalog-card">
+              <a class="catalog-card__link" href="{% pageurl product %}">
+                <div class="catalog-card__content">
+                  {% if product.category %}<p class="catalog-card__category">{{ product.category.name }}</p>{% endif %}
+                  <h2 class="catalog-card__title heading heading--h3">{{ product.headline|default:product.title }}</h2>
+                  {% if product.intro %}<p class="catalog-card__text">{{ product.intro }}</p>{% endif %}
                 </div>
-                <span class="service-card__more">
+                <span class="catalog-card__more">
                   Подробнее
-                  <span class="service-card__arrow" aria-hidden="true"></span>
+                  <span class="catalog-card__arrow" aria-hidden="true"></span>
                 </span>
-                {% if product.image %}
-                  {% image product.image fill-760x520 as product_image %}
-                  <img class="service-card__image"
-                       src="{{ product_image.url }}"
-                       width="{{ product_image.width }}"
-                       height="{{ product_image.height }}"
-                       alt="">
-                {% endif %}
               </a>
             </li>
           {% endfor %}

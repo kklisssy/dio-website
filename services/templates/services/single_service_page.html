@@ -2,22 +2,23 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-  <article class="single-service">
-    <header class="container single-service__hero">
-      <div class="single-service__hero-content">
-        {% if page.category %}<p class="single-service__category">{{ page.category.name }}</p>{% endif %}
-        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-        {% if page.intro %}<p class="single-service__intro text text--md">{{ page.intro }}</p>{% endif %}
-      </div>
+  <article class="catalog-detail">
+    <header class="catalog-detail__hero">
       {% if page.image %}
-        <div class="single-service__image">
-          {% image page.image fill-760x520 as service_image %}
-          <img src="{{ service_image.url }}"
-               width="{{ service_image.width }}"
-               height="{{ service_image.height }}"
-               alt="">
-        </div>
+        {% image page.image fill-1500x760 as service_image %}
+        <img class="catalog-detail__hero-image"
+             src="{{ service_image.url }}"
+             width="{{ service_image.width }}"
+             height="{{ service_image.height }}"
+             alt="">
       {% endif %}
+      <div class="container catalog-detail__hero-inner">
+        <div class="catalog-detail__hero-content">
+          {% if page.category %}<p class="single-service__category">{{ page.category.name }}</p>{% endif %}
+          <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
+        </div>
+      </div>
     </header>
     {% if page.content %}
       <div class="container single-service__content">
@@ -77,20 +78,6 @@
     {% endif %}
   </article>
   <style>
-      .single-service {
-        padding: 150px 0 96px;
-      }
-
-      .single-service__hero {
-          align-items: center;
-          margin-bottom: 80px;
-      }
-
-      .single-service__hero-content {
-          display: grid;
-          gap: 24px;
-      }
-
       .single-service__category {
           margin: 0;
           color: var(--color-brand);
@@ -109,6 +96,10 @@
       .single-service__block {
           display: grid;
           gap: 36px;
+      }
+
+      .single-service__content {
+        padding-top: 50px;
       }
 
       .single-service__cards {

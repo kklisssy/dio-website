@@ -2,21 +2,21 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-  <article class="case-detail">
-    <header class="case-detail__hero">
+  <article class="catalog-detail">
+    <header class="catalog-detail__hero">
       {% if page.main_image %}
         {% image page.main_image fill-1500x760 as hero_image %}
-        <img class="case-detail__hero-image"
+        <img class="catalog-detail__hero-image"
              src="{{ hero_image.url }}"
              width="{{ hero_image.width }}"
              height="{{ hero_image.height }}"
              alt="">
       {% endif %}
-      <div class="container case-detail__hero-inner">
-        <div class="case-detail__hero-content">
-          <p class="case-detail__industry eyebrow">{{ page.get_industry_display }}</p>
+      <div class="container catalog-detail__hero-inner">
+        <div class="catalog-detail__hero-content">
+          <p class="catalog-detail__industry eyebrow">{{ page.get_industry_display }}</p>
           <h1 class="heading heading--h1">{{ page.title }}</h1>
-          {% if page.intro %}<div class="case-detail__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+          {% if page.intro %}<div class="catalog-detail__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
         </div>
       </div>
     </header>
@@ -139,44 +139,6 @@
     {% endif %}
   </article>
   <style>
-      .case-detail {
-          overflow: hidden;
-          padding-top: 75px;
-      }
-
-      .case-detail__hero {
-          position: relative;
-          min-height: 720px;
-          display: grid;
-          align-items: center;
-      }
-
-      .case-detail__hero-image {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center right;
-          opacity: 0.34;
-      }
-
-      .case-detail__hero-inner {
-          position: relative;
-          z-index: 1;
-      }
-
-      .case-detail__hero-content {
-          display: grid;
-          gap: 24px;
-          max-width: 820px;
-          padding: 88px 0;
-      }
-
-      .case-detail__intro p {
-          margin: 0;
-      }
-
       .case-detail__summary {
           padding: 42px 0;
       }

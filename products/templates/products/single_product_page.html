@@ -2,24 +2,23 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-  <article class="single-product">
-    <header class="single-product__hero">
-      <div class="container single-product__hero-container">
-        <div class="single-product__hero-content">
+  <article class="catalog-detail">
+    <header class="catalog-detail__hero">
+      {% if page.image %}
+        {% image page.image fill-1500x760 as product_image %}
+        <img class="catalog-detail__hero-image"
+             src="{{ product_image.url }}"
+             width="{{ product_image.width }}"
+             height="{{ product_image.height }}"
+             alt="">
+      {% endif %}
+      <div class="container catalog-detail__hero-inner">
+        <div class="catalog-detail__hero-content">
           {% if page.category %}<p class="single-product__category">{{ page.category.name }}</p>{% endif %}
-          <h1 class="heading heading--h1 heading--inverse">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="single-product__intro">{{ page.intro }}</p>{% endif %}
+          <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
           {% if page.price %}<p class="single-product__price">{{ page.price }}</p>{% endif %}
         </div>
-        {% if page.image %}
-          <div class="single-product__image">
-            {% image page.image fill-760x520 as product_image %}
-            <img src="{{ product_image.url }}"
-                 width="{{ product_image.width }}"
-                 height="{{ product_image.height }}"
-                 alt="">
-          </div>
-        {% endif %}
       </div>
     </header>
     {% if page.content %}
@@ -56,70 +55,30 @@
     {% endif %}
   </article>
   <style>
-      .single-product {
-          padding-bottom: 96px;
-      }
-
-      .single-product__hero {
-          padding: 148px 0 120px;
-          background: linear-gradient(90deg, #903e3e 0%, #846768 100%);
-          color: #ffffff;
-      }
-
-      .single-product__hero-container {
-          display: grid;
-          grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.75fr);
-          gap: 56px;
-          align-items: center;
-      }
-
-      .single-product__hero-content {
-          display: grid;
-          gap: 30px;
-          max-width: 850px;
-      }
-
       .single-product__category,
       .single-product__price {
           display: inline-flex;
           width: fit-content;
           margin: 0;
-          border-radius: 12px;
+          border-radius: var(--radius-pill);
           background: var(--color-brand);
           color: #ffffff;
-          font-weight: 800;
           line-height: 1.1;
       }
 
       .single-product__category {
           padding: 16px 28px;
-          border-radius: var(--radius-pill);
           font-size: 24px;
-      }
-
-      .single-product__intro {
-          max-width: 840px;
-          margin: 0;
-          color: rgba(255, 255, 255, 0.92);
-          font-size: 32px;
-          line-height: 1.4;
       }
 
       .single-product__price {
           padding: 12px 24px;
-          font-size: 42px;
-      }
-
-      .single-product__image img {
-          width: 100%;
-          border-radius: 24px;
-          object-fit: cover;
       }
 
       .single-product__content {
           display: grid;
           gap: 64px;
-          padding-top: 92px;
+          padding-top: 50px;
       }
 
       .single-product__block {
@@ -143,13 +102,8 @@
       }
 
       @media (max-width: 900px) {
-          .single-product__hero-container,
           .single-product__cards {
               grid-template-columns: 1fr;
-          }
-
-          .single-product__hero {
-              padding: 120px 0 80px;
           }
 
           .single-product__intro {
