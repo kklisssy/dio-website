@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="single-product">
+    <header class="single-product__hero">
+      <div class="container single-product__hero-container">
+        <div class="single-product__hero-content">
+          {% if page.category %}<p class="single-product__category">{{ page.category.name }}</p>{% endif %}
+          <h1 class="heading heading--h1 heading--inverse">{{ page.headline|default:page.title }}</h1>
+          {% if page.intro %}<p class="single-product__intro">{{ page.intro }}</p>{% endif %}
+          {% if page.price %}<p class="single-product__price">{{ page.price }}</p>{% endif %}
+        </div>
+        {% if page.image %}
+          <div class="single-product__image">
+            {% image page.image fill-760x520 as product_image %}
+            <img src="{{ product_image.url }}"
+                 width="{{ product_image.width }}"
+                 height="{{ product_image.height }}"
+                 alt="">
+          </div>
+        {% endif %}
+      </div>
+    </header>
+    {% if page.content %}
+      <div class="container single-product__content">
+        {% for block in page.content %}
+          <section class="single-product__block single-product__block--{{ block.block_type }}">
+            {% if block.block_type == "text_section" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <div class="rich-content">{{ block.value.text|richtext }}</div>
+            {% elif block.block_type == "table" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <div class="custom-table-wrapper">{{ block.value.table }}</div>
+            {% elif block.block_type == "features" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <ul class="single-product__cards" role="list">
+                {% for item in block.value.items %}
+                  <li class="single-product__card surface-card">
+                    {% if item.icon %}
+                      {% image item.icon max-64x64 as item_icon %}
+                      <img src="{{ item_icon.url }}"
+                           width="{{ item_icon.width }}"
+                           height="{{ item_icon.height }}"
+                           alt="">
+                    {% endif %}
+                    <h3 class="heading heading--h3">{{ item.title }}</h3>
+                    {% if item.text %}<div class="rich-content">{{ item.text|richtext }}</div>{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+  <style>
+      .single-product {
+          padding-bottom: 96px;
+      }
+
+      .single-product__hero {
+          padding: 148px 0 120px;
+          background: linear-gradient(90deg, #903e3e 0%, #846768 100%);
+          color: #ffffff;
+      }
+
+      .single-product__hero-container {
+          display: grid;
+          grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.75fr);
+          gap: 56px;
+          align-items: center;
+      }
+
+      .single-product__hero-content {
+          display: grid;
+          gap: 30px;
+          max-width: 850px;
+      }
+
+      .single-product__category,
+      .single-product__price {
+          display: inline-flex;
+          width: fit-content;
+          margin: 0;
+          border-radius: 12px;
+          background: var(--color-brand);
+          color: #ffffff;
+          font-weight: 800;
+          line-height: 1.1;
+      }
+
+      .single-product__category {
+          padding: 16px 28px;
+          border-radius: var(--radius-pill);
+          font-size: 24px;
+      }
+
+      .single-product__intro {
+          max-width: 840px;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.92);
+          font-size: 32px;
+          line-height: 1.4;
+      }
+
+      .single-product__price {
+          padding: 12px 24px;
+          font-size: 42px;
+      }
+
+      .single-product__image img {
+          width: 100%;
+          border-radius: 24px;
+          object-fit: cover;
+      }
+
+      .single-product__content {
+          display: grid;
+          gap: 64px;
+          padding-top: 92px;
+      }
+
+      .single-product__block {
+          display: grid;
+          gap: 32px;
+      }
+
+      .single-product__cards {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 18px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .single-product__card {
+          display: grid;
+          gap: 18px;
+          padding: 34px;
+      }
+
+      @media (max-width: 900px) {
+          .single-product__hero-container,
+          .single-product__cards {
+              grid-template-columns: 1fr;
+          }
+
+          .single-product__hero {
+              padding: 120px 0 80px;
+          }
+
+          .single-product__intro {
+              font-size: 24px;
+          }
+
+          .single-product__price {
+              font-size: 34px;
+          }
+      }
+  </style>
+{% endblock %}

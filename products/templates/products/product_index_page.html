@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <section class="product-index page-section">
+    <div class="container product-index__container page-section__container">
+      <header class="product-index__header page-header">
+        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<div class="product-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+      </header>
+      {% if product_categories %}
+        <nav class="product-index__filters filter-list"
+             aria-label="Категории продуктов">
+          <a class="product-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
+             href="{% pageurl page %}">Все</a>
+          {% for category in product_categories %}
+            <a class="product-index__filter filter-pill{% if current_category == category.value %} filter-pill--active{% endif %}"
+               href="{% pageurl page %}?category={{ category.value }}">{{ category.name }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+      {% if products %}
+        <ul class="services-grid" role="list">
+          {% for product in products %}
+            <li class="service-card">
+              <a class="service-card__link" href="{% pageurl product %}">
+                <div class="service-card__content">
+                  {% if product.category %}<p class="service-card__category">{{ product.category.name }}</p>{% endif %}
+                  <h2 class="service-card__title heading heading--h3">{{ product.headline|default:product.title }}</h2>
+                  {% if product.intro %}<p class="service-card__text">{{ product.intro }}</p>{% endif %}
+                </div>
+                <span class="service-card__more">
+                  Подробнее
+                  <span class="service-card__arrow" aria-hidden="true"></span>
+                </span>
+                {% if product.image %}
+                  {% image product.image fill-760x520 as product_image %}
+                  <img class="service-card__image"
+                       src="{{ product_image.url }}"
+                       width="{{ product_image.width }}"
+                       height="{{ product_image.height }}"
+                       alt="">
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if products.paginator.num_pages > 1 %}
+          <nav class="product-index__pagination" aria-label="Пагинация продуктов">
+            {% if products.has_previous %}
+              <a href="?page={{ products.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Назад</a>
+            {% endif %}
+            <span>{{ products.number }} / {{ products.paginator.num_pages }}</span>
+            {% if products.has_next %}
+              <a href="?page={{ products.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Вперед</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% else %}
+        <p class="product-index__empty text text--md">Продукты скоро появятся.</p>
+      {% endif %}
+    </div>
+  </section>
+  <style>
+      .product-card__price {
+          width: fit-content;
+          margin: 0;
+          padding: 10px 16px;
+          border-radius: 10px;
+          background: var(--color-brand);
+          color: #ffffff;
+          font-size: 24px;
+          font-weight: 800;
+          line-height: 1.1;
+      }
+
+      .product-index__pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          color: var(--color-brand);
+          font-size: 20px;
+          font-weight: 700;
+      }
+  </style>
+{% endblock %}

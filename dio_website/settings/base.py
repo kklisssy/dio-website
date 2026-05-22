@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'base',
     'home',
     'services',
+    'products',
     'cases',
     'privacy',
     'wagtail.contrib.table_block',
