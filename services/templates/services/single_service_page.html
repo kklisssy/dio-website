@@ -5,7 +5,7 @@
   <article class="single-service">
     <header class="container single-service__hero">
       <div class="single-service__hero-content">
-        <p class="single-service__category">{{ page.get_category_display }}</p>
+        {% if page.category %}<p class="single-service__category">{{ page.category.name }}</p>{% endif %}
         <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
         {% if page.intro %}<p class="single-service__intro text text--md">{{ page.intro }}</p>{% endif %}
       </div>
@@ -26,11 +26,9 @@
             {% if block.block_type == "text_section" %}
               {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
               <div class="list-content">{{ block.value.text|richtext }}</div>
-            {% elif block.block_type == "simple_list" %}
+            {% elif block.block_type == "table" %}
               {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <ul class="list-content">
-                {% for item in block.value.items %}<li>{{ item.text }}</li>{% endfor %}
-              </ul>
+              <div class="custom-table-wrapper">{{ block.value.table }}</div>
             {% elif block.block_type == "features" %}
               {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
               <ul class="single-service__cards" role="list">
@@ -48,16 +46,6 @@
                   </li>
                 {% endfor %}
               </ul>
-            {% elif block.block_type == "steps" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <ol class="single-service__steps">
-                {% for item in block.value.items %}
-                  <li>
-                    <h3 class="heading heading--h3">{{ item.title }}</h3>
-                    {% if item.text %}<div class="text text--md">{{ item.text|richtext }}</div>{% endif %}
-                  </li>
-                {% endfor %}
-              </ol>
             {% elif block.block_type == "image_text" %}
               <div class="single-service__image-text single-service__image-text--{{ block.value.image_position }}">
                 {% if block.value.image %}
@@ -137,14 +125,6 @@
           gap: 18px;
           padding: 34px;
           border-radius: 22px;
-      }
-
-      .single-service__steps {
-          display: grid;
-          gap: 18px;
-          margin: 0;
-          padding: 0;
-          list-style-position: inside;
       }
 
       .single-service__image-text {

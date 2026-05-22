@@ -12,9 +12,9 @@
         <nav class="service-index__filters filter-list" aria-label="Категории услуг">
           <a class="service-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
              href="{% pageurl page %}">Все</a>
-          {% for category_value, category_label in service_categories %}
-            <a class="service-index__filter filter-pill{% if current_category == category_value %} filter-pill--active{% endif %}"
-               href="{% pageurl page %}?category={{ category_value }}">{{ category_label }}</a>
+          {% for category in service_categories %}
+            <a class="service-index__filter filter-pill{% if current_category == category.value %} filter-pill--active{% endif %}"
+               href="{% pageurl page %}?category={{ category.value }}">{{ category.name }}</a>
           {% endfor %}
         </nav>
       {% endif %}
@@ -24,7 +24,7 @@
             <li class="service-card">
               <a class="service-card__link" href="{% pageurl service %}">
                 <div class="service-card__content">
-                  <p class="service-card__category">{{ service.get_category_display }}</p>
+                  {% if service.category %}<p class="service-card__category">{{ service.category.name }}</p>{% endif %}
                   <h2 class="service-card__title heading heading--h3">{{ service.headline|default:service.title }}</h2>
                   {% if service.intro %}<p class="service-card__text">{{ service.intro }}</p>{% endif %}
                 </div>

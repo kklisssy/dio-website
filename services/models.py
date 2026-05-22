@@ -9,107 +9,32 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
-SERVICE_CATEGORY_CHOICES = [
-    ("consulting", "Консультации"),
-    ("development", "Разработка"),
-    ("support", "Поддержка"),
-    ("training", "Обучение"),
-    ("1_c", "1С"),
-]
+from base.page_blocks import (
+    RICH_TEXT_FEATURES,
+    FeaturesBlock,
+    RichTextSectionBlock,
+    TableSectionBlock,
+)
 
-RICH_TEXT_FEATURES = [
-    "h2",
-    "h3",
-    "bold",
-    "italic",
-    "link",
-    "ol",
-    "ul",
-    "blockquote",
-]
+@register_snippet
+class ServiceCategory(models.Model):
+    name = models.CharField("Название", max_length=100)
+    value = models.SlugField("Значение", max_length=100, unique=True)
 
-
-class RichTextSectionBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=False, label="Заголовок")
-    text = blocks.RichTextBlock(features=RICH_TEXT_FEATURES, label="Текст")
+    panels: ClassVar[list[object]] = [
+        FieldPanel("name"),
+        FieldPanel("value"),
+    ]
 
     class Meta:
-        icon = "doc-full"
-        label = "Текстовая секция"
+        ordering = ("name",)
+        verbose_name = "Категория услуги"
+        verbose_name_plural = "Категории услуг"
 
-
-class ListItemBlock(blocks.StructBlock):
-    text = blocks.CharBlock(required=True, label="Текст пункта")
-
-    class Meta:
-        icon = "list-ul"
-        label = "Пункт списка"
-
-
-class SimpleListBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        required=False,
-        label="Заголовок блока",
-    )
-    items = blocks.ListBlock(ListItemBlock(), label="Пункты")
-
-    class Meta:
-        icon = "list-ul"
-        label = "Обычный список"
-
-
-class FeatureItemBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, label="Заголовок")
-    text = blocks.RichTextBlock(
-        features=["bold", "italic", "link", "ol", "ul"],
-        required=False,
-        label="Описание",
-    )
-    icon = ImageChooserBlock(required=False, label="Иконка")
-
-    class Meta:
-        icon = "tick"
-        label = "Пункт"
-
-
-class FeaturesBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        required=False,
-        default="Преимущества",
-        label="Заголовок блока",
-    )
-    items = blocks.ListBlock(FeatureItemBlock(), label="Список пунктов")
-
-    class Meta:
-        icon = "tasks"
-        label = "Преимущества"
-
-
-class StepItemBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, label="Название этапа")
-    text = blocks.RichTextBlock(
-        features=["bold", "italic", "link", "ol", "ul"],
-        required=False,
-        label="Описание этапа",
-    )
-
-    class Meta:
-        icon = "order"
-        label = "Этап"
-
-
-class StepsBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        required=False,
-        default="Как мы работаем",
-        label="Заголовок блока",
-    )
-    items = blocks.ListBlock(StepItemBlock(), label="Этапы")
-
-    class Meta:
-        icon = "cog"
-        label = "Этапы работы"
+    def __str__(self):
+        return self.name
 
 
 class ImageTextBlock(blocks.StructBlock):
@@ -154,10 +79,12 @@ class FaqBlock(blocks.StructBlock):
 
 class SingleServicePage(Page):
     date = models.DateField("Дата публикации", default=timezone.now)
-    category = models.CharField(
-        max_length=100,
-        choices=SERVICE_CATEGORY_CHOICES,
-        default="consulting",
+    category = models.ForeignKey(
+        "services.ServiceCategory",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="services",
         verbose_name="Категория",
     )
     headline = models.CharField(
@@ -181,9 +108,8 @@ class SingleServicePage(Page):
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
-            ("simple_list", SimpleListBlock()),
+            ("table", TableSectionBlock()),
             ("features", FeaturesBlock()),
-            ("steps", StepsBlock()),
             ("image_text", ImageTextBlock()),
             ("faq", FaqBlock()),
         ],
@@ -254,13 +180,13 @@ class ServiceIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        services = SingleServicePage.objects.live().order_by("-date")
+        services = SingleServicePage.objects.live().select_related("category").order_by("-date")
 
         category = request.GET.get("category")
-        categories = dict(SERVICE_CATEGORY_CHOICES)
+        categories = ServiceCategory.objects.all()
 
-        if category and category in categories:
-            services = services.filter(category=category)
+        if category and categories.filter(value=category).exists():
+            services = services.filter(category__value=category)
             context["current_category"] = category
         else:
             context["current_category"] = None
@@ -276,7 +202,7 @@ class ServiceIndexPage(Page):
             services_page = paginator.page(paginator.num_pages)
 
         context["services"] = services_page
-        context["service_categories"] = SERVICE_CATEGORY_CHOICES
+        context["service_categories"] = categories
         return context
 
     class Meta:
