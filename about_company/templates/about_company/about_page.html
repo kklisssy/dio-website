@@ -1,0 +1,502 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="about-page">
+    <header class="about-hero">
+      {% if page.hero_image %}
+        {% image page.hero_image fill-1920x760 as hero_image %}
+        <img class="about-hero__image"
+             src="{{ hero_image.url }}"
+             width="{{ hero_image.width }}"
+             height="{{ hero_image.height }}"
+             alt="">
+      {% endif %}
+      <div class="container about-hero__inner">
+        {% if page.hero_label %}<p class="about-hero__label">{{ page.hero_label }}</p>{% endif %}
+        <h1 class="about-hero__title heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<p class="about-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
+      </div>
+    </header>
+    {% if page.content %}
+      <div class="about-page__content">
+        {% for block in page.content %}
+          {% if block.block_type == "achievements" %}
+            <section class="about-section about-stats">
+              <div class="container about-stats__container">
+                <div class="about-section__header about-section__header--center">
+                  {% if block.value.title %}<h2 class="heading heading--h3">{{ block.value.title }}</h2>{% endif %}
+                  {% if block.value.intro %}<div class="about-section__intro text">{{ block.value.intro|richtext }}</div>{% endif %}
+                </div>
+                <ul class="about-stats__grid" role="list">
+                  {% for item in block.value.items %}
+                    <li class="about-stats__item">
+                      <div class="about-stats__value">{{ item.value }}{{ item.suffix }}</div>
+                      <h3 class="about-stats__label">{{ item.label }}</h3>
+                      {% if item.description %}
+                        <div class="about-stats__text text text--soft">{{ item.description|richtext }}</div>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+          {% elif block.block_type == "features" %}
+            <section class="about-section features_section">
+              <div class="container">
+                <div class="about-section__header">
+                  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+                </div>
+                <ul class="about-feature-grid" role="list">
+                  {% for item in block.value.items %}
+                    <li class="about-feature-card">
+                      {% if item.icon %}
+                        {% image item.icon max-96x96 as icon %}
+                        <img class="about-feature-card__icon"
+                             src="{{ icon.url }}"
+                             width="{{ icon.width }}"
+                             height="{{ icon.height }}"
+                             alt="">
+                      {% endif %}
+                      <h3 class="heading heading--h3">{{ item.title }}</h3>
+                      {% if item.text %}<div class="about-feature-card__text text text--md">{{ item.text|richtext }}</div>{% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+          {% elif block.block_type == "rich_text" %}
+            <section class="about-section">
+              <div class="container">
+                <div class="about-rich surface-card">
+                  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+                  <div class="rich-content">{{ block.value.text|richtext }}</div>
+                </div>
+              </div>
+            </section>
+          {% elif block.block_type == "work_with" %}
+            <section class="about-section">
+              <div class="container">
+                <div class="about-section__header">
+                  <h2 class="heading heading--h2">{{ block.value.title }}</h2>
+                  {% if block.value.intro %}
+                    <div class="about-section__intro text text--md">{{ block.value.intro|richtext }}</div>
+                  {% endif %}
+                </div>
+                <ul class="about-work-grid" role="list">
+                  {% for card in block.value.cards %}
+                    {% if card.image %}
+                      {% image card.image fill-900x760 as card_image %}
+                    {% endif %}
+                    <li class="about-work-card"
+                        {% if card.image %}style="background-image: url('{{ card_image.url }}')"{% endif %}>
+                      <div class="about-work-card__body">
+                        <h3 class="heading heading--h3">{{ card.title }}</h3>
+                        <div class="about-work-card__text text text--md">{{ card.text|richtext }}</div>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+          {% elif block.block_type == "partners" %}
+            <section class="about-section about-clients">
+              <div class="container about-clients__container">
+                <div class="about-clients__copy">
+                  <h2 class="heading heading--h2">{{ block.value.headline }}</h2>
+                  {% if block.value.subheadline %}<p class="text text--md">{{ block.value.subheadline }}</p>{% endif %}
+                </div>
+                <ul class="about-clients__logos" role="list">
+                  {% for partner in block.value.logos %}
+                    <li class="about-clients__logo-item">
+                      {% if partner.link %}<a href="{{ partner.link }}" target="_blank" rel="noopener">{% endif %}
+                        {% image partner.logo max-320x160 as logo %}
+                        <img src="{{ logo.url }}"
+                             width="{{ logo.width }}"
+                             height="{{ logo.height }}"
+                             alt="">
+                        {% if partner.link %}</a>{% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+          {% elif block.block_type == "certificates" %}
+            <section class="about-section">
+              <div class="container">
+                <div class="about-section__header">
+                  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+                  {% if block.value.intro %}
+                    <div class="about-section__intro text text--md">{{ block.value.intro|richtext }}</div>
+                  {% endif %}
+                </div>
+                <ul class="about-certs" role="list">
+                  {% for certificate in block.value.items %}
+                    <li class="about-cert-card surface-card">
+                      {% image certificate.image fill-520x720 as certificate_image %}
+                      <img class="about-cert-card__image"
+                           src="{{ certificate_image.url }}"
+                           width="{{ certificate_image.width }}"
+                           height="{{ certificate_image.height }}"
+                           alt="{{ certificate.title }}">
+                      {% if certificate.title or certificate.description %}
+                        <div class="about-cert-card__body">
+                          {% if certificate.title %}<h3 class="heading heading--h4">{{ certificate.title }}</h3>{% endif %}
+                          {% if certificate.description %}<p class="text text--sm">{{ certificate.description }}</p>{% endif %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+  <style>
+      .about-page {
+          overflow: hidden;
+          padding-top: 75px;
+      }
+
+      .about-hero {
+          position: relative;
+          display: grid;
+          min-height: 640px;
+          align-items: center;
+          overflow: hidden;
+          background: var(--color-surface);
+      }
+
+      .about-hero::after {
+          position: absolute;
+          inset: 0;
+          content: "";
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.78) 48%, rgba(255, 255, 255, 0.42) 100%);
+      }
+
+      .about-hero__image {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0.55;
+      }
+
+      .about-hero__inner {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          gap: 24px;
+          max-width: var(--container-width);
+      }
+
+      .about-hero__label {
+          margin: 0;
+          color: var(--color-brand);
+          font-size: 18px;
+          line-height: 1.2;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+      }
+
+      .about-hero__title {
+          max-width: 980px;
+      }
+
+      .about-hero__intro {
+          max-width: 860px;
+      }
+
+      .about-section {
+          padding: 72px 0;
+      }
+
+      .about-section__header {
+          max-width: 980px;
+          margin-bottom: 44px;
+      }
+
+      .about-section__header--center {
+          margin-right: auto;
+          margin-left: auto;
+          padding-bottom: 24px;
+          border-bottom: 1px solid #e7e3df;
+          text-align: center;
+      }
+
+      .about-section__intro {
+          margin-top: 18px;
+      }
+
+      .about-section__intro p,
+      .about-feature-card__text p,
+      .about-work-card__text p {
+          margin: 0;
+      }
+
+      .about-stats__container {
+          padding: 40px 72px;
+      }
+
+      .about-stats__grid,
+      .about-feature-grid,
+      .about-work-grid,
+      .about-clients__logos,
+      .about-certs {
+          display: grid;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .about-stats__grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 56px;
+      }
+
+      .about-stats__item {
+          text-align: center;
+      }
+
+      .about-stats__value {
+          margin-bottom: 18px;
+          color: #111418;
+          font-size: 36px;
+          line-height: 1.1;
+          font-weight: 800;
+      }
+
+      .about-stats__label {
+          margin: 0;
+          font-size: 22px;
+          line-height: 1.2;
+          font-weight: 600;
+      }
+
+      .about-stats__text {
+          margin-top: 14px;
+      }
+
+      .about-stats__text p {
+          margin: 0;
+      }
+
+      .features_section {
+          background: var(--color-surface);
+      }
+
+      .about-feature-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 22px;
+      }
+
+      .about-feature-card {
+          display: grid;
+          gap: 22px;
+          align-content: start;
+          background: white;
+          padding: 50px 30px;
+          border-radius: 30px;
+          min-height: 500px;
+      }
+
+      .about-feature-card__icon-wrap {
+          display: flex;
+          width: 78px;
+          height: 78px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 18px;
+          background: rgba(159, 48, 48, 0.18);
+      }
+
+      .about-feature-card__icon {
+          width: 34px;
+          height: 34px;
+          object-fit: contain;
+      }
+
+      .about-feature-card h3 {
+          --heading-size: 34px;
+          --heading-line-height: 1.15;
+      }
+
+      .about-feature-card__text {
+          max-width: 540px;
+          color: #292929;
+          --text-line-height: 1.32;
+          --text-weight: 400;
+      }
+
+      .about-feature-card__text,
+      .about-feature-card__text p,
+      .about-feature-card__text b,
+      .about-feature-card__text strong {
+          font-weight: 400;
+      }
+
+      .about-rich {
+          display: grid;
+          gap: 28px;
+          padding: 52px;
+      }
+
+      .about-work-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+      }
+
+      .about-work-card {
+          position: relative;
+          overflow: hidden;
+          aspect-ratio: 1 / 1;
+          border-radius: var(--radius-large);
+          background: var(--color-surface) center / cover no-repeat;
+      }
+
+      .about-work-card::before {
+          position: absolute;
+          inset: 0;
+          content: "";
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62));
+      }
+
+      .about-work-card__body {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          gap: 24px;
+          align-content: start;
+          height: 100%;
+          padding: 64px 30px;
+      }
+
+      .about-clients__container {
+          display: grid;
+          grid-template-columns: minmax(260px, 0.8fr) minmax(520px, 1.6fr);
+          gap: 56px;
+          align-items: center;
+      }
+
+      .about-clients__copy {
+          display: grid;
+          gap: 20px;
+      }
+
+      .about-clients__copy p {
+          margin: 0;
+      }
+
+      .about-clients__logos {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 30px 56px;
+          align-items: center;
+      }
+
+      .about-clients__logo-item {
+          display: flex;
+          min-height: 92px;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .about-clients__logo-item img {
+          max-width: 100%;
+          max-height: 74px;
+          object-fit: contain;
+          filter: saturate(0.96);
+      }
+
+      .about-certs {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+      }
+
+      .about-cert-card {
+          overflow: hidden;
+      }
+
+      .about-cert-card__image {
+          width: 100%;
+          aspect-ratio: 13 / 16;
+          object-fit: cover;
+      }
+
+      .about-cert-card__body {
+          display: grid;
+          gap: 10px;
+          padding: 24px;
+      }
+
+      @media (max-width: 1180px) {
+
+          .about-stats__grid,
+          .about-feature-grid,
+          .about-work-grid,
+          .about-certs {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .about-clients__container {
+              grid-template-columns: 1fr;
+          }
+      }
+
+      @media (max-width: 720px) {
+          .about-page {
+              padding-top: 70px;
+          }
+
+          .about-hero {
+              min-height: 520px;
+          }
+
+          .about-hero__title {
+              --heading-size: 42px;
+          }
+
+          .about-section {
+              padding: 48px 0;
+          }
+
+          .about-stats__container,
+          .about-clients__container {
+              padding: 36px 22px;
+          }
+
+          .about-stats__grid,
+          .about-feature-grid,
+          .about-work-grid,
+          .about-clients__logos,
+          .about-certs {
+              grid-template-columns: 1fr;
+          }
+
+          .about-feature-card,
+          .about-rich {
+              padding: 32px 24px;
+          }
+
+          .about-feature-card {
+              padding: 0;
+          }
+
+          .about-feature-card h3 {
+              --heading-size: 28px;
+          }
+
+          .about-feature-card__text {
+              --text-size: 22px;
+          }
+
+          .about-work-card__body {
+              padding: 36px 28px;
+          }
+      }
+  </style>
+{% endblock %}
