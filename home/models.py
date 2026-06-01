@@ -231,9 +231,26 @@ class HomePage(Page):
         from cases.models import SingleCasePage
         return SingleCasePage.objects.live().order_by("-project_date")[:count]
 
-    def get_services(self, count=6):
+    def get_services(self):
         from services.models import SingleServicePage
-        return SingleServicePage.objects.live().order_by("-date")[:count]
+        return SingleServicePage.objects.live().order_by("-date")
+
+    def get_about_work_stages(self):
+        from about_company.models import AboutPage
+
+        about_page = (
+            AboutPage.objects.live()
+            .descendant_of(self)
+            .first()
+        )
+        if not about_page:
+            return None
+
+        for block in about_page.content:
+            if block.block_type == "work_stages":
+                return block
+
+        return None
 
     class Meta:
         verbose_name = "Главная страница"

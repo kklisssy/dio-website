@@ -1,0 +1,142 @@
+{% with work_stages_block=page.get_about_work_stages %}
+  {% if work_stages_block %}
+    <section class="work-stages" aria-labelledby="work-stages-title">
+      <div class="container work-stages__container">
+        <div class="work-stages__header">
+          <h2 id="work-stages-title" class="heading heading--h2">{{ work_stages_block.value.title }}</h2>
+          {% if work_stages_block.value.intro %}
+            <p class="work-stages__intro text text--md">{{ work_stages_block.value.intro }}</p>
+          {% endif %}
+        </div>
+        <ol class="work-stages__grid" role="list">
+          {% for stage in work_stages_block.value.stages %}
+            <li class="work-stages__card">
+              <span class="work-stages__number">{{ forloop.counter }}</span>
+              <h3 class="work-stages__card-title heading heading--h3">{{ stage.title }}</h3>
+              <p class="work-stages__text text text--md">{{ stage.text }}</p>
+            </li>
+          {% endfor %}
+        </ol>
+      </div>
+    </section>
+    <style>
+        .work-stages {
+            padding: 70px 0 0;
+        }
+
+        .work-stages__container {
+            display: grid;
+            gap: 46px;
+        }
+
+        .work-stages__header {
+            display: grid;
+            gap: 10px;
+            max-width: 920px;
+        }
+
+        .work-stages__intro {
+            max-width: 860px;
+        }
+
+        .work-stages__grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-auto-rows: 1fr;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .work-stages__card {
+            display: grid;
+            align-content: start;
+            aspect-ratio: 1 / 1;
+            height: 100%;
+            min-height: auto;
+            padding: 44px 30px;
+            border-radius: 30px;
+            background: #ffffff;
+            box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
+        }
+
+        .work-stages__number {
+            display: inline-flex;
+            width: 56px;
+            height: 56px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            border-radius: 50%;
+            background: var(--color-brand);
+            color: #ffffff;
+            font-size: 24px;
+            line-height: 1;
+            font-weight: 800;
+            box-shadow: 0 18px 32px rgba(159, 48, 48, 0.22);
+        }
+
+        .work-stages__card-title {
+            min-height: 3.45em;
+            margin-bottom: 16px;
+            --heading-size: 28px;
+            --heading-line-height: 1.15;
+        }
+
+        .work-stages__text {
+            margin: 0;
+            --text-size: 20px;
+            --text-line-height: 1.25;
+        }
+
+        @media (max-width: 1180px) {
+            .work-stages__grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .work-stages__card {
+                padding: 38px 34px 34px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .work-stages {
+                padding: 48px 0;
+            }
+
+            .work-stages__container {
+                gap: 32px;
+            }
+
+            .work-stages__grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+            }
+
+            .work-stages__card {
+                aspect-ratio: auto;
+                min-height: 420px;
+                padding: 36px 28px;
+                border-radius: 22px;
+            }
+
+            .work-stages__number {
+                width: 52px;
+                height: 52px;
+                margin-bottom: 28px;
+                font-size: 22px;
+            }
+
+            .work-stages__card-title {
+                min-height: 0;
+                --heading-size: 25px;
+            }
+
+            .work-stages__text {
+                --text-size: 20px;
+            }
+        }
+    </style>
+  {% endif %}
+{% endwith %}
