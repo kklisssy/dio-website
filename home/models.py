@@ -80,7 +80,7 @@ class MainAchievementBlock(blocks.StructBlock):
         max_length=10, blank=True, default="+", label="Суффикс (например, '+' или '%')"
     )
     label = blocks.CharBlock(max_length=100, label="Краткое название")
-    description = blocks.RichTextBlock(blank=True, label="Описание достижения")
+    description = blocks.RichTextBlock(blank=True, required=False, label="Описание достижения")
 
     class Meta:
         icon = "tick"
