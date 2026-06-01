@@ -1,14 +1,11 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
-
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-  <article class="privacy-page page-section page-section--deep">
+  <article class="privacy-page page-section">
     <header class="container privacy-page__header page-header">
-      <p class="privacy-page__eyebrow eyebrow">Документы</p>
       <h1 class="heading heading--h1">{{ page.title }}</h1>
     </header>
-
     {% if page.content %}
       <div class="container privacy-page__content stack-grid">
         {% for block in page.content %}
@@ -25,15 +22,18 @@
       </div>
     {% endif %}
   </article>
-
   <style>
       .privacy-page__header {
-          margin-bottom: 56px;
+          max-width: var(--container-width);
+          margin-bottom: 34px;
+      }
+
+      .privacy-page__header h1 {
+          max-width: 980px;
       }
 
       .privacy-page__content {
           --stack-gap: 34px;
-          max-width: 1180px;
       }
 
       .privacy-page__block {
@@ -41,6 +41,15 @@
       }
 
       @media (max-width: 720px) {
+          .privacy-page.page-section {
+              padding-top: 44px;
+              padding-bottom: 54px;
+          }
+
+          .privacy-page__header {
+              margin-bottom: 24px;
+          }
+
           .privacy-page__header h1 {
               --heading-size: 40px;
           }
