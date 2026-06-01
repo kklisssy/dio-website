@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'services_1C',
     'cases',
     'privacy',
+    'about_company',
     'wagtail.contrib.table_block',
     'wagtail.contrib.settings',
     "wagtail.contrib.forms",
