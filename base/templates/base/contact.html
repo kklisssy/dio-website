@@ -111,7 +111,7 @@
           background:
               radial-gradient(circle at 86% 12%, rgba(159, 48, 48, 0.42), transparent 34%),
               linear-gradient(145deg, #30343b 0%, #22262d 100%);
-          color: #ffffff;
+          color: var(--color-page);
       }
 
       .contact-card__badge {
@@ -121,7 +121,7 @@
           padding: 10px 18px;
           border-radius: var(--radius-pill);
           background: rgba(255, 255, 255, 0.1);
-          color: #ffffff;
+          color: var(--color-page);
           font-size: 16px;
           font-weight: 700;
           text-transform: uppercase;
@@ -155,7 +155,7 @@
 
       .contact-card--form {
           padding: 34px;
-          background: #ffffff;
+          background: var(--color-page);
           box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
       }
 
@@ -175,7 +175,7 @@
       }
 
       .contact-form__label {
-          color: #1f2329;
+          color: var(--color-text);
           font-size: 22px;
           font-weight: 600;
           margin: 0;
@@ -183,15 +183,15 @@
       }
 
       .contact-info-item__label {
-          color: #ffffff;
+          color: var(--color-page);
       }
 
       .contact-form input,
       .contact-form textarea {
           width: 100%;
-          border: 1px solid rgba(0, 0, 0, 0.08);
+          border: 1px solid var(--color-border);
           border-radius: 16px;
-          background: #ffffff;
+          background: var(--color-page);
           color: var(--color-text);
           font: inherit;
           font-size: 18px;
@@ -229,7 +229,7 @@
           border: 0;
           border-radius: var(--radius-pill);
           background: #d52535;
-          color: #ffffff;
+          color: var(--color-page);
           font: inherit;
           font-weight: 800;
           cursor: pointer;
@@ -238,7 +238,7 @@
 
       .contact-form__note {
           margin: 0;
-          color: #69707d;
+          color: var(--color-muted);
           font-size: 16px;
           line-height: 1.4;
       }
@@ -248,7 +248,7 @@
           align-items: center;
           gap: 14px;
           margin-top: 22px;
-          color: #69707d;
+          color: var(--color-muted);
           cursor: pointer;
       }
 
@@ -273,12 +273,12 @@
       }
 
       .contact-form__privacy-text {
-          color: #69707d;
+          color: var(--color-muted);
           line-height: 1.35;
       }
 
       .contact-form__privacy-text a {
-          color: #963d3d;
+          color: var(--color-brand);
           text-decoration: underline;
           text-underline-offset: 3px;
       }
