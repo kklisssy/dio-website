@@ -35,25 +35,27 @@
     <ul class="hero-features" role="list">
       {% for feature in page.hero_features %}
         <li class="hero-feature-card">
-          <h3 class="hero-feature-card__title heading heading--h3">{{ feature.value.title }}</h3>
+          <h3 class="hero-feature-card__title heading heading--h3 heading--semibold">{{ feature.value.title }}</h3>
           {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
-          {% if feature.value.page %}
-            <a class="text text--semibold hero-feature-card__link"
-               href="{{ feature.value.page.url }}">
-              {{ feature.value.link_text }}
-              <span class="hero-feature-card__arrow" aria-hidden="true"></span>
-            </a>
-          {% elif feature.value.external_url %}
-            <a class="text text--semibold hero-feature-card__link"
-               href="{{ feature.value.external_url }}">
-              {{ feature.value.link_text }}
-              <span class="hero-feature-card__arrow" aria-hidden="true"></span>
-            </a>
-          {% else %}
-            <span class="text text--semibold hero-feature-card__link">
-              {{ feature.value.link_text }}
-              <span class="hero-feature-card__arrow" aria-hidden="true"></span>
-            </span>
+          {% if feature.value.link_text %}
+            {% if feature.value.page %}
+              <a class="text text--semibold hero-feature-card__link"
+                 href="{{ feature.value.page.url }}">
+                {{ feature.value.link_text }}
+                <span class="hero-feature-card__arrow" aria-hidden="true"></span>
+              </a>
+            {% elif feature.value.external_url %}
+              <a class="text text--semibold hero-feature-card__link"
+                 href="{{ feature.value.external_url }}">
+                {{ feature.value.link_text }}
+                <span class="hero-feature-card__arrow" aria-hidden="true"></span>
+              </a>
+            {% else %}
+              <span class="text text--semibold hero-feature-card__link">
+                {{ feature.value.link_text }}
+                <span class="hero-feature-card__arrow" aria-hidden="true"></span>
+              </span>
+            {% endif %}
           {% endif %}
         </li>
       {% endfor %}
@@ -65,4 +67,132 @@
   {% include "services_section.html" %}
   {% include "work_stages_section.html" %}
   {% include "global_presence_section.html" %}
+  <style>
+      .hero {
+          display: grid;
+          grid-template-columns: minmax(600px, 1.08fr) minmax(380px, 0.92fr);
+          align-items: center;
+          gap: 24px;
+          min-height: 850px;
+          margin: 90px auto 12px;
+          padding: 80px 88px;
+          border-radius: var(--radius-large);
+          background: var(--color-surface);
+      }
+
+      .hero__content {
+          display: flex;
+          width: 100%;
+          max-width: 920px;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 32px;
+          padding: 48px 24px;
+      }
+
+      .hero__text {
+          max-width: 800px;
+      }
+
+      .hero__text p {
+          margin: 0;
+      }
+
+      .hero__image {
+          display: flex;
+          min-width: 0;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .hero__image img {
+          width: 100%;
+          max-width: 640px;
+          max-height: 700px;
+          object-fit: contain;
+      }
+
+      .hero-features {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+          width: min(100% - (var(--container-padding) * 2), var(--container-width));
+          margin: 0 auto 72px;
+          padding: 0;
+          list-style: none;
+      }
+
+      .hero-feature-card {
+          display: grid;
+          grid-template-rows: auto 1fr auto;
+          min-height: 260px;
+          padding: 45px 35px;
+          border-radius: var(--radius-large);
+          background: var(--color-surface);
+      }
+
+      .hero-feature-card__title {
+          min-height: 2.3em;
+          margin: 0 0 14px;
+      }
+
+      .hero-feature-card__link {
+          display: inline-flex;
+          width: fit-content;
+          align-items: center;
+          gap: 10px;
+          color: var(--color-text);
+          line-height: 1.2;
+      }
+
+      .hero-feature-card__arrow {
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-left: 9px solid currentColor;
+          transition: transform 0.2s ease;
+      }
+
+      .hero-feature-card__link:hover .hero-feature-card__arrow {
+          transform: translateX(4px);
+      }
+
+      @media (max-width: 1420px) {
+          .hero {
+              padding-left: 65px;
+          }
+
+          .hero-feature-card {
+              padding: 40px 35px;
+          }
+      }
+
+      @media (max-width: 1350px) {
+          .hero {
+              grid-template-columns: 1fr;
+              gap: 32px;
+          }
+
+          .hero__text {
+              max-width: none;
+          }
+
+          .hero-features {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+      }
+
+      @media (max-width: 965px) {
+          .hero-features {
+              grid-template-columns: 1fr;
+          }
+
+          .hero__text {
+              margin-top: 28px;
+              --text-size: 20px;
+          }
+      }
+  </style>
 {% endblock %}
