@@ -12,7 +12,7 @@
           {% for stage in work_stages_block.value.stages %}
             <li class="work-stages__card">
               <span class="work-stages__number">{{ forloop.counter }}</span>
-              <h3 class="work-stages__card-title heading heading--h3">{{ stage.title }}</h3>
+              <h3 class="work-stages__card-title heading heading--h3 heading--semibold">{{ stage.title }}</h3>
               <p class="work-stages__text text text--md">{{ stage.text }}</p>
             </li>
           {% endfor %}
@@ -21,7 +21,7 @@
     </section>
     <style>
         .work-stages {
-            padding: 70px 0 0;
+            padding: 64px 0;
         }
 
         .work-stages__container {
@@ -90,13 +90,13 @@
             --text-line-height: 1.25;
         }
 
-        @media (max-width: 1180px) {
+        @media (max-width: 1350px) {
             .work-stages__grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .work-stages__card {
-                padding: 38px 34px 34px;
+                aspect-ratio: auto;
             }
         }
 
