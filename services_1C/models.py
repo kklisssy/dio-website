@@ -109,8 +109,8 @@ class SingleService1CPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Сервис 1С"
-        verbose_name_plural = "Сервисы 1С"
+        verbose_name = "Решение 1С"
+        verbose_name_plural = "Решения 1С"
 
 
 class Service1CIndexPage(Page):
@@ -156,5 +156,5 @@ class Service1CIndexPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Лента сервисов 1С"
-        verbose_name_plural = "Ленты сервисов 1С"
+        verbose_name = "Лента решений 1С"
+        verbose_name_plural = "Ленты решений 1С"
