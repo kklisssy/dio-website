@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="contact-page page-section">
+    <div class="container contact-page__container">
+      <header class="contact-page__header">
+        <h1 class="contact-page__title heading heading--h1">{{ page.headline|default:page.title }}</h1>
+      </header>
+      <section class="contact-page__office">
+        <div class="contact-page__office-grid">
+          {% if page.map_embed_url %}
+            <div class="contact-page__map-wrap">
+              <iframe class="contact-page__map"
+                      src="{{ page.map_embed_url }}"
+                      loading="lazy"
+                      allowfullscreen>
+              </iframe>
+            </div>
+          {% endif %}
+          <div class="contact-page__info">
+            {% if page.phone %}<a class="contact-page__info-link" href="tel:{{ page.phone }}">{{ page.phone }}</a>{% endif %}
+            {% if page.email %}<a class="contact-page__info-link" href="mailto:{{ page.email }}">{{ page.email }}</a>{% endif %}
+            {% if page.address %}<p class="contact-page__address">{{ page.address }}</p>{% endif %}
+          </div>
+        </div>
+      </section>
+      {% if page.social_links %}
+        <section class="contact-page__socials">
+          <h2 class="contact-page__socials-title heading heading--h2">Наши социальные сети</h2>
+          <ul class="contact-page__social-list" role="list">
+            {% for block in page.social_links %}
+              {% if block.block_type == "social" %}
+                <li class="contact-page__social-item">
+                  <a class="contact-page__social-link"
+                     href="{{ block.value.url }}"
+                     target="_blank"
+                     rel="noopener">
+                    {% if block.value.icon %}
+                      {% image block.value.icon max-64x64 as social_icon %}
+                      <img class="contact-page__social-icon"
+                           src="{{ social_icon.url }}"
+                           width="{{ social_icon.width }}"
+                           height="{{ social_icon.height }}"
+                           alt="">
+                    {% endif %}
+                    <span>{{ block.value.name }}</span>
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+      {% if page.content %}
+        <div class="contact-page__content">
+          {% for block in page.content %}
+            {% if block.block_type == "rich_text" %}
+              <section class="contact-page__richtext">
+                {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+                <div class="rich-content">{{ block.value.text|richtext }}</div>
+              </section>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+  <style>
+      .contact-page {
+          padding: 100px 0 64px;
+      }
+
+      .contact-page__container {
+          display: grid;
+          gap: 50px;
+      }
+
+      .contact-page__title,
+      .contact-page__city,
+      .contact-page__socials-title {
+          color: var(--color-text);
+      }
+
+      .contact-page__office {
+          display: grid;
+          gap: 10px;
+      }
+
+      .contact-page__office-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.55fr);
+          gap: 56px;
+          align-items: center;
+      }
+
+      .contact-page__map-wrap {
+          overflow: hidden;
+          min-height: 590px;
+          border-radius: 8px;
+      }
+
+      .contact-page__map {
+          display: block;
+          width: 100%;
+          height: 590px;
+          border: 0;
+      }
+
+      .contact-page__info {
+          display: grid;
+          gap: 28px;
+          color: var(--color-text);
+          font-size: 32px;
+          line-height: 1.25;
+      }
+
+      .contact-page__info-link {
+          width: fit-content;
+      }
+
+      .contact-page__address {
+          margin: 0;
+          font-size: 26px;
+          line-height: 1.35;
+      }
+
+      .contact-page__socials {
+          display: grid;
+          gap: 34px;
+      }
+
+      .contact-page__social-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 42px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .contact-page__social-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 16px;
+          color: var(--color-text);
+          font-size: 22px;
+          line-height: 1.2;
+      }
+
+      .contact-page__social-icon {
+          width: 56px;
+          height: 56px;
+          border-radius: 12px;
+          object-fit: contain;
+      }
+
+      .contact-page__content {
+          display: grid;
+          gap: 48px;
+      }
+
+      .contact-page__richtext {
+          display: grid;
+          gap: 24px;
+      }
+
+      @media (max-width: 1180px) {
+          .contact-page__office-grid {
+              grid-template-columns: 1fr;
+          }
+      }
+  </style>
+{% endblock %}
