@@ -336,6 +336,7 @@ a {
 
 .rich-content p {
   margin: 0 0 20px;
+  text-align: justify;
 }
 
 .rich-content p:last-child {
