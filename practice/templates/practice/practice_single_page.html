@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="catalog-detail practice-article">
+    <header class="catalog-detail__hero">
+      {% if page.image %}
+        {% image page.image fill-1500x760 as article_image %}
+        <img class="catalog-detail__hero-image"
+             src="{{ article_image.url }}"
+             width="{{ article_image.width }}"
+             height="{{ article_image.height }}"
+             alt="">
+      {% endif %}
+      <div class="container catalog-detail__hero-inner">
+        <div class="catalog-detail__hero-content">
+          {% if page.category %}<p class="practice-article__category">{{ page.category.name }}</p>{% endif %}
+          <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
+          {% if page.document %}
+            <a class="practice-article__document button__cta" href="{{ page.document.url }}">
+              Скачать материал
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    {% if page.content %}
+      <div class="container practice-article__content">
+        {% for block in page.content %}
+          <section class="practice-article__block practice-article__block--{{ block.block_type }}">
+            {% if block.block_type == "text_section" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <div class="rich-content">{{ block.value.text|richtext }}</div>
+            {% elif block.block_type == "table" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <div class="custom-table-wrapper">{{ block.value.table }}</div>
+            {% elif block.block_type == "features" %}
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              <ul class="practice-article__cards" role="list">
+                {% for item in block.value.items %}
+                  <li class="practice-article__card surface-card">
+                    {% if item.icon %}
+                      {% image item.icon max-64x64 as item_icon %}
+                      <img src="{{ item_icon.url }}"
+                           width="{{ item_icon.width }}"
+                           height="{{ item_icon.height }}"
+                           alt="">
+                    {% endif %}
+                    <h3 class="heading heading--h3">{{ item.title }}</h3>
+                    {% if item.text %}<div class="rich-content">{{ item.text|richtext }}</div>{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+
+  <style>
+      .practice-article__category {
+          display: inline-flex;
+          width: fit-content;
+          margin: 0;
+          padding: 16px 28px;
+          border-radius: var(--radius-pill);
+          background: var(--color-brand);
+          color: #ffffff;
+          font-size: 24px;
+          line-height: 1.1;
+      }
+
+      .practice-article__document {
+          width: fit-content;
+          text-decoration: none;
+      }
+
+      .practice-article__content {
+          display: grid;
+          gap: 64px;
+          padding-top: 50px;
+      }
+
+      .practice-article__block {
+          display: grid;
+          gap: 32px;
+      }
+
+      .practice-article__cards {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 18px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .practice-article__card {
+          display: grid;
+          gap: 18px;
+          padding: 34px;
+      }
+
+      @media (max-width: 900px) {
+          .practice-article__cards {
+              grid-template-columns: 1fr;
+          }
+      }
+  </style>
+{% endblock %}

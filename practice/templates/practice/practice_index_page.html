@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <section class="practice-index page-section">
+    <div class="container practice-index__container page-section__container">
+      <header class="practice-index__header page-header">
+        <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+        {% if page.intro %}<div class="practice-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+      </header>
+
+      {% if practice_categories %}
+        <nav class="practice-index__filters filter-list" aria-label="Категории практики">
+          <a class="practice-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
+             href="{% pageurl page %}">Все</a>
+          {% for category in practice_categories %}
+            <a class="practice-index__filter filter-pill{% if current_category == category.value %} filter-pill--active{% endif %}"
+               href="{% pageurl page %}?category={{ category.value }}">{{ category.name }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+
+      {% if practice_articles %}
+        <ul class="catalog-grid" role="list">
+          {% for article in practice_articles %}
+            <li class="catalog-card">
+              <a class="catalog-card__link" href="{% pageurl article %}">
+                <div class="catalog-card__content">
+                  {% if article.category %}<p class="catalog-card__category">{{ article.category.name }}</p>{% endif %}
+                  <h2 class="catalog-card__title heading heading--h3">{{ article.headline|default:article.title }}</h2>
+                  {% if article.intro %}<p class="catalog-card__text">{{ article.intro }}</p>{% endif %}
+                </div>
+                <span class="catalog-card__more">
+                  Подробнее
+                  <span class="catalog-card__arrow" aria-hidden="true"></span>
+                </span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if practice_articles.paginator.num_pages > 1 %}
+          <nav class="practice-index__pagination" aria-label="Пагинация материалов практики">
+            {% if practice_articles.has_previous %}
+              <a href="?page={{ practice_articles.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Назад</a>
+            {% endif %}
+            <span>{{ practice_articles.number }} / {{ practice_articles.paginator.num_pages }}</span>
+            {% if practice_articles.has_next %}
+              <a href="?page={{ practice_articles.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Вперед</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% else %}
+        <p class="practice-index__empty text text--md">Материалы скоро появятся.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <style>
+      .practice-index__pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          color: var(--color-brand);
+          font-size: 20px;
+          font-weight: 700;
+      }
+  </style>
+{% endblock %}
