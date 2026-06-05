@@ -6,7 +6,7 @@
     {% if block.block_type == "hero" %}
       <section class="container hero">
         <div class="hero__content">
-          <h1 class="heading heading--h1">{{ block.value.title }}</h1>
+          <h1 class="heading heading--h1 heading-hero">{{ block.value.title }}</h1>
           {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
           {% if block.value.buttons %}
             <div class="buttons__cta">
@@ -160,10 +160,6 @@
       }
 
       @media (max-width: 1420px) {
-          .hero {
-              padding-left: 65px;
-          }
-
           .hero-feature-card {
               padding: 40px 35px;
           }
@@ -175,8 +171,25 @@
               gap: 32px;
           }
 
+          .heading-hero {
+              text-align: center;
+          }
+
+          .hero__content {
+              padding: 0;
+              max-width: none;
+          }
+
           .hero__text {
               max-width: none;
+          }
+
+          .hero__text p {
+              text-align: center;
+          }
+
+          .buttons__cta {
+              align-content: center;
           }
 
           .hero-features {
