@@ -1,11 +1,14 @@
 from wagtail.models import Page
 from django.db import models
+from django.shortcuts import redirect
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.fields import StreamField, RichTextField
 
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.api import APIField
+
+from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
 
 
 # Hero блок
@@ -25,19 +28,10 @@ class HeroFeaturesBlock(blocks.StructBlock):
 
     title = blocks.TextBlock(max_length=50, required=True, label="Заголовок свойства")
     description = blocks.TextBlock(max_length=200, required=False, label="Короткое описание")
-    link_text = blocks.CharBlock(
-        max_length=50,
-        required=False,
-        default="Подробнее",
-        label="Текст ссылки",
-    )
     page = blocks.PageChooserBlock(
         required=False,
+        page_type=["home.HeroFeaturePage"],
         label="Страница",
-    )
-    external_url = blocks.URLBlock(
-        required=False,
-        label="Внешняя ссылка",
     )
 
 
@@ -168,6 +162,74 @@ class GlobalPresenceBlock(blocks.StructBlock):
         label="Изображение для локации",
         help_text="Рекомендуемый размер: квадратное или 1x1"
     )
+
+
+class HeroFeatureIndexPage(Page):
+    """Служебный раздел для группировки страниц свойств."""
+
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["home.HeroFeaturePage"]
+    max_count_per_parent = 1
+
+    def serve(self, request, *args, **kwargs):
+        return redirect(self.get_parent().url)
+
+    class Meta:
+        verbose_name = "Раздел свойств"
+        verbose_name_plural = "Разделы свойств"
+
+
+class HeroFeaturePage(Page):
+    """Страница с подробным описанием свойства."""
+
+    headline = models.CharField(
+        "Заголовок",
+        max_length=255,
+        blank=True,
+        help_text="Если оставить пустым, будет использовано название страницы.",
+    )
+    intro = models.TextField(
+        "Краткое описание",
+        blank=True,
+        help_text="Вводный текст для первого экрана.",
+    )
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Изображение",
+    )
+    content = StreamField(
+        [
+            ("text_section", RichTextSectionBlock()),
+            ("table", TableSectionBlock()),
+            ("features", FeaturesBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Содержимое страницы",
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("headline"),
+                FieldPanel("intro"),
+                FieldPanel("image"),
+            ],
+            heading="Основная информация",
+        ),
+        FieldPanel("content"),
+    ]
+
+    parent_page_types = ["home.HeroFeatureIndexPage"]
+    subpage_types = []
+
+    class Meta:
+        verbose_name = "Описание свойства"
+        verbose_name_plural = "Описания свойств"
 
 
 class HomePage(Page):
