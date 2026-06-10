@@ -18,30 +18,11 @@
         {% if page.intro %}<p class="about-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
       </div>
     </header>
+    {% include "statistics_section.html" with indicators=page.indicators %}
     {% if page.content %}
       <div class="about-page__content">
         {% for block in page.content %}
-          {% if block.block_type == "achievements" %}
-            <section class="about-section about-stats">
-              <div class="container about-stats__container">
-                <div class="about-section__header about-section__header--center">
-                  {% if block.value.title %}<h2 class="heading heading--h3">{{ block.value.title }}</h2>{% endif %}
-                  {% if block.value.intro %}<div class="about-section__intro text">{{ block.value.intro|richtext }}</div>{% endif %}
-                </div>
-                <ul class="about-stats__grid" role="list">
-                  {% for item in block.value.items %}
-                    <li class="about-stats__item">
-                      <div class="about-stats__value">{{ item.value }}{{ item.suffix }}</div>
-                      <h3 class="about-stats__label">{{ item.label }}</h3>
-                      {% if item.description %}
-                        <div class="about-stats__text text text--soft">{{ item.description|richtext }}</div>
-                      {% endif %}
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </section>
-          {% elif block.block_type == "features" %}
+          {% if block.block_type == "features" %}
             <section class="about-section features_section">
               <div class="container">
                 <div class="about-section__header">

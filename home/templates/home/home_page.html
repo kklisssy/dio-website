@@ -50,7 +50,7 @@
       {% endfor %}
     </ul>
   {% endif %}
-  {% include "statistics_section.html" %}
+  {% include "statistics_section.html" with indicators=page.get_about_indicators %}
   {% include "work_with_section.html" %}
   {% include "cases_section.html" %}
   {% include "services_section.html" %}

@@ -81,6 +81,45 @@ class MainAchievementBlock(blocks.StructBlock):
         label = "Достижение"
 
 
+class WorkStageItemBlock(blocks.StructBlock):
+    """Блок для одного этапа работы."""
+
+    title = blocks.CharBlock(max_length=120, label="Название этапа")
+    text = blocks.TextBlock(label="Описание этапа")
+    page = blocks.PageChooserBlock(
+        required=False,
+        page_type=["home.WorkStagePage"],
+        label="Страница этапа",
+    )
+
+    class Meta:
+        icon = "list-ol"
+        label = "Этап работы"
+
+
+class WorkStagesBlock(blocks.StructBlock):
+    """Блок для секции этапов работы."""
+
+    title = blocks.CharBlock(
+        required=True,
+        default="Как мы работаем",
+        label="Заголовок",
+    )
+    intro = blocks.TextBlock(
+        required=False,
+        label="Описание",
+    )
+    stages = blocks.ListBlock(
+        WorkStageItemBlock(),
+        min_num=1,
+        label="Этапы",
+    )
+
+    class Meta:
+        icon = "list-ol"
+        label = "Этапы работы"
+
+
 #Секция "С кем мы работаем"
 class WorkWithCardBlock(blocks.StructBlock):
     """Блок для карточки отрасли работы"""
@@ -232,6 +271,74 @@ class HeroFeaturePage(Page):
         verbose_name_plural = "Описания свойств"
 
 
+class WorkStageIndexPage(Page):
+    """Служебный раздел для группировки страниц этапов работы."""
+
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["home.WorkStagePage"]
+    max_count_per_parent = 1
+
+    def serve(self, request, *args, **kwargs):
+        return redirect(self.get_parent().url)
+
+    class Meta:
+        verbose_name = "Раздел этапов работы"
+        verbose_name_plural = "Разделы этапов работы"
+
+
+class WorkStagePage(Page):
+    """Страница с подробным описанием этапа работы."""
+
+    headline = models.CharField(
+        "Заголовок",
+        max_length=255,
+        blank=True,
+        help_text="Если оставить пустым, будет использовано название страницы.",
+    )
+    intro = models.TextField(
+        "Краткое описание",
+        blank=True,
+        help_text="Вводный текст для первого экрана.",
+    )
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Изображение",
+    )
+    content = StreamField(
+        [
+            ("text_section", RichTextSectionBlock()),
+            ("table", TableSectionBlock()),
+            ("features", FeaturesBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Содержимое страницы",
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("headline"),
+                FieldPanel("intro"),
+                FieldPanel("image"),
+            ],
+            heading="Основная информация",
+        ),
+        FieldPanel("content"),
+    ]
+
+    parent_page_types = ["home.WorkStageIndexPage"]
+    subpage_types = []
+
+    class Meta:
+        verbose_name = "Описание этапа работы"
+        verbose_name_plural = "Описания этапов работы"
+
+
 class HomePage(Page):
     """Главная страница"""
 
@@ -251,11 +358,12 @@ class HomePage(Page):
         verbose_name="Карточки под hero"
     )
 
-    achievements = StreamField(
-        [("achievement", MainAchievementBlock())],
+    work_stages = StreamField(
+        [("work_stages", WorkStagesBlock())],
         blank=True,
+        max_num=1,
         use_json_field=True,
-        verbose_name="Достижения",
+        verbose_name="Этапы работы",
     )
 
     work = StreamField(
@@ -283,7 +391,7 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('hero'),
         FieldPanel("hero_features"),
-        FieldPanel('achievements'),
+        FieldPanel("work_stages"),
         FieldPanel('work'),
         FieldPanel('partners'),
         FieldPanel('global_presence'),
@@ -297,7 +405,7 @@ class HomePage(Page):
         from services.models import SingleServicePage
         return SingleServicePage.objects.live().order_by("-date")
 
-    def get_about_work_stages(self):
+    def get_about_indicators(self):
         from about_company.models import AboutPage
 
         about_page = (
@@ -306,13 +414,9 @@ class HomePage(Page):
             .first()
         )
         if not about_page:
-            return None
+            return []
 
-        for block in about_page.content:
-            if block.block_type == "work_stages":
-                return block
-
-        return None
+        return about_page.indicators
 
     class Meta:
         verbose_name = "Главная страница"

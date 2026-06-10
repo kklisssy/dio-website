@@ -1,23 +1,26 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
-{% if page.achievements %}
+{% if indicators %}
+  {% for indicators_block in indicators %}
   <section class="statistics-section">
     <div class="container statistics-section__container">
       <div class="statistics-section__header">
-        <h3 class="statistics-section__title heading heading--h3">Наши достижения в цифрах</h3>
-        <p class="text text--xl">
-          Результаты многолетней работы в сфере автоматизации бизнеса и внедрения информационных систем.
-        </p>
+        {% if indicators_block.value.title %}
+          <h3 class="statistics-section__title heading heading--h3">{{ indicators_block.value.title }}</h3>
+        {% endif %}
+        {% if indicators_block.value.intro %}
+          <div class="text text--xl">{{ indicators_block.value.intro|richtext }}</div>
+        {% endif %}
       </div>
       <ul class="statistics-section__grid" role="list">
-        {% for achievement in page.achievements %}
+        {% for achievement in indicators_block.value.items %}
           <li class="statistics-section__item">
             <div class="statistics-section__value counter-element"
-                 data-value="{{ achievement.value.value }}"
-                 data-suffix="{{ achievement.value.suffix }}">0{{ achievement.value.suffix }}</div>
-            <h3 class="text text--xl statistics-section__label">{{ achievement.value.label }}</h3>
-            {% if achievement.value.description %}
+                 data-value="{{ achievement.value }}"
+                 data-suffix="{{ achievement.suffix }}">0{{ achievement.suffix }}</div>
+            <h3 class="text text--xl statistics-section__label">{{ achievement.label }}</h3>
+            {% if achievement.description %}
               <div class="statistics-section__description text text--relaxed text--soft">
-                {{ achievement.value.description|richtext }}
+                {{ achievement.description|richtext }}
               </div>
             {% endif %}
           </li>
@@ -159,4 +162,5 @@
           handleCounters();
       });
   </script>
+  {% endfor %}
 {% endif %}

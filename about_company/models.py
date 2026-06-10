@@ -9,7 +9,12 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
 from base.page_blocks import FeaturesBlock, RichTextSectionBlock
-from home.models import MainAchievementBlock, PartnershipBlock, WorkWithBlock
+from home.models import (
+    MainAchievementBlock,
+    PartnershipBlock,
+    WorkStagesBlock,
+    WorkWithBlock,
+)
 
 
 class AchievementsBlock(blocks.StructBlock):
@@ -26,47 +31,12 @@ class AchievementsBlock(blocks.StructBlock):
     items = blocks.ListBlock(
         MainAchievementBlock(),
         min_num=1,
-        label="Достижения",
+        label="Показатели",
     )
 
     class Meta:
         icon = "pick"
-        label = "Достижения"
-
-
-# Секция этапов работы
-class WorkStageItemBlock(blocks.StructBlock):
-    """Блок для одного этапа работы"""
-
-    title = blocks.CharBlock(max_length=120, label="Название этапа")
-    text = blocks.TextBlock(label="Описание этапа")
-
-    class Meta:
-        icon = "list-ol"
-        label = "Этап работы"
-
-
-class WorkStagesBlock(blocks.StructBlock):
-    """Блок для секции этапов работы"""
-
-    title = blocks.CharBlock(
-        required=True,
-        default="Как мы работаем",
-        label="Заголовок",
-    )
-    intro = blocks.TextBlock(
-        required=False,
-        label="Описание",
-    )
-    stages = blocks.ListBlock(
-        WorkStageItemBlock(),
-        min_num=1,
-        label="Этапы",
-    )
-
-    class Meta:
-        icon = "list-ol"
-        label = "Этапы работы"
+        label = "Показатели"
 
 
 class CertificateItemBlock(blocks.StructBlock):
@@ -120,14 +90,19 @@ class AboutPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    indicators = StreamField(
+        [("indicators", AchievementsBlock())],
+        blank=True,
+        max_num=1,
+        use_json_field=True,
+        verbose_name="Показатели",
+    )
 
     content = StreamField(
         [
-            ("achievements", AchievementsBlock()),
             ("features", FeaturesBlock()),
             ("rich_text", RichTextSectionBlock()),
             ("work_with", WorkWithBlock()),
-            ("work_stages", WorkStagesBlock()),
             ("partners", PartnershipBlock()),
             ("certificates", CertificatesBlock()),
         ],
@@ -146,6 +121,7 @@ class AboutPage(Page):
             ],
             heading="Hero",
         ),
+        FieldPanel("indicators"),
         FieldPanel("content"),
     ]
 
