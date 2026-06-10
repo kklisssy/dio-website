@@ -401,6 +401,11 @@ class HomePage(Page):
         from cases.models import SingleCasePage
         return SingleCasePage.objects.live().order_by("-project_date")[:count]
 
+    def get_case_index(self):
+        from cases.models import CaseIndexPage
+
+        return CaseIndexPage.objects.live().child_of(self).first()
+
     def get_services(self):
         from services.models import SingleServicePage
         return SingleServicePage.objects.live().order_by("-date")

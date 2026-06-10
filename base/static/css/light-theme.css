@@ -625,7 +625,7 @@ a {
 }
 
 .cases-list {
-  --grid-list-gap: 42px;
+  --grid-list-gap: 12px;
 }
 
 .case-card__link {
