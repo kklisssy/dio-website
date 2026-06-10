@@ -110,6 +110,7 @@ class SingleProductPage(Page):
         context = super().get_context(request)
         context["other_products"] = (
             SingleProductPage.objects.live()
+            .child_of(self.get_parent())
             .select_related("category")
             .exclude(id=self.id)
             .order_by("-date")[:3]
@@ -148,10 +149,15 @@ class ProductIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        products = SingleProductPage.objects.live().select_related("category").order_by("-date")
+        products = (
+            SingleProductPage.objects.live()
+            .child_of(self)
+            .select_related("category")
+            .order_by("-date")
+        )
 
         category = request.GET.get("category")
-        categories = ProductCategory.objects.all()
+        categories = ProductCategory.objects.filter(products__in=products).distinct()
 
         if category and categories.filter(value=category).exists():
             products = products.filter(category__value=category)

@@ -29,6 +29,41 @@
             {% if item.value.menu_type == "none" %}
               <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
                  class="main-nav__link">{{ item.value.name }}</a>
+            {% elif item.value.menu_type == "mega" %}
+              <div class="main-nav__dropdown main-nav__dropdown--mega">
+                <button class="main-nav__mega-toggle"
+                        aria-expanded="false"
+                        aria-controls="mega-menu-{{ item.id }}"
+                        type="button">
+                  {{ item.value.name }}
+                  <svg class="main-nav__dropdown-chevron"
+                       width="16"
+                       height="16"
+                       viewBox="0 0 16 16"
+                       fill="currentColor">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <div id="mega-menu-{{ item.id }}"
+                     class="main-nav__dropdown-menu main-nav__mega-menu">
+                  <div class="main-nav__mega-grid">
+                    {% for subitem in item.value.mega_menu_items %}
+                      {% if subitem.page or subitem.external_url %}
+                        <a href="{% if subitem.page %}{{ subitem.page.url }}{% else %}{{ subitem.external_url }}{% endif %}"
+                           class="main-nav__mega-card">
+                          <span class="main-nav__mega-title">{{ subitem.name }}</span>
+                          {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
+                        </a>
+                      {% else %}
+                        <div class="main-nav__mega-card main-nav__mega-card--disabled">
+                          <span class="main-nav__mega-title">{{ subitem.name }}</span>
+                          {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
             {% else %}
               <div class="main-nav__dropdown">
                 <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
@@ -131,7 +166,8 @@
     .main-nav__item,
     .main-nav__actions,
     .main-nav__dropdown,
-    .main-nav__dropdown-toggle {
+    .main-nav__dropdown-toggle,
+    .main-nav__mega-toggle {
         display: flex;
         align-items: center;
     }
@@ -146,7 +182,8 @@
     }
 
     .main-nav__link,
-    .main-nav__dropdown-link {
+    .main-nav__dropdown-link,
+    .main-nav__mega-toggle {
         margin-bottom: 0;
         color: var(--color-text);
         font-size: 18px;
@@ -161,7 +198,8 @@
 
     .main-nav__link:hover,
     .main-nav__dropdown-link:hover,
-    .main-nav__dropdown-toggle:hover {
+    .main-nav__dropdown-toggle:hover,
+    .main-nav__mega-toggle:hover {
         color: var(--color-muted);
     }
 
@@ -169,7 +207,8 @@
         position: relative;
     }
 
-    .main-nav__dropdown-toggle {
+    .main-nav__dropdown-toggle,
+    .main-nav__mega-toggle {
         padding: 0.25rem;
         border: 0;
         background: none;
@@ -178,12 +217,20 @@
         transition: color 0.2s ease;
     }
 
+    .main-nav__mega-toggle {
+        gap: 8px;
+        padding: 0;
+        font-family: inherit;
+    }
+
     .main-nav__dropdown-chevron {
         color: var(--color-text);
         transition: transform 0.2s ease;
     }
 
-    .main-nav__dropdown:hover .main-nav__dropdown-chevron {
+    .main-nav__dropdown:hover .main-nav__dropdown-chevron,
+    .main-nav__dropdown:focus-within .main-nav__dropdown-chevron,
+    .main-nav__dropdown.is-open .main-nav__dropdown-chevron {
         transform: rotate(180deg);
     }
 
@@ -203,7 +250,9 @@
         transition: all 0.3s ease;
     }
 
-    .main-nav__dropdown:hover .main-nav__dropdown-menu {
+    .main-nav__dropdown:hover .main-nav__dropdown-menu,
+    .main-nav__dropdown:focus-within .main-nav__dropdown-menu,
+    .main-nav__dropdown.is-open .main-nav__dropdown-menu {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
@@ -225,4 +274,113 @@
     .main-nav__dropdown-item:hover {
         background: var(--color-surface);
     }
+
+    .main-nav__mega-menu {
+        top: calc(100% + 26px);
+        left: -28px;
+        width: min(350px, calc(100vw - (var(--container-padding) * 2)));
+        padding: 12px;
+        border-radius: 0 0 20px 20px;
+        transform: translateY(8px);
+    }
+
+    .main-nav__dropdown--mega:hover .main-nav__mega-menu,
+    .main-nav__dropdown--mega:focus-within .main-nav__mega-menu,
+    .main-nav__dropdown--mega.is-open .main-nav__mega-menu {
+        transform: translateY(0);
+    }
+
+    .main-nav__mega-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    .main-nav__mega-card {
+        display: grid;
+        align-content: start;
+        gap: 6px;
+        padding: 18px;
+        border-radius: 14px;
+        color: var(--color-text);
+        text-decoration: none;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    a.main-nav__mega-card:hover,
+    a.main-nav__mega-card:focus-visible {
+        background: var(--color-surface);
+        transform: translateY(-2px);
+    }
+
+    .main-nav__mega-card--disabled {
+        opacity: 0.6;
+    }
+
+    .main-nav__mega-title {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .main-nav__mega-description {
+        color: var(--color-muted);
+        font-size: 15px;
+        line-height: 1.35;
+    }
+
+    @media (max-width: 900px) {
+        .main-nav__mega-menu {
+            left: 0;
+            width: min(520px, calc(100vw - (var(--container-padding) * 2)));
+            max-height: calc(100vh - 85px);
+            overflow-y: auto;
+        }
+    }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropdowns = document.querySelectorAll(".main-nav__dropdown");
+
+        function closeDropdown(dropdown) {
+            dropdown.classList.remove("is-open");
+            dropdown.querySelectorAll("[aria-expanded]").forEach(function(toggle) {
+                toggle.setAttribute("aria-expanded", "false");
+            });
+        }
+
+        dropdowns.forEach(function(dropdown) {
+            const toggle = dropdown.querySelector(".main-nav__dropdown-toggle, .main-nav__mega-toggle");
+
+            if (!toggle) {
+                return;
+            }
+
+            toggle.addEventListener("click", function(event) {
+                event.preventDefault();
+                const shouldOpen = !dropdown.classList.contains("is-open");
+
+                dropdowns.forEach(function(otherDropdown) {
+                    if (otherDropdown !== dropdown) {
+                        closeDropdown(otherDropdown);
+                    }
+                });
+
+                dropdown.classList.toggle("is-open", shouldOpen);
+                toggle.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+            });
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!event.target.closest(".main-nav__dropdown")) {
+                dropdowns.forEach(closeDropdown);
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                dropdowns.forEach(closeDropdown);
+            }
+        });
+    });
+</script>

@@ -6,6 +6,7 @@ from wagtail.blocks import (
     ListBlock,
     PageChooserBlock,
     StructBlock,
+    TextBlock,
     URLBlock,
 )
 from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
@@ -77,6 +78,7 @@ class HeaderSettings(BaseGenericSetting):
                                 choices=[
                                     ("none", "Без подменю"),
                                     ("simple", "Простое подменю"),
+                                    ("mega", "Мегаменю"),
                                 ],
                                 default="none",
                                 label="Тип меню*",
@@ -118,6 +120,49 @@ class HeaderSettings(BaseGenericSetting):
                                 required=False,
                                 label="Элементы подменю",
                                 help_text="Используется для типа 'Простое подменю'",
+                            ),
+                        ),
+                        (
+                            "mega_menu_items",
+                            ListBlock(
+                                StructBlock(
+                                    [
+                                        (
+                                            "name",
+                                            CharBlock(
+                                                max_length=255,
+                                                required=True,
+                                                label="Название карточки",
+                                            ),
+                                        ),
+                                        (
+                                            "description",
+                                            TextBlock(
+                                                required=False,
+                                                label="Описание",
+                                            ),
+                                        ),
+                                        (
+                                            "page",
+                                            PageChooserBlock(
+                                                required=False,
+                                                label="Страница",
+                                            ),
+                                        ),
+                                        (
+                                            "external_url",
+                                            URLBlock(
+                                                required=False,
+                                                label="Внешняя ссылка",
+                                            ),
+                                        ),
+                                    ],
+                                    icon="doc-full",
+                                    label="Карточка мегаменю",
+                                ),
+                                required=False,
+                                label="Карточки мегаменю",
+                                help_text="Используется для типа 'Мегаменю'",
                             ),
                         ),
                     ],
