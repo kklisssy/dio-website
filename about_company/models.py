@@ -128,6 +128,10 @@ class AboutPage(Page):
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
     subpage_types: ClassVar[list[str]] = []
 
+    def get_global_presence(self):
+        home_page = self.get_parent().specific
+        return getattr(home_page, "global_presence", [])
+
     class Meta:
         verbose_name = "О компании"
         verbose_name_plural = "Страницы о компании"

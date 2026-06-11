@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 {% if indicators %}
   {% for indicators_block in indicators %}
-  <section class="statistics-section">
+  <section class="statistics-section{% if layout == 'about' %} statistics-section--about{% endif %}">
     <div class="container statistics-section__container">
       <div class="statistics-section__header">
         {% if indicators_block.value.title %}
@@ -91,6 +91,7 @@
               grid-template-columns: repeat(2, minmax(0, 1fr));
               gap: 36px;
           }
+
       }
 
       @media (max-width: 640px) {
@@ -113,6 +114,7 @@
           .statistics-section__grid {
               grid-template-columns: 1fr;
           }
+
       }
   </style>
   <script>

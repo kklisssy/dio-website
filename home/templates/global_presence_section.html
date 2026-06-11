@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% if page.global_presence %}
-  {% for block in page.global_presence %}
+{% if global_presence %}
+  {% for block in global_presence %}
     {% if block.block_type == "presence" %}
       <section class="global-presence-section">
         <div class="container global-presence-section__container">

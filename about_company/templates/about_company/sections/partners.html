@@ -1,0 +1,190 @@
+{% load wagtailimages_tags %}
+<section class="about-clients">
+  <div class="container about-clients__container">
+    <div class="about-clients__copy">
+      <h2 class="heading heading--h2">{{ block.value.headline }}</h2>
+      {% if block.value.subheadline %}<p class="text text--md">{{ block.value.subheadline }}</p>{% endif %}
+    </div>
+    <div class="about-clients__carousel">
+      <button class="about-clients__arrow about-clients__arrow--prev"
+              type="button"
+              aria-label="Предыдущие логотипы">
+        <
+      </button>
+      <div class="about-clients__viewport">
+        <ul class="about-clients__logos" role="list">
+          {% for partner in block.value.logos %}
+            <li class="about-clients__logo-item">
+              {% if partner.link %}<a href="{{ partner.link }}" target="_blank" rel="noopener">{% endif %}
+                {% image partner.logo max-320x160 as logo %}
+                <img src="{{ logo.url }}"
+                     width="{{ logo.width }}"
+                     height="{{ logo.height }}"
+                     alt="">
+                {% if partner.link %}</a>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button class="about-clients__arrow about-clients__arrow--next"
+              type="button"
+              aria-label="Следующие логотипы">></button>
+    </div>
+  </div>
+</section>
+<style>
+    .about-clients {
+        padding: 72px 0;
+    }
+
+    .about-clients__container {
+        display: grid;
+        gap: 48px;
+    }
+
+    .about-clients__copy {
+        display: grid;
+        gap: 20px;
+        max-width: 900px;
+    }
+
+    .about-clients__copy p {
+        margin: 0;
+    }
+
+    .about-clients__carousel {
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr) 52px;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .about-clients__viewport {
+        min-width: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
+
+    .about-clients__viewport::-webkit-scrollbar {
+        display: none;
+    }
+
+    .about-clients__logos {
+        display: flex;
+        gap: clamp(28px, 5vw, 76px);
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .about-clients__logo-item {
+        display: flex;
+        flex: 0 0 clamp(150px, 15vw, 230px);
+        min-height: 92px;
+        align-items: center;
+        justify-content: center;
+        scroll-snap-align: start;
+    }
+
+    .about-clients__logo-item a {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .about-clients__logo-item img {
+        max-width: 100%;
+        max-height: 74px;
+        object-fit: contain;
+        filter: saturate(0.96);
+    }
+
+    .about-clients__arrow {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        place-items: center;
+        background: #bdbdbd;
+        color: var(--color-text);
+        font: inherit;
+        font-size: 30px;
+        line-height: 1;
+        cursor: pointer;
+        transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+
+    .about-clients__arrow:hover {
+        background: #eeeeee;
+    }
+
+    .about-clients__arrow:disabled {
+        opacity: 0.3;
+        cursor: default;
+    }
+
+    @media (max-width: 720px) {
+        .about-clients {
+            padding: 48px 0;
+        }
+
+        .about-clients__container {
+            gap: 32px;
+            padding: 36px 22px;
+        }
+
+        .about-clients__carousel {
+            grid-template-columns: 42px minmax(0, 1fr) 42px;
+            gap: 10px;
+        }
+
+        .about-clients__arrow {
+            width: 42px;
+            height: 42px;
+            font-size: 26px;
+        }
+
+        .about-clients__logo-item {
+            flex-basis: 150px;
+            min-height: 76px;
+        }
+    }
+</style>
+<script>
+    document.querySelectorAll(".about-clients__carousel").forEach(function(carousel) {
+        const viewport = carousel.querySelector(".about-clients__viewport");
+        const previousButton = carousel.querySelector(".about-clients__arrow--prev");
+        const nextButton = carousel.querySelector(".about-clients__arrow--next");
+
+        function updateButtons() {
+            const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+            previousButton.disabled = viewport.scrollLeft <= 1;
+            nextButton.disabled = viewport.scrollLeft >= maxScroll - 1;
+        }
+
+        function scrollLogos(direction) {
+            viewport.scrollBy({
+                left: direction * viewport.clientWidth * 0.8,
+                behavior: "smooth"
+            });
+        }
+
+        previousButton.addEventListener("click", function() {
+            scrollLogos(-1);
+        });
+        nextButton.addEventListener("click", function() {
+            scrollLogos(1);
+        });
+        viewport.addEventListener("scroll", updateButtons, {
+            passive: true
+        });
+        window.addEventListener("resize", updateButtons);
+        updateButtons();
+    });
+</script>

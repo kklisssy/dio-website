@@ -1,0 +1,98 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="about-work">
+  <div class="container">
+    <div class="about-work__header">
+      <h2 class="heading heading--h2">{{ block.value.title }}</h2>
+      {% if block.value.intro %}
+        <div class="about-work__intro text text--md">{{ block.value.intro|richtext }}</div>
+      {% endif %}
+    </div>
+    <ul class="about-work-grid" role="list">
+      {% for card in block.value.cards %}
+        {% if card.image %}
+          {% image card.image fill-900x760 as card_image %}
+        {% endif %}
+        <li class="about-work-card"
+            {% if card.image %}style="background-image: url('{{ card_image.url }}')"{% endif %}>
+          <div class="about-work-card__body">
+            <h3 class="heading heading--h3">{{ card.title }}</h3>
+            <div class="about-work-card__text text text--md">{{ card.text|richtext }}</div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+<style>
+    .about-work {
+        padding: 72px 0;
+    }
+
+    .about-work__header {
+        max-width: 980px;
+        margin-bottom: 44px;
+    }
+
+    .about-work__intro {
+        margin-top: 18px;
+    }
+
+    .about-work__intro p,
+    .about-work-card__text p {
+        margin: 0;
+    }
+
+    .about-work-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .about-work-card {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 1 / 1;
+        border-radius: var(--radius-large);
+        background: var(--color-surface) center / cover no-repeat;
+    }
+
+    .about-work-card::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62));
+    }
+
+    .about-work-card__body {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 24px;
+        align-content: start;
+        height: 100%;
+        padding: 64px 30px;
+    }
+
+    @media (max-width: 1180px) {
+        .about-work-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 720px) {
+        .about-work {
+            padding: 48px 0;
+        }
+
+        .about-work-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-work-card__body {
+            padding: 36px 28px;
+        }
+    }
+</style>
