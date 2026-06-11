@@ -18,7 +18,7 @@
         {% if page.intro %}<p class="about-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
       </div>
     </header>
-    {% include "statistics_section.html" with indicators=page.indicators %}
+    {% include "statistics_section.html" with indicators=page.indicators layout="about" %}
     {% if page.content %}
       <div class="about-page__content">
         {% for block in page.content %}
