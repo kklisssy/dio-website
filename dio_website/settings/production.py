@@ -1,15 +1,12 @@
 import os
-from pathlib import Path
 
 from .base import *
 
 DEBUG = False
 
-BASE_DIR = Path(BASE_DIR) if isinstance(BASE_DIR, str) else BASE_DIR
-
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
-    raise ValueError("SECRET_KEY must be set in environment variables!")
+    raise ValueError("SECRET_KEY must be set in environment variables")
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -40,12 +37,31 @@ MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
 STORAGES = {
-    **globals().get("STORAGES", {}),
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
-WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL")
-SITE_DOMAIN = os.environ.get("SITE_DOMAIN")
-FASTAPI_RAG = os.environ.get("FASTAPI_RAG")
+SITE_DOMAIN = os.environ.get("SITE_DOMAIN") or next(
+    (
+        host
+        for host in ALLOWED_HOSTS
+        if host not in {"localhost", "127.0.0.1"} and not host.startswith(".")
+    ),
+    "",
+)
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL") or (
+    f"https://{SITE_DOMAIN}" if SITE_DOMAIN else ""
+)
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", "True").lower() == "true"
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", "31536000"))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True

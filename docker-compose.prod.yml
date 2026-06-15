@@ -10,6 +10,7 @@ services:
       DJANGO_SETTINGS_MODULE: dio_website.settings.production
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
+      SECURE_SSL_REDIRECT: ${SECURE_SSL_REDIRECT:-True}
     depends_on:
       postgres:
         condition: service_healthy
@@ -18,11 +19,11 @@ services:
         echo '1. Applying migrations...' &&
         python manage.py migrate --noinput &&
         echo '2. Creating superuser...' &&
-        (python create_superuser.py || true) &&
+        python manage.py ensure_superuser &&
         echo '3. Collecting static files...' &&
         python manage.py collectstatic --noinput --clear &&
         echo '4. Starting production Django server...' &&
-        exec python manage.py runserver 0.0.0.0:8000
+        exec gunicorn dio_website.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 60
       "
     volumes:
       - static_data:/app/static
@@ -37,8 +38,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "${POSTGRES_PORT}:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 5s

@@ -18,7 +18,7 @@ services:
         echo '1. Applying migrations...' &&
         python manage.py migrate --noinput &&
         echo '2. Creating superuser...' &&
-        (python create_superuser.py || true) &&
+        python manage.py ensure_superuser &&
         echo '3. Starting local Django server...' &&
         exec python manage.py runserver 0.0.0.0:8000
       "
