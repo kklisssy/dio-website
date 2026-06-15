@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import timezone
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet

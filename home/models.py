@@ -1,12 +1,10 @@
-from wagtail.models import Page
 from django.db import models
 from django.shortcuts import redirect
 from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.fields import StreamField, RichTextField
-
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
-from wagtail.api import APIField
+from wagtail.models import Page
 
 from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
 
@@ -252,7 +250,8 @@ class HeroFeaturePage(Page):
         verbose_name="Содержимое страницы",
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         MultiFieldPanel(
             [
                 FieldPanel("headline"),
@@ -320,7 +319,8 @@ class WorkStagePage(Page):
         verbose_name="Содержимое страницы",
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         MultiFieldPanel(
             [
                 FieldPanel("headline"),
@@ -389,7 +389,8 @@ class HomePage(Page):
         verbose_name="Глобальное присутствие"
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel('hero'),
         FieldPanel("hero_features"),
         FieldPanel("work_stages"),

@@ -18,6 +18,7 @@ from base.page_blocks import (
     TableSectionBlock,
 )
 
+
 @register_snippet
 class ServiceCategory(models.Model):
     name = models.CharField("Название", max_length=100)

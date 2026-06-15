@@ -26,7 +26,8 @@ class PrivacyPolicyPage(Page):
         verbose_name="Содержимое страницы",
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("content"),
     ]
 

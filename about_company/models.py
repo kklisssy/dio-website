@@ -12,7 +12,7 @@ from base.page_blocks import FeaturesBlock, RichTextSectionBlock
 from home.models import (
     MainAchievementBlock,
     PartnershipBlock,
-    WorkStagesBlock,
+    WorkStagesBlock,  # noqa: F401 - imported by historical migrations
     WorkWithBlock,
 )
 
@@ -111,7 +111,8 @@ class AboutPage(Page):
         verbose_name="Содержимое страницы",
     )
 
-    content_panels: ClassVar[list[object]] = Page.content_panels + [
+    content_panels: ClassVar[list[object]] = [
+        *Page.content_panels,
         MultiFieldPanel(
             [
                 FieldPanel("hero_label"),

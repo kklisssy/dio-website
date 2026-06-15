@@ -7,6 +7,7 @@ from wagtail.models import Page
 
 from base.page_blocks import RichTextSectionBlock
 
+
 class ContactPage(Page):
     template = "contacts/contact_page.html"
 
@@ -61,7 +62,8 @@ class ContactPage(Page):
         verbose_name="Содержимое страницы",
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("headline"),
         MultiFieldPanel(
             [
