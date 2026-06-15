@@ -3,7 +3,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "8200:8000"
+      - "8080:8080"
     env_file:
       - .env
     environment:
@@ -23,7 +23,7 @@ services:
         echo '3. Collecting static files...' &&
         python manage.py collectstatic --noinput --clear &&
         echo '4. Starting production Django server...' &&
-        exec gunicorn dio_website.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 60
+        exec gunicorn dio_website.wsgi:application --bind 0.0.0.0:8080 --workers 3 --timeout 60
       "
     volumes:
       - static_data:/app/static
