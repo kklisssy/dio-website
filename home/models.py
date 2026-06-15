@@ -26,6 +26,7 @@ class HeroButtonBlock(blocks.StructBlock):
 class HeroFeaturesBlock(blocks.StructBlock):
     """Блок для отображения свойств hero"""
 
+    icon = ImageChooserBlock(required=False, label="Иконка")
     title = blocks.TextBlock(max_length=50, required=True, label="Заголовок свойства")
     description = blocks.TextBlock(max_length=200, required=False, label="Короткое описание")
     page = blocks.PageChooserBlock(
