@@ -490,7 +490,7 @@ a {
 
 .catalog-detail {
   overflow: hidden;
-  padding-top: 75px;
+  padding: 64px 0;
 }
 
 .catalog-detail__hero {

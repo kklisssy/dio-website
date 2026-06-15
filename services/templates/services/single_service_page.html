@@ -26,7 +26,7 @@
           <section class="single-service__block single-service__block--{{ block.block_type }}">
             {% if block.block_type == "text_section" %}
               {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="list-content">{{ block.value.text|richtext }}</div>
+              <div class="rich-content">{{ block.value.text|richtext }}</div>
             {% elif block.block_type == "table" %}
               {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
               <div class="custom-table-wrapper">{{ block.value.table }}</div>
@@ -43,7 +43,7 @@
                            alt="">
                     {% endif %}
                     <h3 class="heading heading--h3">{{ item.title }}</h3>
-                    {% if item.text %}<div class="text text--md">{{ item.text|richtext }}</div>{% endif %}
+                    {% if item.text %}<div class="rich-content">{{ item.text|richtext }}</div>{% endif %}
                   </li>
                 {% endfor %}
               </ul>
@@ -58,7 +58,7 @@
                 {% endif %}
                 <div>
                   <h2 class="heading heading--h2">{{ block.value.title }}</h2>
-                  <div class="list-content">{{ block.value.text|richtext }}</div>
+                  <div class="rich-content">{{ block.value.text|richtext }}</div>
                 </div>
               </div>
             {% elif block.block_type == "faq" %}
@@ -67,7 +67,7 @@
                 {% for item in block.value.items %}
                   <details>
                     <summary>{{ item.question }}</summary>
-                    <div class="text text--md">{{ item.answer|richtext }}</div>
+                    <div class="rich-content">{{ item.answer|richtext }}</div>
                   </details>
                 {% endfor %}
               </div>
