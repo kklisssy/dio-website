@@ -36,32 +36,10 @@
             </li>
           {% endfor %}
         </ul>
-        {% if services.paginator.num_pages > 1 %}
-          <nav class="service-index__pagination" aria-label="Пагинация услуг">
-            {% if services.has_previous %}
-              <a href="?page={{ services.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Назад</a>
-            {% endif %}
-            <span>{{ services.number }} / {{ services.paginator.num_pages }}</span>
-            {% if services.has_next %}
-              <a href="?page={{ services.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Вперед</a>
-            {% endif %}
-          </nav>
-        {% endif %}
+        {% include "components/pagination.html" with page_obj=services aria_label="Пагинация услуг" filter_param="category" current_filter=current_category %}
       {% else %}
         <p class="service-index__empty text text--md">Услуги скоро появятся.</p>
       {% endif %}
     </div>
   </section>
-  <style>
-      .service-index__pagination {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 20px;
-          color: var(--color-brand);
-          font-size: 20px;
-          font-weight: 700;
-      }
-
-  </style>
 {% endblock %}

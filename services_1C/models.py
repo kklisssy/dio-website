@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
 from django.utils import timezone
 from wagtail import blocks
@@ -103,6 +103,7 @@ class SingleService1CPage(Page):
         context = super().get_context(request)
         context["other_services_1c"] = (
             SingleService1CPage.objects.live()
+            .child_of(self.get_parent())
             .exclude(id=self.id)
             .order_by("-date")[:3]
         )
@@ -140,19 +141,10 @@ class Service1CIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        services_1c = SingleService1CPage.objects.live().order_by("-date")
-
-        paginator = Paginator(services_1c, self.items_per_page)
-        page = request.GET.get("page")
-
-        try:
-            services_1c_page = paginator.page(page)
-        except PageNotAnInteger:
-            services_1c_page = paginator.page(1)
-        except EmptyPage:
-            services_1c_page = paginator.page(paginator.num_pages)
-
-        context["services_1c"] = services_1c_page
+        services_1c = SingleService1CPage.objects.live().child_of(self).order_by("-date")
+        context["services_1c"] = Paginator(services_1c, self.items_per_page).get_page(
+            request.GET.get("page")
+        )
         return context
 
     class Meta:

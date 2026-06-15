@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
 from django.utils import timezone
 from wagtail import blocks
@@ -147,7 +147,10 @@ class SingleServicePage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context["other_services"] = (
-            SingleServicePage.objects.live().exclude(id=self.id).order_by("-date")[:3]
+            SingleServicePage.objects.live()
+            .child_of(self.get_parent())
+            .exclude(id=self.id)
+            .order_by("-date")[:3]
         )
         return context
 
@@ -181,7 +184,12 @@ class ServiceIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        services = SingleServicePage.objects.live().select_related("category").order_by("-date")
+        services = (
+            SingleServicePage.objects.live()
+            .child_of(self)
+            .select_related("category")
+            .order_by("-date")
+        )
 
         category = request.GET.get("category")
         categories = ServiceCategory.objects.all()
@@ -192,38 +200,12 @@ class ServiceIndexPage(Page):
         else:
             context["current_category"] = None
 
-        paginator = Paginator(services, self.items_per_page)
-        page = request.GET.get("page")
-
-        try:
-            services_page = paginator.page(page)
-        except PageNotAnInteger:
-            services_page = paginator.page(1)
-        except EmptyPage:
-            services_page = paginator.page(paginator.num_pages)
-
-        context["services"] = services_page
+        context["services"] = Paginator(services, self.items_per_page).get_page(
+            request.GET.get("page")
+        )
         context["service_categories"] = categories
         return context
 
     class Meta:
         verbose_name = "Лента услуг"
         verbose_name_plural = "Ленты услуг"
-
-
-class ServiceBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        max_length=100,
-        required=True,
-        label="Заголовок секции услуг",
-    )
-    show_count = blocks.IntegerBlock(
-        default=3,
-        min_value=1,
-        max_value=12,
-        label="Количество услуг для показа",
-    )
-
-    class Meta:
-        icon = "doc-full"
-        label = "Блок услуг"

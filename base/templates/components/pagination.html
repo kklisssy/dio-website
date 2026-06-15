@@ -1,0 +1,11 @@
+{% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination" aria-label="{{ aria_label }}">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}{% if filter_param and current_filter %}&{{ filter_param }}={{ current_filter|urlencode }}{% endif %}">Назад</a>
+    {% endif %}
+    <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if filter_param and current_filter %}&{{ filter_param }}={{ current_filter|urlencode }}{% endif %}">Вперёд</a>
+    {% endif %}
+  </nav>
+{% endif %}

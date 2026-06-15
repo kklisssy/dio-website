@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
 from django.utils import timezone
 from wagtail import blocks
@@ -218,17 +218,9 @@ class CaseIndexPage(Page):
         else:
             context["current_industry"] = None
 
-        paginator = Paginator(cases, self.items_per_page)
-        page = request.GET.get("page")
-
-        try:
-            cases_page = paginator.page(page)
-        except PageNotAnInteger:
-            cases_page = paginator.page(1)
-        except EmptyPage:
-            cases_page = paginator.page(paginator.num_pages)
-
-        context["cases"] = cases_page
+        context["cases"] = Paginator(cases, self.items_per_page).get_page(
+            request.GET.get("page")
+        )
         context["industry_choices"] = INDUSTRY_CHOICES
         return context
 

@@ -39,32 +39,10 @@
           {% endfor %}
         </ul>
 
-        {% if practice_articles.paginator.num_pages > 1 %}
-          <nav class="practice-index__pagination" aria-label="Пагинация материалов практики">
-            {% if practice_articles.has_previous %}
-              <a href="?page={{ practice_articles.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Назад</a>
-            {% endif %}
-            <span>{{ practice_articles.number }} / {{ practice_articles.paginator.num_pages }}</span>
-            {% if practice_articles.has_next %}
-              <a href="?page={{ practice_articles.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}">Вперед</a>
-            {% endif %}
-          </nav>
-        {% endif %}
+        {% include "components/pagination.html" with page_obj=practice_articles aria_label="Пагинация материалов практики" filter_param="category" current_filter=current_category %}
       {% else %}
         <p class="practice-index__empty text text--md">Материалы скоро появятся.</p>
       {% endif %}
     </div>
   </section>
-
-  <style>
-      .practice-index__pagination {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 20px;
-          color: var(--color-brand);
-          font-size: 20px;
-          font-weight: 700;
-      }
-  </style>
 {% endblock %}

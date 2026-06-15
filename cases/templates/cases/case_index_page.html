@@ -47,35 +47,13 @@
             </li>
           {% endfor %}
         </ul>
-        {% if cases.paginator.num_pages > 1 %}
-          <nav class="cases-index__pagination" aria-label="Пагинация кейсов">
-            {% if cases.has_previous %}
-              <a href="?page={{ cases.previous_page_number }}{% if current_industry %}&industry={{ current_industry }}{% endif %}">Назад</a>
-            {% endif %}
-            <span>{{ cases.number }} / {{ cases.paginator.num_pages }}</span>
-            {% if cases.has_next %}
-              <a href="?page={{ cases.next_page_number }}{% if current_industry %}&industry={{ current_industry }}{% endif %}">Вперед</a>
-            {% endif %}
-          </nav>
-        {% endif %}
+        {% include "components/pagination.html" with page_obj=cases aria_label="Пагинация кейсов" filter_param="industry" current_filter=current_industry %}
       {% else %}
         <p class="cases-index__empty text text--md">Кейсы скоро появятся.</p>
       {% endif %}
     </div>
   </section>
   <style>
-      .cases-index__pagination {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 18px;
-      }
-
-      .cases-index__pagination a {
-          font-weight: 700;
-          color: var(--color-brand);
-      }
-
       .cases-index__empty {
           margin: 0;
       }

@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
 from django.utils import timezone
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -167,17 +167,9 @@ class PracticeIndexPage(Page):
         else:
             context["current_category"] = None
 
-        paginator = Paginator(articles, self.items_per_page)
-        page = request.GET.get("page")
-
-        try:
-            articles_page = paginator.page(page)
-        except PageNotAnInteger:
-            articles_page = paginator.page(1)
-        except EmptyPage:
-            articles_page = paginator.page(paginator.num_pages)
-
-        context["practice_articles"] = articles_page
+        context["practice_articles"] = Paginator(articles, self.items_per_page).get_page(
+            request.GET.get("page")
+        )
         context["practice_categories"] = categories
         return context
 
