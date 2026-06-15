@@ -1,6 +1,6 @@
 FROM python:3.13-slim
 
-EXPOSE 8000
+EXPOSE 8080
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -17,4 +17,4 @@ RUN uv pip install --system --requirements requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "dio_website.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "dio_website.wsgi:application", "--bind", "0.0.0.0:8080"]
