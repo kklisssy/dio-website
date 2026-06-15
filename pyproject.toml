@@ -45,6 +45,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "dio_website/settings/*.py" = ["F403", "F405"]
+"*/tests.py" = ["F401"]
 
 [tool.ruff.lint.isort]
 section-order = [
