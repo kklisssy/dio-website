@@ -11,7 +11,7 @@
           {% if block.value.buttons %}
             <div class="buttons__cta">
               {% for button in block.value.buttons %}
-                <a href="{{ button.url }}"
+                <a href="{% if button.is_secondary %}{{ button.url }}{% else %}#contacts{% endif %}"
                    class="button__cta{% if button.is_secondary %} button__cta--secondary{% endif %}">
                   {{ button.text }}
                 </a>

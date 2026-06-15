@@ -102,16 +102,14 @@
         {% endfor %}
       </ul>
       <div class="main-nav__actions">
-        <button onclick="document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });"
-                class="button__cta"
-                type="button">
+        <a href="#contacts" class="button__cta">
           <svg class="button__cta-border"
                viewBox="0 0 160 45"
                preserveAspectRatio="none">
             <rect class="button__cta-rect" x="0" y="0" width="160" height="45" rx="8" ry="8" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="0 422" stroke-dashoffset="0" />
           </svg>
           {{ settings.base.HeaderSettings.consultation_button_text }}
-        </button>
+        </a>
       </div>
     </div>
   </div>
