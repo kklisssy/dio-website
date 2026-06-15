@@ -1,0 +1,25 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if block.block_type == "text_section" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  <div class="{{ text_class }}">{{ block.value.text|richtext }}</div>
+{% elif block.block_type == "table" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  <div class="custom-table-wrapper">{{ block.value.table }}</div>
+{% elif block.block_type == "features" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  <ul class="{{ cards_class }}" role="list">
+    {% for item in block.value.items %}
+      <li class="{{ card_class }}{% if card_surface %} surface-card{% endif %}">
+        {% if item.icon %}
+          {% image item.icon max-64x64 as item_icon %}
+          <img src="{{ item_icon.url }}"
+               width="{{ item_icon.width }}"
+               height="{{ item_icon.height }}"
+               alt="">
+        {% endif %}
+        <h3 class="heading heading--h3">{{ item.title }}</h3>
+        {% if item.text %}<div class="{{ item_text_class }}">{{ item.text|richtext }}</div>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

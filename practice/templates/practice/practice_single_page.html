@@ -30,30 +30,7 @@
       <div class="container practice-article__content">
         {% for block in page.content %}
           <section class="practice-article__block practice-article__block--{{ block.block_type }}">
-            {% if block.block_type == "text_section" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="rich-content">{{ block.value.text|richtext }}</div>
-            {% elif block.block_type == "table" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="custom-table-wrapper">{{ block.value.table }}</div>
-            {% elif block.block_type == "features" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <ul class="practice-article__cards" role="list">
-                {% for item in block.value.items %}
-                  <li class="practice-article__card surface-card">
-                    {% if item.icon %}
-                      {% image item.icon max-64x64 as item_icon %}
-                      <img src="{{ item_icon.url }}"
-                           width="{{ item_icon.width }}"
-                           height="{{ item_icon.height }}"
-                           alt="">
-                    {% endif %}
-                    <h3 class="heading heading--h3">{{ item.title }}</h3>
-                    {% if item.text %}<div class="rich-content">{{ item.text|richtext }}</div>{% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-            {% endif %}
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="practice-article__cards" card_class="practice-article__card" item_text_class="rich-content" card_surface=True %}
           </section>
         {% endfor %}
       </div>

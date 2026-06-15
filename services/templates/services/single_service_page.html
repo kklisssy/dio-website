@@ -24,29 +24,8 @@
       <div class="container single-service__content">
         {% for block in page.content %}
           <section class="single-service__block single-service__block--{{ block.block_type }}">
-            {% if block.block_type == "text_section" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="rich-content">{{ block.value.text|richtext }}</div>
-            {% elif block.block_type == "table" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="custom-table-wrapper">{{ block.value.table }}</div>
-            {% elif block.block_type == "features" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <ul class="single-service__cards" role="list">
-                {% for item in block.value.items %}
-                  <li class="single-service__card">
-                    {% if item.icon %}
-                      {% image item.icon max-64x64 as item_icon %}
-                      <img src="{{ item_icon.url }}"
-                           width="{{ item_icon.width }}"
-                           height="{{ item_icon.height }}"
-                           alt="">
-                    {% endif %}
-                    <h3 class="heading heading--h3">{{ item.title }}</h3>
-                    {% if item.text %}<div class="rich-content">{{ item.text|richtext }}</div>{% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
+            {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" %}
+              {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="single-service__cards" card_class="single-service__card" item_text_class="rich-content" %}
             {% elif block.block_type == "image_text" %}
               <div class="single-service__image-text single-service__image-text--{{ block.value.image_position }}">
                 {% if block.value.image %}
@@ -84,12 +63,6 @@
           font-weight: 700;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-      }
-
-      .single-service__image img {
-          width: 100%;
-          border-radius: 22px;
-          object-fit: cover;
       }
 
       .single-service__content,
@@ -154,7 +127,6 @@
 
       @media (max-width: 900px) {
 
-          .single-service__hero,
           .single-service__image-text,
           .single-service__cards {
               grid-template-columns: 1fr;

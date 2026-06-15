@@ -220,6 +220,8 @@ class HeroFeatureIndexPage(Page):
 class HeroFeaturePage(Page):
     """Страница с подробным описанием свойства."""
 
+    template = "home/content_detail_page.html"
+
     headline = models.CharField(
         "Заголовок",
         max_length=255,
@@ -288,6 +290,8 @@ class WorkStageIndexPage(Page):
 
 class WorkStagePage(Page):
     """Страница с подробным описанием этапа работы."""
+
+    template = "home/content_detail_page.html"
 
     headline = models.CharField(
         "Заголовок",
