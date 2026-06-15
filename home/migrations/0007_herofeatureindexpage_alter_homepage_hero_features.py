@@ -8,7 +8,7 @@ from django.db import migrations, models
 def group_feature_pages(apps, schema_editor):
     from home.models import HeroFeatureIndexPage, HeroFeaturePage, HomePage
 
-    for home_page in HomePage.objects.all():
+    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
         feature_index = (
             HeroFeatureIndexPage.objects.child_of(home_page)
             .filter(slug="features")
@@ -29,7 +29,7 @@ def group_feature_pages(apps, schema_editor):
 def ungroup_feature_pages(apps, schema_editor):
     from home.models import HeroFeatureIndexPage, HeroFeaturePage, HomePage
 
-    for home_page in HomePage.objects.all():
+    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
         feature_index = (
             HeroFeatureIndexPage.objects.child_of(home_page)
             .filter(slug="features")

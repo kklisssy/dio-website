@@ -8,7 +8,7 @@ from django.db import migrations, models
 def create_work_stage_indexes(apps, schema_editor):
     from home.models import HomePage, WorkStageIndexPage
 
-    for home_page in HomePage.objects.all():
+    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
         if WorkStageIndexPage.objects.child_of(home_page).exists():
             continue
 
@@ -24,7 +24,7 @@ def create_work_stage_indexes(apps, schema_editor):
 def delete_empty_work_stage_indexes(apps, schema_editor):
     from home.models import HomePage, WorkStageIndexPage
 
-    for home_page in HomePage.objects.all():
+    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
         for stage_index in WorkStageIndexPage.objects.child_of(home_page):
             if not stage_index.get_children().exists():
                 stage_index.delete()
