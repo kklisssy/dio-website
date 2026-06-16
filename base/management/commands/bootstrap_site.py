@@ -27,14 +27,38 @@ class Command(BaseCommand):
         if home_page:
             return home_page, False
 
+        existing_home = root_page.get_children().filter(slug="home").first()
+        if existing_home:
+            specific_home = existing_home.specific
+            if isinstance(specific_home, HomePage):
+                return specific_home, False
+
+            if self._is_disposable_default_page(existing_home):
+                existing_home.delete()
+                self.stdout.write("Default Wagtail home slug removed.")
+            else:
+                self.stdout.write(
+                    "Slug 'home' is already used by a non-empty page; using 'glavnaya-stranitsa'."
+                )
+                return self._create_home_page(root_page, slug="glavnaya-stranitsa"), True
+
+        return self._create_home_page(root_page, slug="home"), True
+
+    def _create_home_page(self, root_page, slug):
         home_page = HomePage(
             title="Главная страница",
-            slug="home",
+            slug=slug,
             show_in_menus=True,
         )
         root_page.add_child(instance=home_page)
         home_page.save_revision().publish()
-        return home_page, True
+        return home_page
+
+    def _is_disposable_default_page(self, page):
+        return (
+            page.title == "Welcome to your new Wagtail site!"
+            and not page.get_children().exists()
+        )
 
     def _set_default_site_root(self, home_page):
         site = Site.objects.filter(is_default_site=True).first() or Site.objects.first()
