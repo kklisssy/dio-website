@@ -3,7 +3,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "80:8080"
     env_file:
       - .env
     environment:
@@ -18,12 +18,14 @@ services:
       sh -c "
         echo '1. Applying migrations...' &&
         python manage.py migrate --noinput &&
-        echo '2. Creating superuser...' &&
+        echo '2. Bootstrapping Wagtail site...' &&
+        python manage.py bootstrap_site &&
+        echo '3. Creating superuser...' &&
         python manage.py ensure_superuser &&
-        echo '3. Collecting static files...' &&
+        echo '4. Collecting static files...' &&
         python manage.py collectstatic --noinput --clear &&
-        echo '4. Starting production Django server...' &&
-        exec gunicorn dio_website.wsgi:application --bind 0.0.0.0:8080 --workers 3 --timeout 60
+        echo '5. Starting production Django server...' &&
+        exec gunicorn dio_website.wsgi:application --bind 0.0.0.0:8080 --workers 3 --timeout 60 --access-logfile - --error-logfile -
       "
     volumes:
       - static_data:/app/static
