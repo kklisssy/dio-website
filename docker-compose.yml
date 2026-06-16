@@ -17,9 +17,11 @@ services:
       sh -c "
         echo '1. Applying migrations...' &&
         python manage.py migrate --noinput &&
-        echo '2. Creating superuser...' &&
+        echo '2. Bootstrapping Wagtail site...' &&
+        python manage.py bootstrap_site &&
+        echo '3. Creating superuser...' &&
         python manage.py ensure_superuser &&
-        echo '3. Starting local Django server...' &&
+        echo '4. Starting local Django server...' &&
         exec python manage.py runserver 0.0.0.0:8000
       "
     volumes:

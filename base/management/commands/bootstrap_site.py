@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.core.management.base import CommandError
 from wagtail.models import Page, Site
 
 from base.models import ContactSettings, FooterSettings, HeaderSettings
@@ -9,10 +10,11 @@ class Command(BaseCommand):
     help = "Create the initial Wagtail home page and baseline global settings."
 
     def handle(self, *args, **options):
+        Page.fix_tree(destructive=False)
         root_page = Page.get_first_root_node()
         home_page, created = self._get_or_create_home_page(root_page)
+        self._remove_default_welcome_page(root_page, home_page)
         self._set_default_site_root(home_page)
-        self._remove_default_wagtail_page(home_page)
         self._bootstrap_header_settings()
         self._bootstrap_contact_settings()
         self._bootstrap_footer_settings()
@@ -23,8 +25,10 @@ class Command(BaseCommand):
             self.stdout.write("Home page already exists; site root checked.")
 
     def _get_or_create_home_page(self, root_page):
-        home_page = HomePage.objects.filter(slug="home").first()
+        home_page = self._find_existing_home_page(root_page)
         if home_page:
+            self._normalize_home_page(home_page)
+            self._move_home_to_root(root_page, home_page)
             return home_page, False
 
         existing_home = root_page.get_children().filter(slug="home").first()
@@ -35,18 +39,67 @@ class Command(BaseCommand):
 
             if self._is_disposable_default_page(existing_home):
                 existing_home.delete()
+                root_page.refresh_from_db()
+                Page.fix_tree(destructive=False)
+                root_page.refresh_from_db()
                 self.stdout.write("Default Wagtail home slug removed.")
             else:
-                self.stdout.write(
-                    "Slug 'home' is already used by a non-empty page; using 'glavnaya-stranitsa'."
+                raise CommandError(
+                    "Slug 'home' is already used by a non-empty root page. "
+                    "Move or remove that page before bootstrapping the site."
                 )
-                return self._create_home_page(root_page, slug="glavnaya-stranitsa"), True
 
         return self._create_home_page(root_page, slug="home"), True
 
+    def _find_existing_home_page(self, root_page):
+        root_home_page = HomePage.objects.child_of(root_page).order_by("path").first()
+        if root_home_page:
+            return root_home_page
+
+        default_site = Site.objects.filter(is_default_site=True).first()
+        if default_site and isinstance(default_site.root_page.specific, HomePage):
+            return default_site.root_page.specific
+
+        return HomePage.objects.order_by("path").first()
+
+    def _normalize_home_page(self, home_page):
+        changed = False
+        if home_page.title in {
+            "Главная страница",
+            "Р“Р»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°",
+        }:
+            home_page.title = "Главная"
+            changed = True
+
+        if not home_page.live:
+            home_page.live = True
+            changed = True
+
+        if changed:
+            home_page.save_revision().publish()
+
+    def _move_home_to_root(self, root_page, home_page):
+        if home_page.get_parent().id == root_page.id:
+            return
+
+        existing_home = root_page.get_children().filter(slug=home_page.slug).first()
+        if existing_home and existing_home.id != home_page.id:
+            if self._is_default_welcome_page(existing_home):
+                existing_home.slug = "wagtail-welcome"
+                existing_home.save()
+            else:
+                raise CommandError(
+                    "Cannot move HomePage to root because another non-empty root page "
+                    f"already uses slug '{home_page.slug}'."
+                )
+
+        home_page.move(root_page, pos="last-child")
+        home_page.refresh_from_db()
+
     def _create_home_page(self, root_page, slug):
+        root_page.refresh_from_db()
         home_page = HomePage(
-            title="Главная страница",
+            title="Главная",
             slug=slug,
             show_in_menus=True,
         )
@@ -55,10 +108,27 @@ class Command(BaseCommand):
         return home_page
 
     def _is_disposable_default_page(self, page):
-        return (
-            page.title == "Welcome to your new Wagtail site!"
-            and not page.get_children().exists()
+        return self._is_default_welcome_page(page) and not page.get_children().exists()
+
+    def _is_default_welcome_page(self, page):
+        return page.title == "Welcome to your new Wagtail site!"
+
+    def _remove_default_welcome_page(self, root_page, home_page):
+        root_page.refresh_from_db()
+        welcome_pages = root_page.get_children().filter(
+            title="Welcome to your new Wagtail site!"
         )
+        for page in welcome_pages.exclude(id=home_page.id):
+            if page.get_children().exists():
+                raise CommandError(
+                    "Default Wagtail welcome page still has child pages. "
+                    "Move those pages under HomePage before bootstrapping the site."
+                )
+            page.delete()
+            self.stdout.write("Default Wagtail welcome page removed.")
+
+        Page.fix_tree(destructive=False)
+        root_page.refresh_from_db()
 
     def _set_default_site_root(self, home_page):
         site = Site.objects.filter(is_default_site=True).first() or Site.objects.first()
@@ -81,21 +151,6 @@ class Command(BaseCommand):
             changed = True
         if changed:
             site.save()
-
-    def _remove_default_wagtail_page(self, home_page):
-        default_pages = Page.objects.filter(title="Welcome to your new Wagtail site!").exclude(
-            id=home_page.id
-        )
-        for page in default_pages:
-            if page.get_children().exists():
-                if page.live:
-                    page.unpublish()
-                    self.stdout.write(
-                        "Default Wagtail page has children; unpublished instead of deleting."
-                    )
-                continue
-            page.delete()
-            self.stdout.write("Default Wagtail page removed.")
 
     def _bootstrap_header_settings(self):
         settings = self._get_or_create_setting(HeaderSettings)

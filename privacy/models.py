@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -30,6 +32,9 @@ class PrivacyPolicyPage(Page):
         *Page.content_panels,
         FieldPanel("content"),
     ]
+
+    parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
+    subpage_types: ClassVar[list[str]] = []
 
     class Meta:
         verbose_name = "Политика конфиденциальности"

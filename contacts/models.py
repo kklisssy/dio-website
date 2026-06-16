@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.db import models
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -78,6 +80,9 @@ class ContactPage(Page):
         FieldPanel("social_links"),
         FieldPanel("content"),
     ]
+
+    parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
+    subpage_types: ClassVar[list[str]] = []
 
     class Meta:
         verbose_name = "Контакты"
