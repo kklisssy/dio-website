@@ -18,9 +18,7 @@
         {% if page.intro %}<p class="about-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
       </div>
     </header>
-
-    {% include "about_company/sections/statistics.html" %}
-
+    {% include "statistics_section.html" with indicators=page.indicators %}
     {% for block in page.content %}
       {% if block.block_type == "features" %}
         {% include "about_company/sections/features.html" with block=block %}
@@ -41,7 +39,6 @@
         {% include "about_company/sections/certificates.html" with block=block %}
       {% endif %}
     {% endfor %}
-
     {% include "global_presence_section.html" with global_presence=page.get_global_presence %}
   </article>
   <style>

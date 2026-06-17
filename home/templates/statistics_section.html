@@ -1,164 +1,180 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 {% if indicators %}
   {% for indicators_block in indicators %}
-  <section class="statistics-section{% if layout == 'about' %} statistics-section--about{% endif %}">
-    <div class="container statistics-section__container">
-      <div class="statistics-section__header">
-        {% if indicators_block.value.title %}
-          <h3 class="statistics-section__title heading heading--h3">{{ indicators_block.value.title }}</h3>
-        {% endif %}
-        {% if indicators_block.value.intro %}
-          <div class="text text--xl">{{ indicators_block.value.intro|richtext }}</div>
-        {% endif %}
+    <section class="statistics-section">
+      <div class="container statistics-section__container">
+        <div class="statistics-section__header">
+          {% if indicators_block.value.title %}
+            <h3 class="statistics-section__title heading heading--h3">{{ indicators_block.value.title }}</h3>
+          {% endif %}
+          {% if indicators_block.value.intro %}
+            <div class="text text--xl">{{ indicators_block.value.intro|richtext }}</div>
+          {% endif %}
+        </div>
+        <ul class="statistics-section__grid" role="list">
+          {% for achievement in indicators_block.value.items %}
+            <li class="statistics-section__item">
+              <div class="statistics-section__value counter-element"
+                   data-value="{{ achievement.value }}"
+                   data-suffix="{{ achievement.suffix }}">0{{ achievement.suffix }}</div>
+              <h3 class="text text--xl statistics-section__label">{{ achievement.label }}</h3>
+              {% if achievement.description %}
+                <div class="statistics-section__description text text--relaxed text--soft">{{ achievement.description|richtext }}</div>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
       </div>
-      <ul class="statistics-section__grid" role="list">
-        {% for achievement in indicators_block.value.items %}
-          <li class="statistics-section__item">
-            <div class="statistics-section__value counter-element"
-                 data-value="{{ achievement.value }}"
-                 data-suffix="{{ achievement.suffix }}">0{{ achievement.suffix }}</div>
-            <h3 class="text text--xl statistics-section__label">{{ achievement.label }}</h3>
-            {% if achievement.description %}
-              <div class="statistics-section__description text text--relaxed text--soft">
-                {{ achievement.description|richtext }}
-              </div>
-            {% endif %}
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
-  <style>
-      .statistics-section__container {
-          padding: 64px 72px;
-          border-radius: var(--radius-large);
-      }
+    </section>
+    <style>
+        .statistics-section__container {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(360px, 1.15fr);
+            grid-template-areas: "stats header";
+            gap: clamp(64px, 9vw, 144px);
+            align-items: start;
+            padding: 64px 72px;
+            border-bottom: 1px solid #dedede;
+            border-radius: 0;
+        }
 
-      .statistics-section__header {
-          margin: 0 auto 56px;
-          padding-bottom: 24px;
-          border-bottom: 1px solid #e7e3df;
-          text-align: center;
-      }
+        .statistics-section__header {
+            grid-area: header;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            text-align: left;
+        }
 
-      .statistics-section__title {
-          margin: 0 0 14px;
-      }
+        .statistics-section__title {
+            margin: 0 0 20px;
+        }
 
-      .statistics-section__grid {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 56px;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-      }
+        .statistics-section__grid {
+            display: grid;
+            grid-area: stats;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 48px 24px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
 
-      .statistics-section__item {
-          text-align: center;
-      }
+        .statistics-section__item {
+            padding-top: 12px;
+            border-top: 1px solid var(--color-brand);
+            text-align: left;
+        }
 
-      .statistics-section__value {
-          margin-bottom: 18px;
-          font-size: 31px;
-          line-height: 1.1;
-          font-weight: 700;
-          transition: color 1s ease;
-      }
+        .statistics-section__value {
+            margin-bottom: 10px;
+            font-size: clamp(48px, 4.2vw, 68px);
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: 0;
+            transition: color 1s ease;
+        }
 
-      .statistics-section__value.animated {
-          color: #111418;
-      }
+        .statistics-section__value.animated {
+            color: #111418;
+        }
 
-      .statistics-section__label {
-          color: #111418;
-      }
+        .statistics-section__label {
+            --text-size: 14px;
+            color: var(--color-muted);
+            font-weight: 400;
+        }
 
-      .statistics-section__description {
-          margin-top: 14px;
-      }
+        .statistics-section__description {
+            margin-top: 14px;
+        }
 
-      .statistics-section__description p {
-          margin: 0;
-      }
+        .statistics-section__description p {
+            margin: 0;
+        }
 
-      @media (max-width: 991px) {
-          .statistics-section__container {
-              padding: 56px 40px 64px;
-          }
+        @media (max-width: 991px) {
+            .statistics-section__container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "stats";
+                gap: 48px;
+                padding: 56px 40px 64px;
+            }
+        }
 
-          .statistics-section__grid {
-              grid-template-columns: repeat(2, minmax(0, 1fr));
-              gap: 36px;
-          }
+        @media (max-width: 720px) {
+            .statistics-section__grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 36px 18px;
+            }
 
-      }
+            .statistics-section__value {
+                font-size: clamp(38px, 12vw, 52px);
+            }
+        }
 
-      @media (max-width: 640px) {
-          .statistics-section {
-              padding: 32px 16px;
-          }
+        @media (max-width: 640px) {
+            .statistics-section {
+                padding: 32px 16px;
+            }
 
-          .statistics-section__container {
-              padding: 36px 22px 44px;
-          }
+            .statistics-section__container {
+                padding: 36px 22px 44px;
+            }
 
-          .statistics-section__title {
-              --heading-size: 24px;
-          }
+            .statistics-section__title {
+                --heading-size: 24px;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function animateCounter(element, start, end, duration, suffix) {
+                let startTime = null;
 
-          .statistics-section__grid {
-              grid-template-columns: 1fr;
-          }
+                function updateCounter(timestamp) {
+                    if (!startTime) {
+                        startTime = timestamp;
+                    }
 
-      }
-  </style>
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          function animateCounter(element, start, end, duration, suffix) {
-              let startTime = null;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const currentValue = Math.floor(progress * (end - start) + start);
+                    element.textContent = currentValue + suffix;
 
-              function updateCounter(timestamp) {
-                  if (!startTime) {
-                      startTime = timestamp;
-                  }
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.classList.add("animated");
+                    }
+                }
 
-                  const progress = Math.min((timestamp - startTime) / duration, 1);
-                  const currentValue = Math.floor(progress * (end - start) + start);
-                  element.textContent = currentValue + suffix;
+                requestAnimationFrame(updateCounter);
+            }
 
-                  if (progress < 1) {
-                      requestAnimationFrame(updateCounter);
-                  } else {
-                      element.classList.add("animated");
-                  }
-              }
+            function isElementInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
+            }
 
-              requestAnimationFrame(updateCounter);
-          }
+            function handleCounters() {
+                document.querySelectorAll(".counter-element").forEach(function(counter) {
+                    if (!isElementInViewport(counter) || counter.classList.contains("animated")) {
+                        return;
+                    }
 
-          function isElementInViewport(element) {
-              const rect = element.getBoundingClientRect();
-              return rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
-          }
+                    const value = parseInt(counter.getAttribute("data-value"), 10) || 0;
+                    const suffix = counter.getAttribute("data-suffix") || "";
+                    animateCounter(counter, 0, value, 1000, suffix);
+                });
+            }
 
-          function handleCounters() {
-              document.querySelectorAll(".counter-element").forEach(function(counter) {
-                  if (!isElementInViewport(counter) || counter.classList.contains("animated")) {
-                      return;
-                  }
-
-                  const value = parseInt(counter.getAttribute("data-value"), 10) || 0;
-                  const suffix = counter.getAttribute("data-suffix") || "";
-                  animateCounter(counter, 0, value, 1000, suffix);
-              });
-          }
-
-          window.addEventListener("scroll", handleCounters, {
-              passive: true
-          });
-          handleCounters();
-      });
-  </script>
+            window.addEventListener("scroll", handleCounters, {
+                passive: true
+            });
+            handleCounters();
+        });
+    </script>
   {% endfor %}
 {% endif %}
