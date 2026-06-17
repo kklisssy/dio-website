@@ -538,7 +538,7 @@ a {
 .custom-table-wrapper th,
 .custom-table-wrapper td {
   padding: 18px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(44, 38, 38, 0.2);
   text-align: left;
   vertical-align: top;
 }
@@ -564,7 +564,7 @@ a {
 /* Заголовок таблицы если есть caption */
 .custom-table-wrapper caption {
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 22px;
   font-weight: 600;
   margin-bottom: 1rem;
   color: #1f2937;
