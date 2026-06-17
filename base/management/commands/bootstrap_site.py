@@ -200,7 +200,7 @@ class Command(BaseCommand):
         changed = False
 
         if not settings.footer_button:
-            settings.footer_button = "Связаться с нами"
+            settings.footer_button = "Подписаться"
             changed = True
         if not settings.footer_button_href:
             settings.footer_button_href = "#contacts"
