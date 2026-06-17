@@ -8,7 +8,7 @@
               class="cases-section__title heading heading--h2">Наши кейсы</h2>
           {% with case_index=page.get_case_index %}
             {% if case_index %}
-              <a class="cases-section__all button__cta button__cta--secondary"
+              <a class="cases-section__all button__cta button_cta--cases"
                  href="{% pageurl case_index %}">Все кейсы</a>
             {% endif %}
           {% endwith %}
@@ -68,6 +68,20 @@
         .cases-section__title {
             --heading-size: 44px;
             --heading-line-height: 1.1;
+        }
+
+        .button_cta--cases {
+            border-color: black;
+            box-shadow: 0 0 0 2px black inset;
+            color: var(--color-text);
+            background-color: #0000;
+            border-radius: 14px;
+            padding: 12px 30px;
+            font-size: 20px;
+        }
+
+        .button_cta--cases:hover {
+            background: #b8b8b8;
         }
 
         @media (max-width: 900px) {
