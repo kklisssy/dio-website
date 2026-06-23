@@ -7,10 +7,10 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 
 
-class PrivacyPolicyPage(Page):
+class LegalDocumentPage(Page):
     """Страница политики конфиденциальности."""
 
-    template = "privacy/privacy_page.html"
+    template = "privacy/document_page.html"
 
     content = StreamField(
         [
@@ -37,5 +37,5 @@ class PrivacyPolicyPage(Page):
     subpage_types: ClassVar[list[str]] = []
 
     class Meta:
-        verbose_name = "Политика конфиденциальности"
-        verbose_name_plural = "Политика конфиденциальности"
+        verbose_name = "Документ"
+        verbose_name_plural = "Документы"
