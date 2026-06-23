@@ -591,11 +591,15 @@ a {
 
 .feature-card-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.feature-card-list--about {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .feature-card {
