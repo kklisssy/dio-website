@@ -8,12 +8,24 @@
         <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
         {% if page.intro %}<div class="service-1c-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
       </header>
+      {% if service_1c_categories %}
+        <nav class="service-1c-index__filters filter-list"
+             aria-label="Категории 1С">
+          <a class="service-1c-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
+             href="{% pageurl page %}">Все</a>
+          {% for category in service_1c_categories %}
+            <a class="service-1c-index__filter filter-pill{% if current_category == category.value %} filter-pill--active{% endif %}"
+               href="{% pageurl page %}?category={{ category.value }}">{{ category.name }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
       {% if services_1c %}
         <ul class="catalog-grid" role="list">
           {% for service in services_1c %}
             <li class="catalog-card">
               <a class="catalog-card__link" href="{% pageurl service %}">
                 <div class="catalog-card__content">
+                  {% if service.category %}<p class="catalog-card__category">{{ service.category.name }}</p>{% endif %}
                   <h2 class="catalog-card__title heading heading--h3">{{ service.headline|default:service.title }}</h2>
                   {% if service.intro %}<p class="catalog-card__text">{{ service.intro }}</p>{% endif %}
                 </div>
@@ -25,7 +37,7 @@
             </li>
           {% endfor %}
         </ul>
-        {% include "components/pagination.html" with page_obj=services_1c aria_label="Пагинация решений 1С" %}
+        {% include "components/pagination.html" with page_obj=services_1c aria_label="Пагинация решений 1С" filter_param="category" current_filter=current_category %}
       {% else %}
         <p class="service-1c-index__empty text text--md">Сервисы 1С скоро появятся.</p>
       {% endif %}

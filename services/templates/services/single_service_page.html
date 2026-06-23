@@ -14,7 +14,7 @@
       {% endif %}
       <div class="container catalog-detail__hero-inner">
         <div class="catalog-detail__hero-content">
-          {% if page.category %}<p class="single-service__category">{{ page.category.name }}</p>{% endif %}
+          {% if page.category %}<p class="catalog-detail__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
           {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
         </div>
@@ -25,7 +25,7 @@
         {% for block in page.content %}
           <section class="single-service__block single-service__block--{{ block.block_type }}">
             {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" %}
-              {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="single-service__cards" card_class="single-service__card" item_text_class="rich-content" %}
+              {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
             {% elif block.block_type == "image_text" %}
               <div class="single-service__image-text single-service__image-text--{{ block.value.image_position }}">
                 {% if block.value.image %}
@@ -55,16 +55,32 @@
         {% endfor %}
       </div>
     {% endif %}
+    {% if other_services %}
+      <section class="catalog-related">
+        <div class="container catalog-related__inner">
+          <h2 class="heading heading--h2">Другие услуги</h2>
+          <ul class="catalog-grid" role="list">
+            {% for service in other_services %}
+              <li class="catalog-card service-catalog-card">
+                <a class="catalog-card__link" href="{% pageurl service %}">
+                  <div class="catalog-card__content">
+                    {% if service.category %}<p class="catalog-card__category">{{ service.category.name }}</p>{% endif %}
+                    <h3 class="catalog-card__title heading heading--h3">{{ service.headline|default:service.title }}</h3>
+                    {% if service.intro %}<p class="catalog-card__text">{{ service.intro }}</p>{% endif %}
+                  </div>
+                  <span class="catalog-card__more">
+                    Подробнее
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
   </article>
   <style>
-      .single-service__category {
-          margin: 0;
-          color: var(--color-brand);
-          font-weight: 700;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-      }
-
       .single-service__content,
       .single-service__block {
           display: grid;
@@ -72,23 +88,7 @@
       }
 
       .single-service__content {
-        padding-top: 50px;
-      }
-
-      .single-service__cards {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 18px;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-      }
-
-      .single-service__card {
-          display: grid;
-          gap: 18px;
-          padding: 34px;
-          border-radius: 22px;
+          padding-top: 50px;
       }
 
       .single-service__image-text {
@@ -120,15 +120,14 @@
 
       .single-service__faq summary {
           cursor: pointer;
-          color: var(--color-brand);
+          color: black;
           font-size: 22px;
           font-weight: 700;
       }
 
       @media (max-width: 900px) {
 
-          .single-service__image-text,
-          .single-service__cards {
+          .single-service__image-text {
               grid-template-columns: 1fr;
           }
 

@@ -8,8 +8,28 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
+
+
+@register_snippet
+class Service1CCategory(models.Model):
+    name = models.CharField("Название", max_length=100)
+    value = models.SlugField("Значение для URL", max_length=100, unique=True)
+
+    panels: ClassVar[list[object]] = [
+        FieldPanel("name"),
+        FieldPanel("value"),
+    ]
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = "Категория 1С"
+        verbose_name_plural = "Категории 1С"
+
+    def __str__(self):
+        return self.name
 
 
 class CallToActionBlock(blocks.StructBlock):
@@ -43,6 +63,14 @@ class CallToActionBlock(blocks.StructBlock):
 
 class SingleService1CPage(Page):
     date = models.DateField("Дата публикации", default=timezone.now)
+    category = models.ForeignKey(
+        "services_1C.Service1CCategory",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="services_1c",
+        verbose_name="Категория",
+    )
     headline = models.CharField(
         "Заголовок",
         max_length=255,
@@ -78,6 +106,7 @@ class SingleService1CPage(Page):
         MultiFieldPanel(
             [
                 FieldPanel("date"),
+                FieldPanel("category"),
                 FieldPanel("headline"),
                 FieldPanel("intro"),
                 FieldPanel("image"),
@@ -104,6 +133,7 @@ class SingleService1CPage(Page):
         context["other_services_1c"] = (
             SingleService1CPage.objects.live()
             .child_of(self.get_parent())
+            .select_related("category")
             .exclude(id=self.id)
             .order_by("-date")[:3]
         )
@@ -141,10 +171,27 @@ class Service1CIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        services_1c = SingleService1CPage.objects.live().child_of(self).order_by("-date")
+        services_1c = (
+            SingleService1CPage.objects.live()
+            .child_of(self)
+            .select_related("category")
+            .order_by("-date")
+        )
+        category = request.GET.get("category")
+        categories = Service1CCategory.objects.filter(
+            services_1c__in=services_1c
+        ).distinct()
+
+        if category and categories.filter(value=category).exists():
+            services_1c = services_1c.filter(category__value=category)
+            context["current_category"] = category
+        else:
+            context["current_category"] = None
+
         context["services_1c"] = Paginator(services_1c, self.items_per_page).get_page(
             request.GET.get("page")
         )
+        context["service_1c_categories"] = categories
         return context
 
     class Meta:

@@ -14,6 +14,7 @@
       {% endif %}
       <div class="container catalog-detail__hero-inner">
         <div class="catalog-detail__hero-content">
+          {% if page.category %}<p class="catalog-detail__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
           {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
         </div>
@@ -37,11 +38,35 @@
             </section>
           {% else %}
             <section class="container single-service-1c__block single-service-1c__block--{{ block.block_type }}">
-              {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="single-service-1c__cards" card_class="single-service-1c__card" item_text_class="rich-content" card_surface=True %}
+              {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
             </section>
           {% endif %}
         {% endfor %}
       </div>
+    {% endif %}
+    {% if other_services_1c %}
+      <section class="catalog-related">
+        <div class="container catalog-related__inner">
+          <h2 class="heading heading--h2">Другие решения</h2>
+          <ul class="catalog-grid" role="list">
+            {% for service in other_services_1c %}
+              <li class="catalog-card">
+                <a class="catalog-card__link" href="{% pageurl service %}">
+                  <div class="catalog-card__content">
+                    {% if service.category %}<p class="catalog-card__category">{{ service.category.name }}</p>{% endif %}
+                    <h3 class="catalog-card__title heading heading--h3">{{ service.headline|default:service.title }}</h3>
+                    {% if service.intro %}<p class="catalog-card__text">{{ service.intro }}</p>{% endif %}
+                  </div>
+                  <span class="catalog-card__more">
+                    Подробнее
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
     {% endif %}
   </article>
   <style>
@@ -53,21 +78,6 @@
 
       .single-service-1c__content {
           padding-top: 50px;
-      }
-
-      .single-service-1c__cards {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 18px;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-      }
-
-      .single-service-1c__card {
-          display: grid;
-          gap: 18px;
-          padding: 34px;
       }
 
       .single-service-1c__cta {
@@ -103,11 +113,5 @@
           font-weight: 500;
       }
 
-      @media (max-width: 900px) {
-
-          .single-service-1c__cards {
-              grid-template-columns: 1fr;
-          }
-      }
   </style>
 {% endblock %}

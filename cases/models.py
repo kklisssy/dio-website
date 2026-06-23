@@ -9,56 +9,14 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.search import index
 
+from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
+
 INDUSTRY_CHOICES = [
     ("oil-gas", "Нефтегаз"),
     ("service_business", "Сервисный бизнес"),
     ("trading", "Торговля"),
     ("production", "Производство"),
 ]
-
-RICH_TEXT_FEATURES = [
-    "h2",
-    "h3",
-    "h4",
-    "bold",
-    "italic",
-    "link",
-    "ol",
-    "ul",
-    "blockquote",
-]
-
-
-class CaseTextBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=False, label="Заголовок")
-    text = blocks.RichTextBlock(features=RICH_TEXT_FEATURES, label="Текст")
-
-    class Meta:
-        icon = "doc-full"
-        label = "Текстовая секция"
-
-
-class MetricItemBlock(blocks.StructBlock):
-    value = blocks.CharBlock(required=True, label="Значение")
-    label = blocks.CharBlock(required=True, label="Описание")
-
-    class Meta:
-        icon = "pick"
-        label = "Метрика"
-
-
-class MetricsBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        required=False,
-        default="Ключевые показатели",
-        label="Заголовок блока",
-    )
-    items = blocks.ListBlock(MetricItemBlock(), label="Метрики")
-
-    class Meta:
-        icon = "date"
-        label = "Ключевые показатели"
-
 
 class ResultItemBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(
@@ -128,8 +86,9 @@ class SingleCasePage(Page):
     )
     content = StreamField(
         [
-            ("text_section", CaseTextBlock()),
-            ("metrics", MetricsBlock()),
+            ("text_section", RichTextSectionBlock()),
+            ("table", TableSectionBlock()),
+            ("features", FeaturesBlock()),
             ("results", ResultsBlock()),
             ("technologies", TechnologiesBlock()),
         ],

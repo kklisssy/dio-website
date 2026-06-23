@@ -14,7 +14,7 @@
       {% endif %}
       <div class="container catalog-detail__hero-inner">
         <div class="catalog-detail__hero-content">
-          {% if page.category %}<p class="single-product__category">{{ page.category.name }}</p>{% endif %}
+          {% if page.category %}<p class="catalog-detail__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
           {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
           {% if page.price %}<p class="single-product__price">{{ page.price }}</p>{% endif %}
@@ -25,14 +25,37 @@
       <div class="container single-product__content">
         {% for block in page.content %}
           <section class="single-product__block single-product__block--{{ block.block_type }}">
-            {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="single-product__cards" card_class="single-product__card" item_text_class="rich-content" card_surface=True %}
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
           </section>
         {% endfor %}
       </div>
     {% endif %}
+    {% if other_products %}
+      <section class="catalog-related">
+        <div class="container catalog-related__inner">
+          <h2 class="heading heading--h2">Другие продукты</h2>
+          <ul class="catalog-grid" role="list">
+            {% for product in other_products %}
+              <li class="catalog-card">
+                <a class="catalog-card__link" href="{% pageurl product %}">
+                  <div class="catalog-card__content">
+                    {% if product.category %}<p class="catalog-card__category">{{ product.category.name }}</p>{% endif %}
+                    <h3 class="catalog-card__title heading heading--h3">{{ product.headline|default:product.title }}</h3>
+                    {% if product.intro %}<p class="catalog-card__text">{{ product.intro }}</p>{% endif %}
+                  </div>
+                  <span class="catalog-card__more">
+                    Подробнее
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
   </article>
   <style>
-      .single-product__category,
       .single-product__price {
           display: inline-flex;
           width: fit-content;
@@ -41,11 +64,6 @@
           background: var(--color-brand);
           color: #ffffff;
           line-height: 1.1;
-      }
-
-      .single-product__category {
-          padding: 16px 28px;
-          font-size: 24px;
       }
 
       .single-product__price {
@@ -63,26 +81,7 @@
           gap: 32px;
       }
 
-      .single-product__cards {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 18px;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-      }
-
-      .single-product__card {
-          display: grid;
-          gap: 18px;
-          padding: 34px;
-      }
-
       @media (max-width: 900px) {
-          .single-product__cards {
-              grid-template-columns: 1fr;
-          }
-
           .single-product__price {
               font-size: 34px;
           }
