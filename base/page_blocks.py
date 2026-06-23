@@ -5,6 +5,7 @@ from wagtail.images.blocks import ImageChooserBlock
 RICH_TEXT_FEATURES = [
     "h2",
     "h3",
+    "h4",
     "bold",
     "italic",
     "link",
@@ -35,7 +36,7 @@ class TableSectionBlock(blocks.StructBlock):
 class FeatureItemBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, label="Заголовок")
     text = blocks.RichTextBlock(
-        features=["bold", "italic", "link", "ol", "ul"],
+        features=RICH_TEXT_FEATURES,
         required=False,
         label="Описание",
     )

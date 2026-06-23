@@ -4,15 +4,15 @@
     <div class="about-features__header">
       {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
     </div>
-    <ul class="about-feature-grid" role="list">
+    <ul class="feature-card-list feature-card-list--about" role="list">
       {% for item in block.value.items %}
-        <li class="about-feature-card">
-          <div class="about-feature-card__top">
-            <span class="about-feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+        <li class="feature-card">
+          <div class="feature-card__top">
+            <span class="feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
             {% if item.icon %}
               {% image item.icon max-96x96 as icon %}
-              <span class="about-feature-card__icon-wrap">
-                <img class="about-feature-card__icon"
+              <span class="feature-card__icon-wrap">
+                <img class="feature-card__icon"
                      src="{{ icon.url }}"
                      width="{{ icon.width }}"
                      height="{{ icon.height }}"
@@ -20,154 +20,11 @@
               </span>
             {% endif %}
           </div>
-          <span class="about-feature-card__accent" aria-hidden="true"></span>
+          <span class="feature-card__accent" aria-hidden="true"></span>
           <h3 class="heading heading--h3">{{ item.title }}</h3>
-          {% if item.text %}<div class="about-feature-card__text text text--md">{{ item.text|richtext }}</div>{% endif %}
+          {% if item.text %}<div class="feature-card__text text text--md">{{ item.text|richtext }}</div>{% endif %}
         </li>
       {% endfor %}
     </ul>
   </div>
 </section>
-<style>
-    .about-features {
-        padding: 36px 0;
-        background: var(--color-page);
-    }
-
-    .about-features__header {
-        max-width: 980px;
-        margin-bottom: 44px;
-    }
-
-    .about-feature-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .about-feature-card {
-        display: grid;
-        gap: 20px;
-        align-content: start;
-        min-height: 350px;
-        padding: 40px;
-        border: 2px solid black;
-        border-radius: 30px;
-        background: var(--color-page);
-        box-shadow: 0 10px 30px rgba(17, 20, 24, 0.07);
-    }
-
-    .about-feature-card__top {
-        display: flex;
-        min-height: 88px;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-    }
-
-    .about-feature-card__number {
-        color: #e2e2e2;
-        font-size: 42px;
-        line-height: 1;
-        font-weight: 600;
-        letter-spacing: -0.04em;
-    }
-
-    .about-feature-card__icon-wrap {
-        display: flex;
-        width: 80px;
-        height: 80px;
-        flex: 0 0 80px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: rgba(159, 48, 48, 0.08);
-    }
-
-    .about-feature-card__icon {
-        width: 42px;
-        height: 42px;
-        object-fit: contain;
-    }
-
-    .about-feature-card__accent {
-        width: 46px;
-        height: 3px;
-        margin-top: 4px;
-        border-radius: 999px;
-        background: var(--color-brand);
-    }
-
-    .about-feature-card h3 {
-        --heading-size: 34px;
-        --heading-line-height: 1.15;
-    }
-
-    .about-feature-card__text {
-        color: #292929;
-        --text-line-height: 1.32;
-        --text-weight: 400;
-    }
-
-    .about-feature-card__text p {
-        margin: 0;
-    }
-
-    .about-feature-card__text,
-    .about-feature-card__text p,
-    .about-feature-card__text b,
-    .about-feature-card__text strong {
-        font-weight: 400;
-    }
-
-    @media (max-width: 1200px) {
-        .about-feature-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
-    @media (max-width: 720px) {
-        .about-features {
-            padding: 48px 0;
-        }
-
-        .about-feature-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .about-feature-card {
-            min-height: auto;
-            padding: 30px 24px 36px;
-        }
-
-        .about-feature-card__top {
-            min-height: 68px;
-        }
-
-        .about-feature-card__number {
-            font-size: 34px;
-        }
-
-        .about-feature-card__icon-wrap {
-            width: 64px;
-            height: 64px;
-            flex-basis: 64px;
-        }
-
-        .about-feature-card__icon {
-            width: 34px;
-            height: 34px;
-        }
-
-        .about-feature-card h3 {
-            --heading-size: 28px;
-        }
-
-        .about-feature-card__text {
-            --text-size: 22px;
-        }
-    }
-</style>

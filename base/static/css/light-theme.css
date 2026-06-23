@@ -207,16 +207,6 @@ a {
   margin: 0;
 }
 
-.eyebrow {
-  margin: 0;
-  color: var(--color-brand);
-  font-size: 18px;
-  line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .clean-list,
 .grid-list {
   margin: 0;
@@ -321,9 +311,53 @@ a {
 .rich-content ul,
 .rich-content ol {
   display: grid;
-  gap: 12px;
+  gap: 18px;
   margin: 20px 0;
-  padding-left: 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.rich-content li {
+  position: relative;
+  padding-left: 40px;
+}
+
+.rich-content ul li::before {
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--color-brand);
+  border-radius: 50%;
+  content: "";
+  box-sizing: border-box;
+}
+
+.rich-content ol {
+  counter-reset: rich-list;
+}
+
+.rich-content ol li {
+  counter-increment: rich-list;
+}
+
+.rich-content ol li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-brand);
+  content: counter(rich-list) ".";
+  font-weight: 800;
+}
+
+.rich-content blockquote {
+  margin: 28px 0;
+  padding: 22px 26px;
+  border-left: 4px solid var(--color-brand);
+  border-radius: 0 18px 18px 0;
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .rich-content a {
@@ -482,9 +516,18 @@ a {
   transform: translateX(4px);
 }
 
+.catalog-related {
+  padding: 72px 0 50px;
+}
+
+.catalog-related__inner {
+  display: grid;
+  gap: 36px;
+}
+
 .catalog-detail {
   overflow: hidden;
-  padding: 64px 0;
+  padding: 64px 0 0;
 }
 
 .catalog-detail__hero {
@@ -516,8 +559,118 @@ a {
   padding: 88px 0;
 }
 
+.catalog-detail__category {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 16px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand);
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .catalog-detail__intro p {
   margin: 0;
+}
+
+.about-features {
+  padding: 36px 0;
+  background: var(--color-page);
+}
+
+.about-features__header {
+  max-width: 980px;
+  margin-bottom: 44px;
+}
+
+.feature-card-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-card {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  min-height: 350px;
+  padding: 40px;
+  border: 2px solid black;
+  border-radius: 30px;
+  background: var(--color-page);
+  box-shadow: 0 10px 30px rgba(17, 20, 24, 0.07);
+}
+
+.feature-card__top {
+  display: flex;
+  min-height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.feature-card__number {
+  color: #e2e2e2;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.feature-card__icon-wrap {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(159, 48, 48, 0.08);
+}
+
+.feature-card__icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.feature-card__accent {
+  width: 46px;
+  height: 3px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+
+.feature-card h3 {
+  --heading-size: 34px;
+  --heading-line-height: 1.15;
+}
+
+.feature-card__text {
+  color: #292929;
+  --text-line-height: 1.32;
+  --text-weight: 400;
+}
+
+.feature-card__text p {
+  margin: 0;
+  text-align: left;
+}
+
+.feature-card__text,
+.feature-card__text p,
+.feature-card__text b,
+.feature-card__text strong {
+  font-weight: 400;
 }
 
 .custom-table-wrapper {
@@ -710,6 +863,38 @@ a {
 @media (max-width: 900px) {
   :root {
     --container-padding: 16px;
+  }
+
+  .feature-card-list {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    min-height: auto;
+    padding: 30px 24px 36px;
+  }
+
+  .feature-card__top {
+    min-height: 68px;
+  }
+
+  .feature-card__number {
+    font-size: 34px;
+  }
+
+  .feature-card__icon-wrap {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .feature-card__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .feature-card h3 {
+    --heading-size: 28px;
   }
 
   .page-section {

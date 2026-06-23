@@ -25,7 +25,7 @@
       {% elif block.block_type == "rich_text" %}
         <section class="about-rich-section">
           <div class="container">
-            <div class="about-rich surface-card">
+            <div class="about-rich">
               {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
               <div class="rich-content">{{ block.value.text|richtext }}</div>
             </div>

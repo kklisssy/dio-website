@@ -7,18 +7,25 @@
   <div class="custom-table-wrapper">{{ block.value.table }}</div>
 {% elif block.block_type == "features" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-  <ul class="{{ cards_class }}" role="list">
+  <ul class="feature-card-list{% if cards_class %} {{ cards_class }}{% endif %}" role="list">
     {% for item in block.value.items %}
-      <li class="{{ card_class }}{% if card_surface %} surface-card{% endif %}">
-        {% if item.icon %}
-          {% image item.icon max-64x64 as item_icon %}
-          <img src="{{ item_icon.url }}"
-               width="{{ item_icon.width }}"
-               height="{{ item_icon.height }}"
-               alt="">
-        {% endif %}
+      <li class="feature-card{% if card_class %} {{ card_class }}{% endif %}">
+        <div class="feature-card__top">
+          <span class="feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+          {% if item.icon %}
+            {% image item.icon max-96x96 as item_icon %}
+            <span class="feature-card__icon-wrap">
+              <img class="feature-card__icon"
+                   src="{{ item_icon.url }}"
+                   width="{{ item_icon.width }}"
+                   height="{{ item_icon.height }}"
+                   alt="">
+            </span>
+          {% endif %}
+        </div>
+        <span class="feature-card__accent" aria-hidden="true"></span>
         <h3 class="heading heading--h3">{{ item.title }}</h3>
-        {% if item.text %}<div class="{{ item_text_class }}">{{ item.text|richtext }}</div>{% endif %}
+        {% if item.text %}<div class="feature-card__text text text--md{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>{% endif %}
       </li>
     {% endfor %}
   </ul>
