@@ -18,25 +18,50 @@
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
           {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
           {% if page.document %}
-            <a class="practice-article__document button__cta" href="{{ page.document.url }}">
-              Скачать материал
-            </a>
+            <a class="practice-article__document button__cta"
+               href="{{ page.document.url }}">Скачать материал</a>
           {% endif %}
         </div>
       </div>
     </header>
-
     {% if page.content %}
       <div class="container practice-article__content">
         {% for block in page.content %}
           <section class="practice-article__block practice-article__block--{{ block.block_type }}">
-            {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="practice-article__cards" card_class="practice-article__card" item_text_class="rich-content" card_surface=True %}
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="practice-article__cards" card_class="practice-article__card" item_text_class="rich-content" %}
           </section>
         {% endfor %}
       </div>
     {% endif %}
+    {% if other_practices %}
+      <section class="catalog-related">
+        <div class="container catalog-related__inner">
+          <h2 class="heading heading--h2">Другие практики</h2>
+          <ul class="catalog-grid" role="list">
+            {% for practice in other_practices %}
+              <li class="catalog-card service-catalog-card">
+                <a class="catalog-card__link" href="{% pageurl practice %}">
+                  <div class="catalog-card__content">
+                    {% if practice.category %}
+                      <p class="catalog-card__category">{{ practice.category.name }}</p>
+                    {% endif %}
+                    <h3 class="catalog-card__title heading heading--h3">{{ practice.headline|default:practice.title }}</h3>
+                    {% if practice.intro %}
+                      <p class="catalog-card__text">{{ practice.intro }}</p>
+                    {% endif %}
+                  </div>
+                  <span class="catalog-card__more">
+                    Подробнее
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
   </article>
-
   <style>
       .practice-article__category {
           display: inline-flex;
@@ -58,7 +83,7 @@
       .practice-article__content {
           display: grid;
           gap: 64px;
-          padding-top: 50px;
+          padding: 50px 0;
       }
 
       .practice-article__block {

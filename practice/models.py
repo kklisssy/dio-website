@@ -111,8 +111,9 @@ class PracticeSinglePage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["other_articles"] = (
+        context["other_practices"] = (
             PracticeSinglePage.objects.live()
+            .child_of(self.get_parent())
             .select_related("category")
             .exclude(id=self.id)
             .order_by("-date")[:3]
