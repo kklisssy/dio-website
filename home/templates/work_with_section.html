@@ -54,6 +54,8 @@
       .work-with-section__grid {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
+          grid-auto-rows: 1fr;
+          align-items: stretch;
           gap: 12px;
           margin: 0;
           padding: 0;
@@ -63,6 +65,7 @@
       .work-with-card {
           position: relative;
           overflow: hidden;
+          height: 100%;
           min-height: auto;
           border-radius: 30px;
           background-color: #f4f7fc;
@@ -121,7 +124,7 @@
           }
       }
 
-      @media (max-width: 1180px) {
+      @media (max-width: 1200px) {
 
           .work-with-card__body {
               padding: 44px 34px 34px;
@@ -136,7 +139,7 @@
           }
       }
 
-      @media (max-width: 640px) {
+      @media (max-width: 560px) {
           .work-with-section {
               padding: 48px 16px 64px;
           }
@@ -151,16 +154,17 @@
 
           .work-with-section__grid {
               grid-template-columns: 1fr;
+              grid-auto-rows: auto;
               gap: 22px;
           }
 
           .work-with-card {
-              min-height: 420px;
+              min-height: clamp(190px, 38vw, 260px);
           }
 
           .work-with-card__body {
               height: 100%;
-              padding: 36px 28px;
+              padding: 45px 40px;
           }
 
           .work-with-card__title {
@@ -169,6 +173,10 @@
 
           .work-with-card__text {
               --text-size: 19px;
+          }
+
+          .work-with-card {
+              aspect-ratio: auto;
           }
 
       }
