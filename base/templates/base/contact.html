@@ -85,7 +85,9 @@
           </label>
           <div class="contact-form__footer">
             <button class="button__cta" type="submit">{{ contact.submit_button_text }}</button>
-            {% if contact.form_note %}<p class="contact-form__note">{{ contact.form_note }}</p>{% endif %}
+            {% if contact.form_note %}
+              <p class="contact-form__note">{{ contact.form_note }}</p>
+            {% endif %}
           </div>
           <label class="contact-form__privacy">
             <input class="contact-form__privacy-checkbox"
@@ -104,7 +106,7 @@
   <style>
       .contact-section {
           padding: 64px 0;
-          background: var(--color-surface);
+          background: #f7f7f7;
           scroll-margin-top: 85px;
       }
 
