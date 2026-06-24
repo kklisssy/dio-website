@@ -14,7 +14,7 @@
       {% endif %}
       <div class="container catalog-detail__hero-inner">
         <div class="catalog-detail__hero-content">
-          <p class="catalog-detail__category">{{ page.get_industry_display }}</p>
+          {% if page.industry %}<p class="catalog-detail__category">{{ page.industry.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.title }}</h1>
           {% if page.intro %}<div class="catalog-detail__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
         </div>
@@ -26,10 +26,12 @@
           <span>Клиент</span>
           <strong>{{ page.customer_name }}</strong>
         </div>
-        <div class="case-detail__summary-item">
-          <span>Отрасль</span>
-          <strong>{{ page.get_industry_display }}</strong>
-        </div>
+        {% if page.industry %}
+          <div class="case-detail__summary-item">
+            <span>Отрасль</span>
+            <strong>{{ page.industry.name }}</strong>
+          </div>
+        {% endif %}
         {% if page.duration %}
           <div class="case-detail__summary-item">
             <span>Срок</span>
@@ -122,7 +124,7 @@
                     {% endif %}
                   </div>
                   <div class="case-card__content">
-                    <span class="case-card__tag">{{ case.get_industry_display }}</span>
+                    {% if case.industry %}<span class="case-card__tag">{{ case.industry.name }}</span>{% endif %}
                     <h3 class="case-card__title heading">{{ case.title }}</h3>
                     {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
                   </div>

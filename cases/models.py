@@ -8,15 +8,28 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
+@register_snippet
+class CaseIndustry(models.Model):
+    name = models.CharField("Название", max_length=100)
+    value = models.SlugField("Значение для URL", max_length=100, unique=True)
+    order = models.PositiveIntegerField("Порядок", default=0)
 
-INDUSTRY_CHOICES = [
-    ("oil-gas", "Нефтегаз"),
-    ("service_business", "Сервисный бизнес"),
-    ("trading", "Торговля"),
-    ("production", "Производство"),
-]
+    panels: ClassVar[list[object]] = [
+        FieldPanel("name"),
+        FieldPanel("value"),
+        FieldPanel("order"),
+    ]
+
+    class Meta:
+        ordering = ("order", "name")
+        verbose_name = "Отрасль кейса"
+        verbose_name_plural = "Отрасли кейса"
+
+    def __str__(self):
+        return self.name
 
 class ResultItemBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(
@@ -58,7 +71,14 @@ class TechnologiesBlock(blocks.StructBlock):
 
 class SingleCasePage(Page):
     customer_name = models.CharField("Название компании-клиента", max_length=255)
-    industry = models.CharField("Отрасль", max_length=100, choices=INDUSTRY_CHOICES)
+    industry = models.ForeignKey(
+        "cases.CaseIndustry",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="cases",
+        verbose_name="Отрасль",
+    )
     project_date = models.DateField("Дата реализации проекта", default=timezone.now)
     duration = models.CharField("Длительность проекта", max_length=50, blank=True)
     location = models.CharField("Местоположение", max_length=100, blank=True)
@@ -169,10 +189,10 @@ class CaseIndexPage(Page):
         cases = SingleCasePage.objects.live().order_by("-project_date")
 
         industry = request.GET.get("industry")
-        industries = dict(INDUSTRY_CHOICES)
+        industries = CaseIndustry.objects.all()
 
-        if industry and industry in industries:
-            cases = cases.filter(industry=industry)
+        if industry and industries.filter(value=industry).exists():
+            cases = cases.filter(industry__value=industry)
             context["current_industry"] = industry
         else:
             context["current_industry"] = None
@@ -180,7 +200,7 @@ class CaseIndexPage(Page):
         context["cases"] = Paginator(cases, self.items_per_page).get_page(
             request.GET.get("page")
         )
-        context["industry_choices"] = INDUSTRY_CHOICES
+        context["industry_choices"] = industries
         return context
 
     class Meta:

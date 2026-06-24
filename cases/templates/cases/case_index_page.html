@@ -12,9 +12,9 @@
         <nav class="case-index__filters filter-list" aria-label="Отрасли">
           <a class="case-index__filter filter-pill{% if not current_industry %} filter-pill--active{% endif %}"
              href="{% pageurl page %}">Все</a>
-          {% for industry_value, industry_label in industry_choices %}
-            <a class="case-index__filter filter-pill{% if current_industry == industry_value %} filter-pill--active{% endif %}"
-               href="{% pageurl page %}?industry={{ industry_value }}">{{ industry_label }}</a>
+          {% for industry in industry_choices %}
+            <a class="case-index__filter filter-pill{% if current_industry == industry.value %} filter-pill--active{% endif %}"
+               href="{% pageurl page %}?industry={{ industry.value }}">{{ industry.name }}</a>
           {% endfor %}
         </nav>
       {% endif %}
@@ -39,7 +39,7 @@
                   {% endif %}
                 </div>
                 <div class="case-card__content">
-                  <span class="case-card__tag">{{ case.get_industry_display }}</span>
+                  {% if case.industry %}<span class="case-card__tag">{{ case.industry.name }}</span>{% endif %}
                   <h3 class="case-card__title heading">{{ case.title }}</h3>
                   {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
                 </div>
