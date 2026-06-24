@@ -10,7 +10,7 @@
       </header>
       {% if product_categories %}
         <nav class="product-index__filters filter-list"
-             aria-label="Категории продуктов">
+             aria-label="Категории решений">
           <a class="product-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
              href="{% pageurl page %}">Все</a>
           {% for category in product_categories %}
@@ -37,9 +37,9 @@
             </li>
           {% endfor %}
         </ul>
-        {% include "components/pagination.html" with page_obj=products aria_label="Пагинация продуктов" filter_param="category" current_filter=current_category %}
+        {% include "components/pagination.html" with page_obj=products aria_label="Пагинация решений" filter_param="category" current_filter=current_category %}
       {% else %}
-        <p class="product-index__empty text text--md">Продукты скоро появятся.</p>
+        <p class="product-index__empty text text--md">Решения скоро появятся.</p>
       {% endif %}
     </div>
   </section>

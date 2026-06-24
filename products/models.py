@@ -24,8 +24,8 @@ class ProductCategory(models.Model):
 
     class Meta:
         ordering = ("name",)
-        verbose_name = "Категория продукта"
-        verbose_name_plural = "Категории продуктов"
+        verbose_name = "Категория решения"
+        verbose_name_plural = "Категории решений"
 
     def __str__(self):
         return self.name
@@ -44,7 +44,7 @@ class SingleProductPage(Page):
     headline = models.CharField(
         "Заголовок",
         max_length=255,
-        default="Заголовок продукта",
+        default="Заголовок решения",
     )
     intro = models.TextField(
         "Краткое описание",
@@ -117,22 +117,22 @@ class SingleProductPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Продукт"
-        verbose_name_plural = "Продукты"
+        verbose_name = "Решение"
+        verbose_name_plural = "Решения"
 
 
 class ProductIndexPage(Page):
     headline = models.CharField(
         "Заголовок",
         max_length=255,
-        default="Продукты",
+        default="Решения",
     )
     intro = RichTextField(
         "Введение",
         features=["bold", "italic", "link"],
         blank=True,
     )
-    items_per_page = models.PositiveIntegerField("Продуктов на странице", default=9)
+    items_per_page = models.PositiveIntegerField("Решений на странице", default=9)
 
     content_panels: ClassVar[list[object]] = [
         *Page.content_panels,
@@ -171,5 +171,5 @@ class ProductIndexPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Лента продуктов"
-        verbose_name_plural = "Ленты продуктов"
+        verbose_name = "Лента решений"
+        verbose_name_plural = "Ленты решений"
