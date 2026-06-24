@@ -39,7 +39,7 @@
                   {% endif %}
                 </div>
                 <div class="case-card__content">
-                  {% if case.industry %}<span class="case-card__tag">{{ case.industry.name }}</span>{% endif %}
+                  {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
                   <h3 class="case-card__title heading">{{ case.title }}</h3>
                   {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
                 </div>
