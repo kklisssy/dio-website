@@ -25,8 +25,8 @@ class Service1CCategory(models.Model):
 
     class Meta:
         ordering = ("name",)
-        verbose_name = "Категория 1С"
-        verbose_name_plural = "Категории 1С"
+        verbose_name = "Категория сервиса 1С"
+        verbose_name_plural = "Категории сервисов 1С"
 
     def __str__(self):
         return self.name
@@ -74,7 +74,7 @@ class SingleService1CPage(Page):
     headline = models.CharField(
         "Заголовок",
         max_length=255,
-        default="Заголовок продукта 1C",
+        default="Заголовок сервиса 1C",
     )
     intro = models.TextField(
         "Краткое описание",
@@ -140,8 +140,8 @@ class SingleService1CPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Решение 1С"
-        verbose_name_plural = "Решения 1С"
+        verbose_name = "Сервис 1С"
+        verbose_name_plural = "Сервисы 1С"
 
 
 class Service1CIndexPage(Page):
@@ -195,5 +195,5 @@ class Service1CIndexPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Лента решений 1С"
-        verbose_name_plural = "Ленты решений 1С"
+        verbose_name = "Лента сервисов 1С"
+        verbose_name_plural = "Ленты сервисов 1С"

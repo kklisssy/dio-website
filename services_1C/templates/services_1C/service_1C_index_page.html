@@ -37,7 +37,7 @@
             </li>
           {% endfor %}
         </ul>
-        {% include "components/pagination.html" with page_obj=services_1c aria_label="Пагинация решений 1С" filter_param="category" current_filter=current_category %}
+        {% include "components/pagination.html" with page_obj=services_1c aria_label="Пагинация сервисов 1С" filter_param="category" current_filter=current_category %}
       {% else %}
         <p class="service-1c-index__empty text text--md">Сервисы 1С скоро появятся.</p>
       {% endif %}
