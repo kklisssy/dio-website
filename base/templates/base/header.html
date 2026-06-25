@@ -1,9 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
-<style>
-    .main-nav {
-        visibility: hidden;
-    }
-</style>
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags mega_menu %}
 <nav class="main-nav">
   <div class="main-nav__container">
     <a href="{% slugurl 'home' %}" class="main-nav__brand-link">
@@ -41,7 +36,7 @@
               <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
                  class="main-nav__link">{{ item.value.name }}</a>
             {% elif item.value.menu_type == "mega" %}
-              <div class="main-nav__dropdown">
+              <div class="main-nav__dropdown main-nav__dropdown--mega">
                 <button class="main-nav__mega-toggle"
                         aria-expanded="false"
                         aria-controls="mega-menu-{{ item.id }}"
@@ -57,26 +52,72 @@
                 </button>
                 <div id="mega-menu-{{ item.id }}"
                      class="main-nav__dropdown-menu main-nav__mega-menu">
-                  <div class="main-nav__mega-grid">
-                    {% for subitem in item.value.mega_menu_items %}
-                      {% if subitem.page or subitem.external_url %}
-                        <a href="{% if subitem.page %}{{ subitem.page.url }}{% else %}{{ subitem.external_url }}{% endif %}"
-                           class="main-nav__mega-card">
-                          <span class="main-nav__mega-title">{{ subitem.name }}</span>
-                          {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
-                        </a>
-                      {% else %}
-                        <div class="main-nav__mega-card main-nav__mega-card--disabled">
-                          <span class="main-nav__mega-title">{{ subitem.name }}</span>
-                          {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
+                  {% build_mega_menu item.value settings.base.ContactSettings as mega_menu %}
+                  <div class="main-nav__mega-layout{% if mega_menu.has_panels %} main-nav__mega-layout--with-panel{% endif %}"
+                       {% if mega_menu.has_fixed_panel %}data-mega-fixed-panel="{{ mega_menu.fixed_panel_index }}"{% endif %}>
+                    <div class="main-nav__mega-list" role="list">
+                      {% for subitem in mega_menu.items %}
+                        {% if subitem.has_link %}
+                          <a href="{{ subitem.url }}"
+                             class="main-nav__mega-card{% if subitem.is_active %} is-active{% endif %}"
+                             data-mega-panel-trigger="{{ subitem.index }}"
+                             role="listitem">
+                            <span class="main-nav__mega-copy">
+                              <span class="main-nav__mega-title">{{ subitem.name }}</span>
+                              {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
+                            </span>
+                            <span class="main-nav__mega-card-arrow" aria-hidden="true"></span>
+                          </a>
+                        {% else %}
+                          <div class="main-nav__mega-card{% if subitem.is_active %} is-active{% endif %}"
+                               data-mega-panel-trigger="{{ subitem.index }}"
+                               role="listitem">
+                            <span class="main-nav__mega-copy">
+                              <span class="main-nav__mega-title">{{ subitem.name }}</span>
+                              {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
+                            </span>
+                            <span class="main-nav__mega-card-arrow" aria-hidden="true"></span>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    {% if mega_menu.has_panels %}
+                      <div class="main-nav__mega-panels">
+                        {% for panel in mega_menu.panels %}
+                          <div class="main-nav__mega-panel{% if panel.index == mega_menu.active_panel_index or panel.index == mega_menu.fixed_panel_index %} is-active{% endif %}"
+                               data-mega-panel="{{ panel.index }}">
+                            {% if panel.type == "contacts" %}
+                              <div class="main-nav__mega-contacts">
+                                {% if panel.phone %}
+                                  <a class="main-nav__mega-contact-link" href="tel:{{ panel.phone }}">{{ panel.phone }}</a>
+                                {% endif %}
+                                {% if panel.email %}
+                                  <a class="main-nav__mega-contact-link" href="mailto:{{ panel.email }}">{{ panel.email }}</a>
+                                {% endif %}
+                                {% if panel.address %}<p class="main-nav__mega-contact-address">{{ panel.address }}</p>{% endif %}
+                              </div>
+                            {% else %}
+                              {% if panel.title %}<p class="main-nav__mega-panel-title">{{ panel.title }}</p>{% endif %}
+                              <ul class="main-nav__mega-category-list" role="list">
+                                {% for category in panel.items %}
+                                  <li>
+                                    <a class="main-nav__mega-category-link" href="{{ category.url }}">
+                                      <span class="main-nav__mega-category-arrow" aria-hidden="true"></span>
+                                      <span>{{ category.name }}</span>
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
             {% else %}
-              <div class="main-nav__dropdown">
+              <div class="main-nav__dropdown main-nav__dropdown--simple">
                 <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
                    class="main-nav__dropdown-link">{{ item.value.name }}</a>
                 <button class="main-nav__dropdown-toggle" aria-expanded="false" type="button">
@@ -114,551 +155,3 @@
     </div>
   </div>
 </nav>
-<style>
-    .main-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        width: 100%;
-        background: var(--color-page);
-        backdrop-filter: blur(20px);
-        visibility: visible;
-    }
-
-    .main-nav__container {
-        position: relative;
-        display: flex;
-        width: min(100% - (var(--container-padding) * 2), var(--container-width));
-        height: 85px;
-        align-items: center;
-        justify-content: space-between;
-        gap: clamp(12px, 1.6vw, 28px);
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    .main-nav__brand-link,
-    .main-nav__actions {
-        flex-shrink: 0;
-    }
-
-    .main-nav__mobile-panel {
-        display: contents;
-    }
-
-    .main-nav__mobile-toggle {
-        display: none;
-    }
-
-    .main-nav__brand-link {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 0;
-    }
-
-    .main-nav__brand-logo {
-        display: flex;
-        width: 52px;
-        height: 52px;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .main-nav__brand-logo img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .main-nav__brand-name {
-        margin-bottom: 0;
-        color: var(--color-muted);
-        --heading-size: 25px;
-        font-weight: 400;
-    }
-
-    .main-nav__list>li,
-    .main-nav__actions,
-    .main-nav__dropdown,
-    .main-nav__dropdown-toggle,
-    .main-nav__mega-toggle {
-        display: flex;
-        align-items: center;
-    }
-
-    .main-nav__list {
-        display: flex;
-        align-items: center;
-        gap: clamp(10px, 1.2vw, 2rem);
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .main-nav__link,
-    .main-nav__dropdown-link,
-    .main-nav__mega-toggle {
-        margin-bottom: 0;
-        color: var(--color-text);
-        font-size: 18px;
-        font-weight: 500;
-        white-space: nowrap;
-        transition: color 0.2s ease;
-    }
-
-    .main-nav__dropdown-link {
-        margin-right: 0.25rem;
-    }
-
-    .main-nav__link:hover,
-    .main-nav__dropdown-link:hover,
-    .main-nav__dropdown-toggle:hover,
-    .main-nav__mega-toggle:hover {
-        color: var(--color-muted);
-    }
-
-    .main-nav__dropdown {
-        position: relative;
-    }
-
-    .main-nav__dropdown-toggle,
-    .main-nav__mega-toggle {
-        padding: 0.25rem;
-        border: 0;
-        background: none;
-        color: var(--color-text);
-        cursor: pointer;
-        transition: color 0.2s ease;
-    }
-
-    .main-nav__mega-toggle {
-        gap: 8px;
-        padding: 0;
-        font-family: inherit;
-    }
-
-    .main-nav__dropdown-chevron {
-        color: var(--color-text);
-        transition: transform 0.2s ease;
-    }
-
-    .main-nav__dropdown:hover .main-nav__dropdown-chevron,
-    .main-nav__dropdown:focus-within .main-nav__dropdown-chevron,
-    .main-nav__dropdown.is-open .main-nav__dropdown-chevron {
-        transform: rotate(180deg);
-    }
-
-    .main-nav__dropdown-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1001;
-        min-width: 200px;
-        border: 1px solid var(--color-border);
-        border-radius: 12px;
-        background: var(--color-page);
-        box-shadow: 0 20px 40px var(--color-shadow);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(8px);
-        transition: all 0.3s ease;
-    }
-
-    .main-nav__dropdown:hover .main-nav__dropdown-menu,
-    .main-nav__dropdown:focus-within .main-nav__dropdown-menu,
-    .main-nav__dropdown.is-open .main-nav__dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .main-nav__dropdown-menu:not(.main-nav__mega-menu) {
-        padding: 0.75rem 0;
-    }
-
-    .main-nav__dropdown-item {
-        display: block;
-        padding: 0.5rem 1.5rem;
-        color: var(--color-text);
-        font-size: 18px;
-        white-space: nowrap;
-        transition: all 0.2s ease;
-    }
-
-    .main-nav__dropdown-item:hover {
-        background: var(--color-surface);
-    }
-
-    .main-nav__mega-menu {
-        top: calc(100% + 26px);
-        left: -28px;
-        width: min(350px, calc(100vw - (var(--container-padding) * 2)));
-        padding: 12px;
-        border-radius: 22px;
-        transform: translateY(8px);
-    }
-
-    .main-nav__mega-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2px;
-    }
-
-    .main-nav__mega-card {
-        display: grid;
-        align-content: start;
-        gap: 6px;
-        padding: 18px;
-        border-radius: 14px;
-        color: var(--color-text);
-        text-decoration: none;
-        transition: background-color 0.2s ease, transform 0.2s ease;
-        min-height: 40px
-    }
-
-    a.main-nav__mega-card:hover,
-    a.main-nav__mega-card:focus-visible {
-        background: var(--color-surface);
-        transform: translateY(-2px);
-    }
-
-    .main-nav__mega-card--disabled {
-        opacity: 0.6;
-    }
-
-    .main-nav__mega-title {
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 1.2;
-    }
-
-    .main-nav__mega-description {
-        color: var(--color-muted);
-        font-size: 15px;
-        line-height: 1.35;
-    }
-
-    @media (max-width: 1200px) {
-        body.main-nav-open {
-            overflow: hidden;
-        }
-
-        .main-nav {
-            border-bottom: 1px solid var(--color-border);
-            backdrop-filter: none;
-        }
-
-        .main-nav__container {
-            height: 80px;
-        }
-
-        .main-nav__brand-logo {
-            width: 48px;
-            height: 48px;
-        }
-
-        .main-nav__brand-name {
-            color: var(--color-text);
-            font-size: clamp(20px, 5vw, 26px);
-        }
-
-        .main-nav__mobile-toggle {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            width: 44px;
-            height: 44px;
-            flex-direction: column;
-            flex-shrink: 0;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 0;
-            border: 0;
-            background: transparent;
-            color: var(--color-text);
-            cursor: pointer;
-        }
-
-        .main-nav__mobile-toggle>span {
-            display: block;
-            width: 30px;
-            height: 3px;
-            border-radius: 999px;
-            background: currentColor;
-            transition: none;
-        }
-
-        .main-nav.is-mobile-animated .main-nav__mobile-toggle>span {
-            transition: transform 0.25s ease, opacity 0.2s ease;
-        }
-
-        .main-nav.is-mobile-open .main-nav__mobile-toggle>span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-
-        .main-nav.is-mobile-open .main-nav__mobile-toggle>span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .main-nav.is-mobile-open .main-nav__mobile-toggle>span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-
-        .main-nav__mobile-panel {
-            position: fixed;
-            top: 80px;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            padding: 24px var(--container-padding) 32px;
-            overflow-y: auto;
-            scrollbar-gutter: stable;
-            background: var(--color-page);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(100%);
-            transition: none;
-        }
-
-        .main-nav.is-mobile-animated .main-nav__mobile-panel {
-            transition: transform 0.3s ease, opacity 0.25s ease, visibility 0.3s;
-        }
-
-        .main-nav.is-mobile-open .main-nav__mobile-panel {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        .main-nav__list {
-            align-items: stretch;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .main-nav__list>li {
-            display: block;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .main-nav__link,
-        .main-nav__dropdown-link,
-        .main-nav__mega-toggle {
-            min-height: 58px;
-            font-size: 20px;
-        }
-
-        .main-nav__link,
-        .main-nav__dropdown-link {
-            display: flex;
-            align-items: center;
-        }
-
-        .main-nav__dropdown {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            width: 100%;
-        }
-
-        .main-nav__dropdown-link {
-            margin-right: 0;
-        }
-
-        .main-nav__dropdown-toggle {
-            width: 48px;
-            height: 48px;
-            justify-content: center;
-        }
-
-        .main-nav__mega-toggle {
-            grid-column: 1 / -1;
-            width: 100%;
-            justify-content: space-between;
-            font-family: inherit;
-            text-align: left;
-        }
-
-        .main-nav__dropdown-menu,
-        .main-nav__mega-menu {
-            position: static;
-            display: none;
-            grid-column: 1 / -1;
-            width: 100%;
-            min-width: 0;
-            max-height: none;
-            padding: 0 0 12px;
-            overflow: visible;
-            border: 0;
-            border-radius: 0;
-            background: transparent;
-            box-shadow: none;
-            opacity: 1;
-            visibility: visible;
-            transform: none;
-            transition: none;
-        }
-
-        .main-nav__dropdown:hover .main-nav__dropdown-menu,
-        .main-nav__dropdown:focus-within .main-nav__dropdown-menu {
-            display: none;
-        }
-
-        .main-nav__dropdown.is-open .main-nav__dropdown-menu,
-        .main-nav__dropdown.is-open:hover .main-nav__dropdown-menu,
-        .main-nav__dropdown.is-open:focus-within .main-nav__dropdown-menu {
-            display: block;
-        }
-
-        .main-nav__dropdown-menu:not(.main-nav__mega-menu) {
-            padding: 0 0 6px 16px;
-        }
-
-        .main-nav__dropdown-item {
-            padding: 10px 12px;
-            font-size: 17px;
-            white-space: normal;
-        }
-
-        .main-nav__mega-grid {
-            gap: 4px;
-            padding-left: 8px;
-        }
-
-        .main-nav__mega-card {
-            gap: 4px;
-            padding: 12px;
-        }
-
-        .main-nav__mega-title {
-            font-size: 17px;
-        }
-
-        .main-nav__mega-description {
-            font-size: 14px;
-        }
-
-        .main-nav__actions {
-            display: block;
-            margin-top: auto;
-        }
-
-        .main-nav__actions .button__cta {
-            width: 100%;
-            min-height: 52px;
-        }
-    }
-
-    @media (max-width: 560px) {
-        .main-nav__brand-link {
-            gap: 10px;
-        }
-
-        .main-nav__brand-logo {
-            width: 44px;
-            height: 44px;
-        }
-
-        .main-nav__mobile-panel {
-            gap: 20px;
-            padding-top: 16px;
-        }
-    }
-</style>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const nav = document.querySelector(".main-nav");
-        const mobileToggle = nav?.querySelector(".main-nav__mobile-toggle");
-        const mobilePanel = nav?.querySelector(".main-nav__mobile-panel");
-        const dropdowns = document.querySelectorAll(".main-nav__dropdown");
-
-        function closeDropdown(dropdown) {
-            dropdown.classList.remove("is-open");
-            dropdown.querySelectorAll("[aria-expanded]").forEach(function(toggle) {
-                toggle.setAttribute("aria-expanded", "false");
-            });
-        }
-
-        function setMobileMenu(open, animate = true) {
-            if (!nav || !mobileToggle) {
-                return;
-            }
-
-            nav.classList.toggle("is-mobile-animated", animate);
-            nav.classList.toggle("is-mobile-open", open);
-            document.body.classList.toggle("main-nav-open", open);
-            mobileToggle.setAttribute("aria-expanded", open ? "true" : "false");
-            mobileToggle.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
-
-            if (!open) {
-                dropdowns.forEach(closeDropdown);
-            }
-        }
-
-        mobileToggle?.addEventListener("click", function() {
-            setMobileMenu(!nav.classList.contains("is-mobile-open"));
-        });
-
-        dropdowns.forEach(function(dropdown) {
-            const toggle = dropdown.querySelector(".main-nav__dropdown-toggle, .main-nav__mega-toggle");
-
-            if (!toggle) {
-                return;
-            }
-
-            toggle.addEventListener("click", function(event) {
-                event.preventDefault();
-                const shouldOpen = !dropdown.classList.contains("is-open");
-
-                dropdowns.forEach(function(otherDropdown) {
-                    if (otherDropdown !== dropdown) {
-                        closeDropdown(otherDropdown);
-                    }
-                });
-
-                dropdown.classList.toggle("is-open", shouldOpen);
-                toggle.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
-            });
-        });
-
-        mobilePanel?.querySelectorAll("a").forEach(function(link) {
-            link.addEventListener("click", function() {
-                setMobileMenu(false);
-            });
-        });
-
-        nav?.querySelector(".main-nav__actions .button__cta")?.addEventListener("click", function() {
-            setMobileMenu(false);
-        });
-
-        document.addEventListener("click", function(event) {
-            if (!event.target.closest(".main-nav__dropdown")) {
-                dropdowns.forEach(closeDropdown);
-            }
-        });
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                dropdowns.forEach(closeDropdown);
-                setMobileMenu(false);
-            }
-        });
-
-        const mobileBreakpoint = window.matchMedia("(max-width: 1200px)");
-
-        mobileBreakpoint.addEventListener("change", function(event) {
-            nav?.classList.remove("is-mobile-animated");
-
-            if (!event.matches) {
-                setMobileMenu(false, false);
-            }
-        });
-    });
-</script>
