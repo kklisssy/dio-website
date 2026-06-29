@@ -24,12 +24,8 @@
                          width="{{ case_logo.width }}"
                          height="{{ case_logo.height }}"
                          alt="{{ case.customer_name }}">
-                  {% elif case.main_image %}
-                    {% image case.main_image fill-180x90 as case_image %}
-                    <img src="{{ case_image.url }}"
-                         width="{{ case_image.width }}"
-                         height="{{ case_image.height }}"
-                         alt="">
+                  {% else %}
+                    <span class="case-card__letter" aria-hidden="true">{{ case.title|first|upper }}</span>
                   {% endif %}
                 </div>
                 <div class="case-card__content">

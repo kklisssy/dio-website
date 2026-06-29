@@ -813,6 +813,13 @@ a {
   object-fit: contain;
 }
 
+.case-card__letter {
+  color: var(--color-brand);
+  font-size: 84px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .case-card__content {
   display: grid;
   gap: 16px;
