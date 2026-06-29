@@ -156,7 +156,7 @@ class ProductIndexPage(Page):
         )
 
         category = request.GET.get("category")
-        categories = ProductCategory.objects.filter(products__in=products).distinct()
+        categories = ProductCategory.objects.all()
 
         if category and categories.filter(value=category).exists():
             products = products.filter(category__value=category)
