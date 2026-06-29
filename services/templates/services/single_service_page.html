@@ -24,7 +24,7 @@
       <div class="container single-service__content">
         {% for block in page.content %}
           <section class="single-service__block single-service__block--{{ block.block_type }}">
-            {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" %}
+            {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" or block.block_type == "gallery" %}
               {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
             {% elif block.block_type == "image_text" %}
               <div class="single-service__image-text single-service__image-text--{{ block.value.image_position }}">

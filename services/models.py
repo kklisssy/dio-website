@@ -16,6 +16,7 @@ from base.page_blocks import (
     FeaturesBlock,
     RichTextSectionBlock,
     TableSectionBlock,
+    ImageGalleryBlock,
 )
 
 
@@ -113,6 +114,7 @@ class SingleServicePage(Page):
             ("features", FeaturesBlock()),
             ("image_text", ImageTextBlock()),
             ("faq", FaqBlock()),
+            ("gallery", ImageGalleryBlock()),
         ],
         blank=True,
         use_json_field=True,

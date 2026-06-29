@@ -58,3 +58,21 @@ class FeaturesBlock(blocks.StructBlock):
     class Meta:
         icon = "tasks"
         label = "Преимущества"
+
+
+class ImageGalleryItemBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False, max_length=250, label="Заголовок")
+    image = ImageChooserBlock(required=True, label="Изображение")
+
+    class Meta:
+        icon = "image"
+        label = "Изображение"
+
+class ImageGalleryBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False, max_length=250, label="Заголовок")
+    images = blocks.ListBlock(ImageGalleryItemBlock(), label="Карточки")
+
+    class Meta:
+        icon = "media"
+        label = "Галерея изображений"
+

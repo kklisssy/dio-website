@@ -7,7 +7,8 @@
   <div class="custom-table-wrapper">{% include_block block.value.bound_blocks.table %}</div>
 {% elif block.block_type == "features" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-  <ul class="feature-card-list{% if cards_class %} {{ cards_class }}{% endif %}" role="list">
+  <ul class="feature-card-list{% if cards_class %} {{ cards_class }}{% endif %}"
+      role="list">
     {% for item in block.value.items %}
       <li class="feature-card{% if card_class %} {{ card_class }}{% endif %}">
         <div class="feature-card__top">
@@ -25,7 +26,25 @@
         </div>
         <span class="feature-card__accent" aria-hidden="true"></span>
         <h3 class="heading heading--h3">{{ item.title }}</h3>
-        {% if item.text %}<div class="feature-card__text text text--md{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>{% endif %}
+        {% if item.text %}
+          <div class="feature-card__text text text--md{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% elif block.block_type == "gallery" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  <ul class="gallery-grid" role="list">
+    {% for item in block.value.images %}
+      <li class="gallery-card">
+        {% if item.title %}<h3 class="heading heading--h3">{{ item.title }}</h3>{% endif %}
+        {% image item.image width-800 as image %}
+        <div class="gallery-image-wrap">
+          <img src="{{ image.url }}"
+               width="{{ image.width }}"
+               height="{{ image.height }}"
+               alt="{{ item.title }}">
+        </div>
       </li>
     {% endfor %}
   </ul>
