@@ -22,7 +22,7 @@
             <form class="footer-subscribe__form" method="post" action="">
               {% csrf_token %}
               <input type="email" name="email" placeholder="Email" required>
-              <button type="submit">{{ footer.footer_button }}</button>
+              <button class="button__cta" type="submit">{{ footer.footer_button }}</button>
             </form>
             <p class="footer-subscribe__privacy">
               Ознакомьтесь с

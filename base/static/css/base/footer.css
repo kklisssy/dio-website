@@ -79,13 +79,8 @@
           justify-content: center;
           min-height: 65px;
           padding: 0 38px;
-          border: 0;
           border-radius: 16px;
-          background: var(--color-brand);
-          color: var(--color-page);
-          font: inherit;
           font-size: 20px;
-          cursor: pointer;
       }
 
       .footer-subscribe__privacy {

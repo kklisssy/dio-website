@@ -733,7 +733,7 @@ a {
 .button__cta {
   position: relative;
   padding: 12px 20px;
-  border: 0;
+  border: 1px solid rgb(158 77 77);
   border-radius: 30px;
   background: var(--color-brand);
   color: #ffffff;
@@ -741,6 +741,7 @@ a {
   cursor: pointer;
   overflow: hidden;
   transition: background 0.2s ease;
+  font-size: 18px;
 }
 
 .button__cta:hover {
@@ -770,12 +771,12 @@ a {
 
 .button__cta--secondary {
   border: 1px solid rgba(0, 0, 0, 0.18);
-  background: #b3b3b3;
+  background: #cdcdcd;
   color: var(--color-text);
 }
 
 .button__cta--secondary:hover {
-  background: #c3c3c3;
+  background: #dedddd;
 }
 
 .cases-list {
