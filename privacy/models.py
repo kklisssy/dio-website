@@ -1,10 +1,10 @@
 from typing import ClassVar
 
-from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
-from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.fields import StreamField
 from wagtail.models import Page
+
+from base.page_blocks import RichTextSectionBlock, TableSectionBlock
 
 
 class LegalDocumentPage(Page):
@@ -14,14 +14,8 @@ class LegalDocumentPage(Page):
 
     content = StreamField(
         [
-            (
-                "text",
-                blocks.RichTextBlock(
-                    features=["h2", "h3", "h4", "bold", "italic", "link", "ol", "ul"],
-                    label="Текст",
-                ),
-            ),
-            ("table", TableBlock(label="Таблица")),
+            ("text_section", RichTextSectionBlock()),
+            ("table", TableSectionBlock()),
         ],
         blank=True,
         use_json_field=True,

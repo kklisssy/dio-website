@@ -9,15 +9,9 @@
     {% if page.content %}
       <div class="container privacy-page__content stack-grid">
         {% for block in page.content %}
-          {% if block.block_type == "text" %}
-            <section class="privacy-page__richtext rich-content">
-              {{ block.value|richtext }}
-            </section>
-          {% elif block.block_type == "table" %}
-            <section class="privacy-page__table-wrap custom-table-wrapper">
-              {% include_block block %}
-            </section>
-          {% endif %}
+          <section class="privacy-page__block privacy-page__block--{{ block.block_type }}">
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" %}
+          </section>
         {% endfor %}
       </div>
     {% endif %}
