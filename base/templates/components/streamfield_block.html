@@ -4,7 +4,7 @@
   <div class="{{ text_class }}">{{ block.value.text|richtext }}</div>
 {% elif block.block_type == "table" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-  <div class="custom-table-wrapper">{{ block.value.table }}</div>
+  <div class="custom-table-wrapper">{% include_block block.value.bound_blocks.table %}</div>
 {% elif block.block_type == "features" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
   <ul class="feature-card-list{% if cards_class %} {{ cards_class }}{% endif %}" role="list">
