@@ -178,9 +178,7 @@ class Service1CIndexPage(Page):
             .order_by("-date")
         )
         category = request.GET.get("category")
-        categories = Service1CCategory.objects.filter(
-            services_1c__in=services_1c
-        ).distinct()
+        categories = Service1CCategory.objects.all()
 
         if category and categories.filter(value=category).exists():
             services_1c = services_1c.filter(category__value=category)
