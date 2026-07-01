@@ -40,8 +40,24 @@
       </div>
       <div class="contact-card contact-card--form">
         <h2 class="heading heading--h2">{{ contact.form_title }}</h2>
-        <form class="contact-form" method="post" action="">
+        {% if messages %}
+          <div class="contact-form__messages">
+            {% for message in messages %}
+              <p class="contact-form__message contact-form__message--{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <form class="contact-form"
+              method="post"
+              action="{% url 'consultation_request' %}">
           {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <div class="contact-form__hidden-field" aria-hidden="true">
+            <label>
+              Не заполняйте это поле
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
           <div class="contact-form__grid">
             <label class="contact-form__field">
               <span class="contact-form__label">Имя</span>

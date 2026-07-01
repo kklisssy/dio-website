@@ -30,6 +30,12 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 SERVER_EMAIL = os.environ.get("SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
+CONSULTATION_REQUEST_RECIPIENTS = [
+    email.strip()
+    for email in os.environ.get("CONSULTATION_REQUEST_RECIPIENTS", "").split(",")
+    if email.strip()
+]
+
 STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
 
