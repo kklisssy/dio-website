@@ -60,10 +60,10 @@
                 <div class="rich-content">{{ block.value.text|richtext }}</div>
               </div>
             </section>
-          {% elif block.block_type == "table" or block.block_type == "features" %}
+          {% elif block.block_type == "table" or block.block_type == "features" or block.block_type == "rates" %}
             <section class="case-detail__section">
               <div class="container case-detail__standard-block">
-                {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
+                {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" rate_text_class="rich-content" %}
               </div>
             </section>
           {% elif block.block_type == "results" %}
@@ -120,9 +120,13 @@
                     {% endif %}
                   </div>
                   <div class="case-card__content">
-                    {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
+                    {% if case.industry %}
+                      <p class="catalog-card__category">{{ case.industry.name }}</p>
+                    {% endif %}
                     <h3 class="case-card__title heading">{{ case.title }}</h3>
-                    {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
+                    {% if case.intro %}
+                      <div class="case-card__intro text">{{ case.intro|richtext }}</div>
+                    {% endif %}
                   </div>
                 </a>
               </li>
@@ -151,6 +155,7 @@
           padding: 26px 28px;
           border-radius: 18px;
           background: var(--color-surface);
+          box-shadow: inset 0 0 45px var(--color-inner-shadow);
       }
 
       .case-detail__summary-item span {

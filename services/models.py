@@ -17,6 +17,7 @@ from base.page_blocks import (
     RichTextSectionBlock,
     TableSectionBlock,
     ImageGalleryBlock,
+    RateBlock,
 )
 
 
@@ -115,6 +116,7 @@ class SingleServicePage(Page):
             ("image_text", ImageTextBlock()),
             ("faq", FaqBlock()),
             ("gallery", ImageGalleryBlock()),
+            ("rates", RateBlock()),
         ],
         blank=True,
         use_json_field=True,

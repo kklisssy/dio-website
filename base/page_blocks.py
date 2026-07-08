@@ -14,6 +14,17 @@ RICH_TEXT_FEATURES = [
     "blockquote",
 ]
 
+class ButtonBlock(blocks.StructBlock):
+    """Блок для отображения кнопок"""
+
+    text = blocks.CharBlock(max_length=50, required=True, label="Текст кнопки")
+    url = blocks.CharBlock(
+        required=True,
+        max_length=255,
+        default="#contacts",
+        label="Ссылка или якорь",
+        help_text="Например: #contacts, /contacts/, https://example.com",
+    )
 
 class RichTextSectionBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=False, label="Заголовок")
@@ -76,3 +87,26 @@ class ImageGalleryBlock(blocks.StructBlock):
         icon = "media"
         label = "Галерея изображений"
 
+class RateItemBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, label="Заголовок")
+    period = blocks.CharBlock(required=False, label="Период тарифа")
+
+    price_title = blocks.CharBlock(required=False, label="Заголовок цены", default="Цена продления")
+    price = blocks.CharBlock(required=True, label="Цена тарифа")
+    button = ButtonBlock()
+
+    rec_price_title = blocks.CharBlock(required=False, label="Заголовок рекомендованной цены", default="Рекомендованная цена")
+    rec_price = blocks.TextBlock(required=False, label="Рекомендованная цена")
+
+    class Meta:
+        icon = "tick"
+        label = "Тариф"
+
+
+class RateBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False, label="Заголовок")
+    rates = blocks.ListBlock(RateItemBlock(),label="Список тарифов")
+
+    class Meta:
+        icon = "tick"
+        label = "Тарифы"

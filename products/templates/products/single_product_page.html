@@ -25,7 +25,7 @@
       <div class="container single-product__content">
         {% for block in page.content %}
           <section class="single-product__block single-product__block--{{ block.block_type }}">
-            {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" rate_text_class="rich-content" %}
           </section>
         {% endfor %}
       </div>

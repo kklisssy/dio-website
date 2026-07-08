@@ -48,4 +48,31 @@
       </li>
     {% endfor %}
   </ul>
+{% elif block.block_type == "rates" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  <ul class="rates-card-list{% if cards_class %} {{ cards_class }}{% endif %}"
+      role="list">
+    {% for rate in block.value.rates %}
+      <li class="rate-card{% if card_class %} {{ card_class }}{% endif %}">
+        <div class="rate-top">
+          <h3 class="heading heading--h3">{{ rate.title }}</h3>
+          {% if rate.period %}
+            <div class="rate-card__period text text--md{% if rate_text_class %} {{ rate_text_class }}{% endif %}">{{ rate.period }}</div>
+          {% endif %}
+        </div>
+        <div class="rate-main">
+          <h3 class="heading heading--h4">{{ rate.price_title }}</h3>
+          {% if rate.price %}<div class="rate-card__period-price text">{{ rate.price }}</div>{% endif %}
+          {% if rate.button.text %}
+            <a class="button rate-card__period-button"
+               href="{{ rate.button.url|default:'#contacts' }}">{{ rate.button.text }}</a>
+          {% endif %}
+        </div>
+        <div class="rate-bottom">
+          <h3 class="text text--md">{{ rate.rec_price_title }}</h3>
+          {% if rate.rec_price %}<div class="rate-card__period-price--rec text">{{ rate.rec_price }}</div>{% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 {% endif %}
