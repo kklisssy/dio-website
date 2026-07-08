@@ -13,6 +13,8 @@ from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
+import uuid
+
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -399,3 +401,18 @@ class FooterSettings(BaseGenericSetting):
 
     def get_preview_context(self, request, mode_name):
         return {"settings": self}
+
+
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True, verbose_name="Email")
+    is_active = models.BooleanField("Активен", default=False)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    confirmed_at = models.DateTimeField("Дата подтверждения", null=True, blank=True)
+    confirm_token = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
+        ordering = ["-confirmed_at"]
+
+    def __str__(self):
+        return self.email

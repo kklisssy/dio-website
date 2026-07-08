@@ -16,11 +16,14 @@
             {% endif %}
             <span class="site-footer__brand-name">{{ header.site_title|default:"ДИО-КОНСАЛТ" }}</span>
           </a>
-          <div class="footer-subscribe">
+          <div class="footer-subscribe" id="footer-subscribe">
             <h3 class="heading heading--sm">Подписка</h3>
             <p class="footer-subscribe__text text text--dark">Получайте новости и обновления 1С.</p>
-            <form class="footer-subscribe__form" method="post" action="">
+            <form class="footer-subscribe__form"
+                  method="post"
+                  action="{% url 'newsletter_subscribe' %}">
               {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}#footer-subscribe">
               <input type="email" name="email" placeholder="Email" required>
               <button class="button__cta" type="submit">{{ footer.footer_button }}</button>
             </form>
@@ -28,6 +31,15 @@
               Ознакомьтесь с
               <a href="/privacy-policy/">политикой конфиденциальности</a>.
             </p>
+            {% if messages %}
+              <div class="footer-subscribe__messages">
+                {% for message in messages %}
+                  {% if "newsletter" in message.tags %}
+                    <p class="footer-subscribe__message footer-subscribe__message--{{ message.level_tag }}">{{ message }}</p>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
         </div>
         <div class="site-footer__links">

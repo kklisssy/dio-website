@@ -43,7 +43,9 @@
         {% if messages %}
           <div class="contact-form__messages">
             {% for message in messages %}
-              <p class="contact-form__message contact-form__message--{{ message.tags }}">{{ message }}</p>
+              {% if "contact" in message.tags %}
+                <p class="contact-form__message contact-form__message--{{ message.level_tag }}">{{ message }}</p>
+              {% endif %}
             {% endfor %}
           </div>
         {% endif %}
