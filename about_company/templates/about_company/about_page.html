@@ -1,132 +1,49 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
-{% block content %}
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'about_company/css/about_page.css' %}">
+{% endblock extra_css %}
+{% block content %
   <article class="about-page">
-    <header class="about-hero">
+    <header class="page-hero">
       {% if page.hero_image %}
         {% image page.hero_image fill-1920x760 as hero_image %}
-        <img class="about-hero__image"
+        <img class="about-hero__image page-hero__image"
              src="{{ hero_image.url }}"
              width="{{ hero_image.width }}"
              height="{{ hero_image.height }}"
              alt="">
       {% endif %}
-      <div class="container about-hero__inner">
-        {% if page.hero_label %}<p class="about-hero__label">{{ page.hero_label }}</p>{% endif %}
-        <h1 class="about-hero__title heading heading--h1">{{ page.headline|default:page.title }}</h1>
-        {% if page.intro %}<p class="about-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
+      <div class="container page-hero__inner">
+        <div class="page-hero__content">
+          {% if page.hero_label %}<p class="about-hero__label">{{ page.hero_label }}</p>{% endif %}
+          <h1 class="about-hero__title heading heading--h1">{{ page.headline|default:page.title }}</h1>
+          {% if page.intro %}<p class="page-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
+        </div>
       </div>
     </header>
     {% include "statistics_section.html" with indicators=page.indicators %}
-    {% for block in page.content %}
-      {% if block.block_type == "features" %}
-        {% include "about_company/sections/features.html" with block=block %}
-      {% elif block.block_type == "rich_text" %}
-        <section class="about-rich-section">
-          <div class="container">
-            <div class="about-rich">
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="rich-content">{{ block.value.text|richtext }}</div>
-            </div>
-          </div>
-        </section>
-      {% elif block.block_type == "work_with" %}
-        {% include "about_company/sections/work_with.html" with block=block %}
-      {% elif block.block_type == "partners" %}
-        {% include "about_company/sections/partners.html" with block=block %}
-      {% elif block.block_type == "certificates" %}
-        {% include "about_company/sections/certificates.html" with block=block %}
-      {% endif %}
-    {% endfor %}
+    {% if page.content %}
+      <div class="container page-content">
+        {% for block in page.content %}
+          {% if block.block_type == "rich_text" %}
+            <section class="page-content__block">
+              {% include "components/streamfield_block.html" with block=block text_class="rich-content" %}
+            </section>
+          {% elif block.block_type == "features" %}
+            {% include "about_company/sections/features.html" with block=block %}
+          {% elif block.block_type == "work_with" %}
+            {% include "about_company/sections/work_with.html" with block=block %}
+          {% elif block.block_type == "partners" %}
+            {% include "about_company/sections/partners.html" with block=block %}
+          {% elif block.block_type == "certificates" %}
+            {% include "about_company/sections/certificates.html" with block=block %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
     {% include "global_presence_section.html" with global_presence=page.get_global_presence %}
   </article>
-  <style>
-      .about-page {
-          overflow: hidden;
-          padding-top: 75px;
-      }
-
-      .about-hero {
-          position: relative;
-          display: grid;
-          min-height: 640px;
-          align-items: center;
-          overflow: hidden;
-          background: var(--color-surface);
-      }
-
-      .about-hero::after {
-          position: absolute;
-          inset: 0;
-          content: "";
-          background: linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.78) 48%, rgba(255, 255, 255, 0.42) 100%);
-      }
-
-      .about-hero__image {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          opacity: 0.55;
-      }
-
-      .about-hero__inner {
-          position: relative;
-          z-index: 1;
-          display: grid;
-          gap: 24px;
-          max-width: var(--container-width);
-      }
-
-      .about-hero__label {
-          margin: 0;
-          color: var(--color-brand);
-          font-size: 18px;
-          line-height: 1.2;
-          font-weight: 800;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-      }
-
-      .about-hero__title {
-          max-width: 980px;
-      }
-
-      .about-hero__intro {
-          max-width: 860px;
-      }
-
-      .about-rich-section {
-          padding: 36px 0;
-      }
-
-      .about-rich {
-          display: grid;
-          gap: 28px;
-      }
-
-      @media (max-width: 720px) {
-          .about-page {
-              padding-top: 70px;
-          }
-
-          .about-hero {
-              min-height: 520px;
-          }
-
-          .about-hero__title {
-              --heading-size: 42px;
-          }
-
-          .about-rich-section {
-              padding: 48px 0;
-          }
-
-          .about-rich {
-              padding: 32px 24px;
-          }
-      }
-  </style>
 {% endblock %}
