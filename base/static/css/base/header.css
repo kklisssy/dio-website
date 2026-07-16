@@ -577,6 +577,10 @@ a.main-nav__mega-card:is(:hover, :focus-visible) .main-nav__mega-title,
     display: block;
   }
 
+  .main-nav__dropdown--mega:is(.is-hovered, .is-open) .main-nav__mega-menu {
+    transform: none;
+  }
+
   .main-nav__dropdown--simple.is-open .main-nav__dropdown-menu {
     left: auto;
     transform: none;

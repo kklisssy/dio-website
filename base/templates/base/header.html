@@ -118,9 +118,8 @@
               </div>
             {% else %}
               <div class="main-nav__dropdown main-nav__dropdown--simple">
-                <a href="{% if item.value.page %}{{ item.value.page.url }}{% else %}{{ item.value.external_url|default:'#' }}{% endif %}"
-                   class="main-nav__dropdown-link">{{ item.value.name }}</a>
-                <button class="main-nav__dropdown-toggle" aria-expanded="false" type="button">
+                <button class="main-nav__mega-toggle" aria-expanded="false" type="button">
+                  {{ item.value.name }}
                   <svg class="main-nav__dropdown-chevron"
                        width="16"
                        height="16"
