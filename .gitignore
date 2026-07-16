@@ -50,3 +50,4 @@ documents_library/
 knowledge_base/
 .tmp/
 scripts/backup.sh
+backups
