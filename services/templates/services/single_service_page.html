@@ -1,29 +1,32 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'services/css/service.css' %}">
+{% endblock extra_css %}
 {% block content %}
   <article class="catalog-detail">
-    <header class="catalog-detail__hero">
+    <header class="page-hero">
       {% if page.image %}
         {% image page.image fill-1500x760 as service_image %}
-        <img class="catalog-detail__hero-image"
+        <img class="page-hero__image"
              src="{{ service_image.url }}"
              width="{{ service_image.width }}"
              height="{{ service_image.height }}"
              alt="">
       {% endif %}
-      <div class="container catalog-detail__hero-inner">
-        <div class="catalog-detail__hero-content">
-          {% if page.category %}<p class="catalog-detail__category">{{ page.category.name }}</p>{% endif %}
+      <div class="container page-hero__inner">
+        <div class="page-hero__content">
+          {% if page.category %}<p class="page-hero__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
+          {% if page.intro %}<p class="page-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
         </div>
       </div>
     </header>
     {% if page.content %}
-      <div class="container single-service__content">
+      <div class="container page-content">
         {% for block in page.content %}
-          <section class="single-service__block single-service__block--{{ block.block_type }}">
+          <section class="page-content__block">
             {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" or block.block_type == "gallery" or block.block_type == "rates" %}
               {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" rate_text_class="rich-content" %}
             {% elif block.block_type == "image_text" %}
@@ -80,60 +83,4 @@
       </section>
     {% endif %}
   </article>
-  <style>
-      .single-service__content,
-      .single-service__block {
-          display: grid;
-          gap: 36px;
-      }
-
-      .single-service__content {
-          padding-top: 50px;
-      }
-
-      .single-service__image-text {
-          display: grid;
-          grid-template-columns: minmax(320px, 0.7fr) minmax(0, 1fr);
-          gap: 40px;
-          align-items: center;
-      }
-
-      .single-service__image-text--right img {
-          order: 2;
-      }
-
-      .single-service__image-text img {
-          width: 100%;
-          border-radius: 22px;
-      }
-
-      .single-service__faq {
-          display: grid;
-          gap: 12px;
-      }
-
-      .single-service__faq details {
-          padding: 24px 28px;
-          border-radius: 18px;
-          background: var(--color-surface);
-      }
-
-      .single-service__faq summary {
-          cursor: pointer;
-          color: black;
-          font-size: 22px;
-          font-weight: 700;
-      }
-
-      @media (max-width: 900px) {
-
-          .single-service__image-text {
-              grid-template-columns: 1fr;
-          }
-
-          .single-service__image-text--right img {
-              order: 0;
-          }
-      }
-  </style>
 {% endblock %}
