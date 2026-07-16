@@ -1,27 +1,30 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'services_1C/css/service_1c.css' %}">
+{% endblock extra_css %}
 {% block content %}
   <article class="catalog-detail">
-    <header class="catalog-detail__hero">
+    <header class="page-hero">
       {% if page.image %}
         {% image page.image fill-1500x760 as service_image %}
-        <img class="catalog-detail__hero-image"
+        <img class="page-hero__image"
              src="{{ service_image.url }}"
              width="{{ service_image.width }}"
              height="{{ service_image.height }}"
              alt="">
       {% endif %}
-      <div class="container catalog-detail__hero-inner">
-        <div class="catalog-detail__hero-content">
-          {% if page.category %}<p class="catalog-detail__category">{{ page.category.name }}</p>{% endif %}
+      <div class="container page-hero__inner">
+        <div class="page-hero__content">
+          {% if page.category %}<p class="page-hero__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
+          {% if page.intro %}<p class="page-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
         </div>
       </div>
     </header>
     {% if page.content %}
-      <div class="single-service-1c__content">
+      <div class="page-content">
         {% for block in page.content %}
           {% if block.block_type == "cta" %}
             <section class="single-service-1c__cta">
@@ -37,7 +40,7 @@
               </div>
             </section>
           {% else %}
-            <section class="container single-service-1c__block single-service-1c__block--{{ block.block_type }}">
+            <section class="container page-content__block">
               {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" rate_text_class="rich-content" %}
             </section>
           {% endif %}
@@ -69,49 +72,4 @@
       </section>
     {% endif %}
   </article>
-  <style>
-      .single-service-1c__content,
-      .single-service-1c__block {
-          display: grid;
-          gap: 36px;
-      }
-
-      .single-service-1c__content {
-          padding-top: 50px;
-      }
-
-      .single-service-1c__cta {
-          padding: 86px 0 74px;
-          background: var(--color-brand);
-      }
-
-      .single-service-1c__cta-container {
-          display: grid;
-          justify-items: center;
-          gap: 24px;
-          text-align: center;
-      }
-
-      .single-service-1c__cta-text {
-          margin: 0;
-          color: #ffffff;
-          font-size: 24px;
-          line-height: 1.4;
-      }
-
-      .single-service-1c__cta-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 48px;
-          margin-top: 52px;
-          padding: 0 28px;
-          border: 2px solid #ffffff;
-          border-radius: 8px;
-          color: #ffffff;
-          font-size: 18px;
-          font-weight: 500;
-      }
-
-  </style>
 {% endblock %}

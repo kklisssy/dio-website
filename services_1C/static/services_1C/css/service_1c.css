@@ -1,0 +1,32 @@
+.single-service-1c__cta {
+  padding: 86px 0 74px;
+  background: var(--color-brand);
+}
+
+.single-service-1c__cta-container {
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.single-service-1c__cta-text {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.single-service-1c__cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 52px;
+  padding: 0 28px;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+}
