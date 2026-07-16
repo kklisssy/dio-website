@@ -1,6 +1,6 @@
 .contact-section {
   padding: 64px 0;
-  background: #f7f7f7;
+  background: var(--color-accent);
   scroll-margin-top: 85px;
 }
 
