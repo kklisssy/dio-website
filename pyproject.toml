@@ -7,7 +7,7 @@ dependencies = [
     "gunicorn>=23.0.0",
     "python-dotenv>=1.2.1",
     "psycopg[binary]>=3.2.0",
-    "wagtail>=7.1.1",
+    "wagtail>=7.4.2,<7.5",
     "wagtailmenus>=4.0.4",
     "whitenoise>=6.11.0",
 ]
