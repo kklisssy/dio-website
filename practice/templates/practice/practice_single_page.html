@@ -1,33 +1,35 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block title %}{{ page.title }}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'practice/css/practice.css' %}">
+{% endblock %}
 {% block content %}
-  <article class="catalog-detail practice-article">
-    <header class="catalog-detail__hero">
+  <article class="catalog-detail">
+    <header class="page-hero">
       {% if page.image %}
         {% image page.image fill-1500x760 as article_image %}
-        <img class="catalog-detail__hero-image"
+        <img class="page-hero__image"
              src="{{ article_image.url }}"
              width="{{ article_image.width }}"
              height="{{ article_image.height }}"
              alt="">
       {% endif %}
-      <div class="container catalog-detail__hero-inner">
-        <div class="catalog-detail__hero-content">
-          {% if page.category %}<p class="practice-article__category">{{ page.category.name }}</p>{% endif %}
+      <div class="container page-hero__inner">
+        <div class="page-hero__content">
+          {% if page.category %}<p class="page-hero__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="catalog-detail__intro text text--md">{{ page.intro }}</p>{% endif %}
+          {% if page.intro %}<p class="page-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
           {% if page.document %}
-            <a class="practice-article__document button__cta"
-               href="{{ page.document.url }}">Скачать материал</a>
+            <a class="button__cta" href="{{ page.document.url }}">Скачать материал</a>
           {% endif %}
         </div>
       </div>
     </header>
     {% if page.content %}
-      <div class="container practice-article__content">
+      <div class="container page-content">
         {% for block in page.content %}
-          <section class="practice-article__block practice-article__block--{{ block.block_type }}">
+          <section class="page-content__block">
             {% include "components/streamfield_block.html" with block=block text_class="rich-content" cards_class="practice-article__cards" card_class="practice-article__card" item_text_class="rich-content" %}
           </section>
         {% endfor %}
@@ -62,54 +64,4 @@
       </section>
     {% endif %}
   </article>
-  <style>
-      .practice-article__category {
-          display: inline-flex;
-          width: fit-content;
-          margin: 0;
-          padding: 16px 28px;
-          border-radius: var(--radius-pill);
-          background: var(--color-brand);
-          color: #ffffff;
-          font-size: 24px;
-          line-height: 1.1;
-      }
-
-      .practice-article__document {
-          width: fit-content;
-          text-decoration: none;
-      }
-
-      .practice-article__content {
-          display: grid;
-          gap: 64px;
-          padding: 50px 0;
-      }
-
-      .practice-article__block {
-          display: grid;
-          gap: 32px;
-      }
-
-      .practice-article__cards {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 18px;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-      }
-
-      .practice-article__card {
-          display: grid;
-          gap: 18px;
-          padding: 34px;
-      }
-
-      @media (max-width: 900px) {
-          .practice-article__cards {
-              grid-template-columns: 1fr;
-          }
-      }
-  </style>
 {% endblock %}

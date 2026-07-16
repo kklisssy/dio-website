@@ -1,0 +1,20 @@
+.practice-article__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.practice-article__card {
+  display: grid;
+  gap: 18px;
+  padding: 34px;
+}
+
+@media (max-width: 900px) {
+  .practice-article__cards {
+    grid-template-columns: 1fr;
+  }
+}
