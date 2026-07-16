@@ -1,0 +1,16 @@
+.single-product__price {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand);
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+@media (max-width: 900px) {
+  .single-product__price {
+    font-size: 34px;
+  }
+}
