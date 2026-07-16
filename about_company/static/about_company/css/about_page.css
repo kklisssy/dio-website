@@ -45,6 +45,16 @@
   gap: 28px;
 }
 
+.about-features {
+  padding: 36px 0;
+  background: var(--color-page);
+}
+
+.about-features__header {
+  max-width: 980px;
+  margin-bottom: 44px;
+}
+
 /* Сертификаты */
 .about-certs {
   display: grid;
