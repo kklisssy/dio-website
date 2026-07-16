@@ -1,0 +1,425 @@
+/* Текст */
+.rich-content {
+  color: var(--color-muted);
+  font-size: 20px;
+  line-height: 1.65;
+}
+
+.rich-content h2,
+.rich-content h3,
+.rich-content h4 {
+  margin: 0 0 18px;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.rich-content h2 {
+  font-size: 34px;
+}
+
+.rich-content h3 {
+  font-size: 28px;
+}
+
+.rich-content h4 {
+  font-size: 22px;
+}
+
+.rich-content p {
+  margin: 0 0 20px;
+  text-align: justify;
+}
+
+.rich-content p:last-child {
+  margin-bottom: 0;
+}
+
+.rich-content ul,
+.rich-content ol {
+  display: grid;
+  gap: 18px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rich-content li {
+  position: relative;
+  padding-left: 40px;
+}
+
+.rich-content ul li::before {
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--color-brand);
+  border-radius: 50%;
+  content: "";
+  box-sizing: border-box;
+}
+
+.rich-content ol {
+  counter-reset: rich-list;
+}
+
+.rich-content ol li {
+  counter-increment: rich-list;
+}
+
+.rich-content ol li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-brand);
+  content: counter(rich-list) ".";
+  font-weight: 800;
+}
+
+.rich-content blockquote {
+  margin: 28px 0;
+  padding: 22px 26px;
+  border-left: 4px solid var(--color-brand);
+  border-radius: 0 18px 18px 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.rich-content a {
+  color: var(--color-brand);
+  font-weight: 700;
+}
+
+
+/* Таблица */
+.custom-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.custom-table-wrapper table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--color-page);
+}
+
+.custom-table-wrapper th,
+.custom-table-wrapper td {
+  padding: 18px 20px;
+  border: 1px solid rgba(44, 38, 38, 0.2);
+  text-align: left;
+  vertical-align: top;
+}
+
+.custom-table-wrapper th {
+  background: var(--color-brand);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.custom-table-wrapper tr {
+  background: var(--color-page);
+  transition: background 0.2s ease;
+}
+
+.custom-table-wrapper tr:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.custom-table-wrapper caption {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+  caption-side: top;
+}
+
+
+/* Свойства */
+.feature-card-list,
+.gallery-grid,
+.rates-card-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-card-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.feature-card-list--about {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.feature-card {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  min-height: 350px;
+  padding: 40px;
+  border: 2px solid black;
+  border-radius: 30px;
+  background: var(--color-page);
+  box-shadow: 0 10px 30px rgba(17, 20, 24, 0.07);
+}
+
+.feature-card__top {
+  display: flex;
+  min-height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.feature-card__number {
+  color: #e2e2e2;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.feature-card__icon-wrap {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(159, 48, 48, 0.08);
+}
+
+.feature-card__icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.feature-card__accent {
+  width: 46px;
+  height: 3px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+
+.feature-card h3 {
+  --heading-size: 34px;
+  --heading-line-height: 1.15;
+}
+
+.feature-card__text {
+  color: #292929;
+  --text-line-height: 1.32;
+  --text-weight: 400;
+}
+
+.feature-card__text p {
+  margin: 0;
+  text-align: left;
+}
+
+.feature-card__text,
+.feature-card__text p,
+.feature-card__text b,
+.feature-card__text strong {
+  font-weight: 400;
+}
+
+
+/* Галерея изображений */
+.gallery-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.gallery-image-wrap {
+  border-radius: 20px;
+  min-height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gallery-image-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* Тарифы */
+.rates-card-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.rate-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  padding: 35px 30px 30px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 30px;
+  background: var(--color-page);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+}
+
+.rate-top,
+.rate-main,
+.rate-bottom {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.rate-top {
+  align-content: start;
+  gap: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.rate-top .heading {
+  max-width: 220px;
+  --heading-size: 32px;
+  --heading-line-height: 1.2;
+  --heading-weight: 600;
+}
+
+.rate-card__period {
+  --text-size: 16px;
+  --text-line-height: 1.25;
+  --text-weight: 700;
+}
+
+.rate-main {
+  align-content: start;
+  gap: 8px;
+  padding: 24px 0 14px;
+}
+
+.rate-main .heading {
+  color: var(--color-muted);
+  --heading-size: 17px;
+  --heading-line-height: 1.25;
+  --heading-weight: 700;
+}
+
+.rate-card__period-price {
+  color: var(--color-text);
+  --text-size: 28px;
+  --text-line-height: 1.2;
+  --text-weight: 800;
+}
+
+.rate-card__period-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 205px);
+  margin-top: 14px;
+  padding: 20px;
+  border-radius: 30px;
+  background: var(--color-brand);
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.rate-card__period-button:hover {
+  border-color: var(--color-brand-light);
+  background: var(--color-brand-light);
+  transform: translateY(-1px);
+}
+
+.rate-bottom {
+  align-content: start;
+  gap: 6px;
+  min-height: 62px;
+  color: #a5adbe;
+}
+
+.rate-bottom .text {
+  --text-size: 15px;
+  --text-line-height: 1.3;
+  --text-weight: 500;
+}
+
+.rate-card__period-price--rec {
+  --text-size: 17px;
+  --text-line-height: 1.25;
+  --text-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card-list {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    min-height: auto;
+    padding: 30px 24px 36px;
+  }
+
+  .feature-card__top {
+    min-height: 68px;
+  }
+
+  .feature-card__number {
+    font-size: 34px;
+  }
+
+  .feature-card__icon-wrap {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .feature-card__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .feature-card h3 {
+    --heading-size: 28px;
+  }
+
+  .rich-content {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .gallery-grid,
+  .rates-card-list {
+    grid-template-columns: 1fr;
+  }
+}

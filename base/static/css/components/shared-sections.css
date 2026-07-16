@@ -1,0 +1,306 @@
+/* Кейсы */
+.cases-list {
+  --grid-list-gap: 12px;
+}
+
+.case-card {
+  height: 100%;
+}
+
+.case-card__link {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 42px;
+  align-items: center;
+  height: 100%;
+  min-height: 246px;
+  padding: 45px 50px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  background: #ffffff;
+}
+
+.case-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+}
+
+.case-card__media img {
+  max-width: 160px;
+  max-height: 92px;
+  object-fit: contain;
+}
+
+.case-card__letter {
+  color: var(--color-brand);
+  font-size: 84px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.case-card__content {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+
+.case-card__title {
+  --heading-size: 25px;
+  --heading-line-height: 1.25;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.case-card__intro {
+  max-width: 1220px;
+  overflow: hidden;
+}
+
+.case-card__intro p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.case-card__intro b {
+  font-weight: 400;
+}
+
+
+/* Показатели */
+.statistics-section__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 1.15fr);
+  grid-template-areas: "stats header";
+  gap: clamp(64px, 9vw, 144px);
+  align-items: start;
+  padding: 64px 72px;
+  border-bottom: 1px solid #dedede;
+  border-radius: 0;
+}
+
+.statistics-section__header {
+  grid-area: header;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: left;
+}
+
+.statistics-section__title {
+  margin: 0 0 20px;
+}
+
+.statistics-section__grid {
+  display: grid;
+  grid-area: stats;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statistics-section__item {
+  padding-top: 12px;
+  border-top: 1px solid var(--color-brand);
+  text-align: left;
+}
+
+.statistics-section__value {
+  margin-bottom: 10px;
+  font-size: clamp(48px, 4.2vw, 68px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 0;
+  transition: color 1s ease;
+}
+
+.statistics-section__value.animated {
+  color: #111418;
+}
+
+.statistics-section__label {
+  --text-size: 14px;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.statistics-section__description {
+  margin-top: 14px;
+}
+
+.statistics-section__description p {
+  margin: 0;
+}
+
+.global-presence-section {
+  padding: 64px 0;
+}
+
+
+/* Глобальное присутсвие */
+.global-presence-section__container {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(420px, 1.18fr);
+  align-items: center;
+  gap: clamp(40px, 5vw, 72px);
+  margin: 0 auto;
+}
+
+.global-presence-section__content {
+  max-width: 720px;
+}
+
+.global-presence-section__title {
+  margin: 0 0 50px;
+  color: #111418;
+  --heading-line-height: 1.08;
+}
+
+.global-presence-section__content p,
+.global-presence-section__content b {
+  font-weight: 400;
+}
+
+.global-presence-section__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.global-presence-section__image img {
+  display: block;
+  width: 100%;
+  max-width: 920px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .cases-section {
+    padding: 64px 0 72px;
+  }
+
+  .cases-section__container {
+    gap: 38px;
+  }
+
+  .statistics-section__container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "stats";
+    gap: 48px;
+    padding: 64px 40px;
+  }
+
+  .global-presence-section__container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .global-presence-section__content {
+    max-width: none;
+  }
+
+  .global-presence-section__title {
+    margin-bottom: 34px;
+  }
+
+  .case-card__link {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    justify-items: center;
+    min-height: 420px;
+    padding: 36px 30px;
+    text-align: center;
+  }
+
+  .case-card__media {
+    justify-content: center;
+  }
+
+  .case-card__content {
+    justify-items: center;
+  }
+
+  .case-card .catalog-card__category {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .statistics-section__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 18px;
+  }
+
+  .statistics-section__value {
+    font-size: clamp(38px, 12vw, 52px);
+  }
+}
+
+@media (max-width: 560px) {
+  .cases-section__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cases-section__title {
+    --heading-size: 36px;
+  }
+
+  .statistics-section {
+    padding: 32px 16px;
+  }
+
+  .statistics-section__container {
+    padding: 36px 22px 44px;
+  }
+
+  .statistics-section__title {
+    --heading-size: 24px;
+  }
+
+  .global-presence-section {
+    padding: 56px 16px 64px;
+  }
+
+  .global-presence-section__title {
+    --heading-size: 36px;
+  }
+
+  .list-content {
+    font-size: 19px;
+  }
+
+  .list-content li {
+    padding-left: 36px;
+    font-size: 18px;
+  }
+
+  .case-card__link {
+    min-height: 390px;
+    padding: 28px 22px;
+    border-radius: 18px;
+  }
+
+  .case-card__title {
+    --heading-size: 23px;
+  }
+
+  .case-card__intro {
+    --text-size: 18px;
+  }
+
+  .case-card__intro p {
+    -webkit-line-clamp: 4;
+  }
+}
