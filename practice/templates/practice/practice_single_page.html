@@ -41,7 +41,7 @@
           <h2 class="heading heading--h2">Другие практики</h2>
           <ul class="catalog-grid" role="list">
             {% for practice in other_practices %}
-              <li class="catalog-card service-catalog-card">
+              <li class="catalog-card">
                 <a class="catalog-card__link" href="{% pageurl practice %}">
                   <div class="catalog-card__content">
                     {% if practice.category %}

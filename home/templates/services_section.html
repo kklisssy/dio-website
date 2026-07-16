@@ -7,7 +7,7 @@
             class="services-section__title heading heading--h2">Услуги</h2>
         <ul class="catalog-grid" role="list">
           {% for service in services %}
-            <li class="catalog-card service-catalog-card">
+            <li class="catalog-card{% if forloop.counter == 3 or forloop.counter == 4 %} catalog-card--accent{% endif %}">
               <a class="catalog-card__link" href="{% pageurl service %}">
                 <div class="catalog-card__content">
                   {% if service.category %}<p class="catalog-card__category">{{ service.category.name }}</p>{% endif %}
