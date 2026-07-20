@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
       {% block title %}
-        DIO Website
+        {{ page.seo_title|default:page.title|default:"DIO Website" }}
       {% endblock title %}
     </title>
+    {% if page.search_description %}<meta name="description" content="{{ page.search_description }}">{% endif %}
     <link rel="stylesheet" href="{% static 'css/light-theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/base/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/base/contact.css' %}">
