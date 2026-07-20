@@ -277,15 +277,6 @@
     --heading-size: 36px;
   }
 
-  .list-content {
-    font-size: 19px;
-  }
-
-  .list-content li {
-    padding-left: 36px;
-    font-size: 18px;
-  }
-
   .case-card__link {
     min-height: 390px;
     padding: 28px 22px;

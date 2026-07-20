@@ -28,7 +28,7 @@
       <div class="container content-detail__content">
         {% for block in page.content %}
           <section class="content-detail__block content-detail__block--{{ block.block_type }}">
-            {% include "components/streamfield_block.html" with block=block text_class="list-content" cards_class="content-detail__cards" card_class="content-detail__card" item_text_class="text text--md" %}
+            {% include "components/streamfield_block.html" with block=block text_class="list-content" cards_class="content-detail__cards" card_class="content-detail__card" %}
           </section>
         {% endfor %}
       </div>

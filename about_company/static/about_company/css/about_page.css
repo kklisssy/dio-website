@@ -8,11 +8,6 @@
   opacity: 0.55;
 }
 
-.about-hero__content {
-  max-width: 980px;
-  padding: 0;
-}
-
 .about-hero__label {
   margin: 0;
   color: var(--color-brand);
@@ -23,10 +18,6 @@
   text-transform: uppercase;
 }
 
-.about-hero__intro {
-  max-width: 860px;
-}
-
 .about-section__header {
   display: grid;
   gap: 18px;
@@ -35,24 +26,8 @@
 
 .about-section__header p,
 .about-section__intro p,
-.about-rich p,
 .about-work-card__text p {
   margin: 0;
-}
-
-.about-rich {
-  display: grid;
-  gap: 28px;
-}
-
-.about-features {
-  padding: 36px 0;
-  background: var(--color-page);
-}
-
-.about-features__header {
-  max-width: 980px;
-  margin-bottom: 44px;
 }
 
 /* Сертификаты */
@@ -231,16 +206,8 @@
     padding-top: 70px;
   }
 
-  .about-hero {
-    min-height: 520px;
-  }
-
   .about-hero__title {
     --heading-size: 42px;
-  }
-
-  .about-rich {
-    gap: 24px;
   }
 
   .about-certs,

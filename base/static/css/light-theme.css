@@ -357,4 +357,13 @@ a {
   .heading--h3 {
     --heading-size: 28px;
   }
+
+  .list-content {
+    font-size: 19px;
+  }
+
+  .list-content li {
+    padding-left: 36px;
+    font-size: 18px;
+  }
 }
