@@ -1,10 +1,15 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% with services=page.get_services %}
+{% with services=page.get_services service_index=page.get_service_index %}
   {% if services %}
     <section class="services-section" aria-labelledby="services-section-title">
       <div class="container services-section__container">
-        <h2 id="services-section-title"
-            class="services-section__title heading heading--h2">Услуги</h2>
+        <header class="services-section__header page-header">
+          <h2 id="services-section-title"
+              class="services-section__title heading heading--h2">Услуги</h2>
+          {% if service_index.intro %}
+            <div class="service-index__intro text text--md">{{ service_index.intro|richtext }}</div>
+          {% endif %}
+        </header>
         <ul class="catalog-grid" role="list">
           {% for service in services %}
             <li class="catalog-card{% if forloop.counter == 3 or forloop.counter == 4 %} catalog-card--accent{% endif %}">
