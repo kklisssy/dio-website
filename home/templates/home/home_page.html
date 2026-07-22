@@ -1,36 +1,38 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block extra_css %}
-  <link rel="stylesheet"
-        href="{% static 'home/css/home.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 {% endblock extra_css %}
 {% block content %}
   {% for block in page.hero %}
     {% if block.block_type == "hero" %}
-      <section class="container hero">
-        <div class="hero__content">
-          <h1 class="heading heading--h1 heading-hero">{{ block.value.title }}</h1>
-          {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
-          {% if block.value.buttons %}
-            <div class="buttons__cta">
-              {% for button in block.value.buttons %}
-                <a href="{% if button.is_secondary %}{{ button.url }}{% else %}#contacts{% endif %}"
-                   class="button__cta{% if button.is_secondary %} button__cta--secondary{% endif %}">
-                  {{ button.text }}
-                </a>
-              {% endfor %}
+      <section class="hero-section">
+        <div class="container hero">
+          <div class="hero__glass" aria-hidden="true"></div>
+          <div class="hero__content">
+            <h1 class="heading heading--h1 heading-hero">{{ block.value.title }}</h1>
+            {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
+            {% if block.value.buttons %}
+              <div class="buttons__cta">
+                {% for button in block.value.buttons %}
+                  <a href="{% if button.is_secondary %}{{ button.url }}{% else %}#contacts{% endif %}"
+                     class="button__cta{% if button.is_secondary %} button__cta--secondary{% endif %}">
+                    {{ button.text }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          {% if block.value.image %}
+            <div class="hero__image">
+              {% image block.value.image max-900x700 as hero_image %}
+              <img src="{{ hero_image.url }}"
+                   width="{{ hero_image.width }}"
+                   height="{{ hero_image.height }}"
+                   alt="{{ block.value.title }}">
             </div>
           {% endif %}
         </div>
-        {% if block.value.image %}
-          <div class="hero__image">
-            {% image block.value.image max-900x700 as hero_image %}
-            <img src="{{ hero_image.url }}"
-                 width="{{ hero_image.width }}"
-                 height="{{ hero_image.height }}"
-                 alt="{{ block.value.title }}">
-          </div>
-        {% endif %}
       </section>
     {% endif %}
   {% endfor %}
@@ -41,7 +43,6 @@
           {% if feature.value.page %}
             <a class="hero-feature-card__body" href="{{ feature.value.page.url }}">
               <div class="hero-feature-card__top">
-                <span class="hero-feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
                 {% if feature.value.icon %}
                   {% image feature.value.icon max-96x96 as feature_icon %}
                   <span class="hero-feature-card__icon-wrap">
@@ -60,7 +61,6 @@
           {% else %}
             <div class="hero-feature-card__body">
               <div class="hero-feature-card__top">
-                <span class="hero-feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
                 {% if feature.value.icon %}
                   {% image feature.value.icon max-96x96 as feature_icon %}
                   <span class="hero-feature-card__icon-wrap">
@@ -81,10 +81,11 @@
       {% endfor %}
     </ul>
   {% endif %}
-  {% include "statistics_section.html" with indicators=page.get_about_indicators %}
-  {% include "work_with_section.html" %}
-  {% include "cases_section.html" %}
-  {% include "services_section.html" %}
-  {% include "work_stages_section.html" %}
-  {% include "global_presence_section.html" with global_presence=page.global_presence %}
+  {% include "about_company/sections/statistics_section.html" with indicators=page.get_about_indicators %}
+  {% include "sections/direction_section.html" with directions=page.directions %}
+  {% include "sections/work_with_section.html" %}
+  {% include "sections/services_section.html" %}
+  {% include "sections/cases_section.html" %}
+  {% include "sections/work_stages_section.html" %}
+  {% include "sections/global_presence_section.html" with global_presence=page.global_presence %}
 {% endblock %}

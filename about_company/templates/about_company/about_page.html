@@ -23,7 +23,7 @@
         </div>
       </div>
     </header>
-    {% include "statistics_section.html" with indicators=page.indicators %}
+    {% include "about_company/sections/statistics_section.html" with indicators=page.indicators %}
     {% if page.content %}
       <div class="container page-content">
         {% for block in page.content %}
@@ -32,17 +32,17 @@
               {% include "components/streamfield_block.html" with block=block text_class="rich-content" %}
             </section>
           {% elif block.block_type == "features" %}
-            {% include "about_company/sections/features.html" with block=block %}
+            {% include "about_company/sections/features_section.html" with block=block %}
           {% elif block.block_type == "work_with" %}
-            {% include "about_company/sections/work_with.html" with block=block %}
+            {% include "about_company/sections/work_with_section.html" with block=block %}
           {% elif block.block_type == "partners" %}
-            {% include "about_company/sections/partners.html" with block=block %}
+            {% include "about_company/sections/partners_section.html" with block=block %}
           {% elif block.block_type == "certificates" %}
-            {% include "about_company/sections/certificates.html" with block=block %}
+            {% include "about_company/sections/certificates_section.html" with block=block %}
           {% endif %}
         {% endfor %}
       </div>
     {% endif %}
-    {% include "global_presence_section.html" with global_presence=page.get_global_presence %}
+    {% include "sections/global_presence_section.html" with global_presence=page.get_global_presence %}
   </article>
 {% endblock %}
