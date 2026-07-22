@@ -114,27 +114,6 @@ class DirectionsBlock(blocks.StructBlock):
         label = "Направления аудита"
 
 
-#Секция достижений
-class MainAchievementBlock(blocks.StructBlock):
-    """Блок для основного достижения"""
-
-    icon = ImageChooserBlock(
-        required=False,
-        label="Иконка",
-        help_text="Выберите изображение для иконки (рекомендуемый размер: 50x50px)",
-    )
-    value = blocks.IntegerBlock(default=0, label="Числовое значение")
-    suffix = blocks.CharBlock(
-        max_length=10, blank=True, default="+", label="Суффикс (например, '+' или '%')"
-    )
-    label = blocks.CharBlock(max_length=100, label="Краткое название")
-    description = blocks.RichTextBlock(blank=True, required=False, label="Описание достижения")
-
-    class Meta:
-        icon = "tick"
-        label = "Достижение"
-
-
 class WorkStageItemBlock(blocks.StructBlock):
     """Блок для одного этапа работы."""
 

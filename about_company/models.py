@@ -10,11 +10,37 @@ from wagtail.models import Page
 
 from base.page_blocks import FeaturesBlock, RichTextSectionBlock
 from home.models import (
-    MainAchievementBlock,
     PartnershipBlock,
     WorkStagesBlock,  # noqa: F401 - imported by historical migrations
     WorkWithBlock,
 )
+
+
+class MainAchievementBlock(blocks.StructBlock):
+    """Блок для одного показателя компании."""
+
+    icon = ImageChooserBlock(
+        required=False,
+        label="Иконка",
+        help_text="Выберите изображение для иконки (рекомендуемый размер: 50x50px)",
+    )
+    value = blocks.IntegerBlock(default=0, label="Числовое значение")
+    suffix = blocks.CharBlock(
+        max_length=10,
+        blank=True,
+        default="+",
+        label="Суффикс (например, '+' или '%')",
+    )
+    label = blocks.CharBlock(max_length=100, label="Краткое название")
+    description = blocks.RichTextBlock(
+        blank=True,
+        required=False,
+        label="Описание достижения",
+    )
+
+    class Meta:
+        icon = "tick"
+        label = "Достижение"
 
 
 class AchievementsBlock(blocks.StructBlock):
