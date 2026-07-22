@@ -59,6 +59,61 @@ class HeroBlock(blocks.StructBlock):
         label = "Hero секция"
 
 
+class DirectionCardBlock(blocks.StructBlock):
+    """Карточка направления работ"""
+
+    page = blocks.PageChooserBlock(
+        required=True,
+        label="Страница",
+    )
+    category = blocks.CharBlock(
+        required=False,
+        max_length=80,
+        label="Категория",
+    )
+    title = blocks.CharBlock(
+        required=True,
+        max_length=150,
+        label="Заголовок",
+    )
+    description = blocks.TextBlock(
+        required=False,
+        max_length=300,
+        label="Описание",
+    )
+    image = ImageChooserBlock(
+        required=False,
+        label="Изображение",
+    )
+
+    class Meta:
+        label = "Карточка направления аудита"
+        icon = "link"
+
+class DirectionsBlock(blocks.StructBlock):
+    title = blocks.CharBlock(
+        required=False,
+        max_length=150,
+        label="Заголовок",
+    )
+
+    description = blocks.TextBlock(
+        required=False,
+        max_length=300,
+        label="Описание",
+    )
+
+    main_card = DirectionCardBlock(
+        label="Главная карточка",
+    )
+
+    cards = blocks.ListBlock(DirectionCardBlock(), min_num=1, label="Дополнительные карточки")
+
+    class Meta:
+        icon = "tick"
+        label = "Направления аудита"
+
+
 #Секция достижений
 class MainAchievementBlock(blocks.StructBlock):
     """Блок для основного достижения"""
@@ -363,6 +418,14 @@ class HomePage(Page):
         verbose_name="Карточки под hero"
     )
 
+    directions = StreamField(
+        [("directions", DirectionsBlock())],
+        blank=True,
+        max_num=1,
+        use_json_field=True,
+        verbose_name="Направления аудита",
+    )
+
     work_stages = StreamField(
         [("work_stages", WorkStagesBlock())],
         blank=True,
@@ -397,6 +460,7 @@ class HomePage(Page):
         *Page.content_panels,
         FieldPanel('hero'),
         FieldPanel("hero_features"),
+        FieldPanel("directions"),
         FieldPanel("work_stages"),
         FieldPanel('work'),
         FieldPanel('partners'),
@@ -415,6 +479,11 @@ class HomePage(Page):
     def get_services(self):
         from services.models import SingleServicePage
         return SingleServicePage.objects.live().order_by("-date")
+
+    def get_service_index(self):
+        from services.models import ServiceIndexPage
+
+        return ServiceIndexPage.objects.live().child_of(self).first()
 
     def get_about_indicators(self):
         from about_company.models import AboutPage

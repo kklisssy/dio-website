@@ -1,16 +1,95 @@
+.hero-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 90px 0 48px;
+  padding: 48px 0;
+  background:
+    radial-gradient(
+      circle at 12% 112%,
+      rgba(218, 116, 55, 0.28),
+      transparent 30%
+    ),
+    radial-gradient(circle at 86% 12%, rgba(159, 48, 48, 0.5), transparent 34%),
+    linear-gradient(145deg, #30343b 0%, #22262d 100%);
+}
+
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(600px, 1.08fr) minmax(380px, 0.92fr);
   align-items: center;
   gap: 24px;
-  margin: 90px auto 12px;
-  padding: 80px 88px;
+  margin: 0 auto;
+  padding: 50px 70px;
+  overflow: hidden;
   border-radius: var(--radius-large);
-  background: var(--color-surface);
-  box-shadow: inset 0 0 45px var(--color-inner-shadow);
+  background: transparent;
+  color: #ffffff;
+}
+
+.hero__glass {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      circle at 74% 10%,
+      rgba(255, 147, 75, 0.12),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.035) 38%,
+      rgba(255, 255, 255, 0.065) 100%
+    ),
+    rgba(32, 35, 40, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 1px 0 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 50px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
+.hero__glass::before {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      circle at 72% 14%,
+      rgba(255, 147, 75, 0.25),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 12% 0%,
+      rgba(255, 255, 255, 0.2),
+      transparent 28%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.07) 46%,
+      transparent 62%
+    );
+  content: "";
+  pointer-events: none;
+}
+
+.hero .heading {
+  color: inherit;
 }
 
 .hero__content {
+  position: relative;
+  z-index: 2;
   display: flex;
   width: 100%;
   max-width: 920px;
@@ -23,9 +102,17 @@
 
 .hero__text {
   max-width: 800px;
+  color: #cdcdcd;
+}
+
+.hero__text strong,
+.hero__text b {
+  font-weight: inherit;
 }
 
 .hero__image {
+  position: relative;
+  z-index: 2;
   display: flex;
   min-width: 0;
   align-items: center;
@@ -49,18 +136,104 @@
 .cases-section,
 .services-section,
 .work-with-section,
-.work-stages {
+.work-stages,
+.directions-section {
   padding: 64px 0;
 }
 
-.cases-section,
-.work-stages {
+.cases-section {
   background: var(--color-accent);
+}
+
+.work-stages {
+  background:
+    radial-gradient(
+      circle at 86% 12%,
+      rgba(159, 48, 48, 0.42),
+      transparent 34%
+    ),
+    linear-gradient(145deg, #30343b 0%, #22262d 100%);
+}
+
+/* Направления аудита */
+.directions-section__container {
+  display: grid;
+  gap: 12px;
+}
+
+.direction-main-card .catalog-card__link {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  grid-template-rows: 1fr auto;
+  padding: 0;
+  background:
+    radial-gradient(circle at 5% 90%, rgba(159, 48, 48, 0.42), transparent 34%),
+    linear-gradient(145deg, #30343b 0%, #22262d 100%);
+  color: #ffffff;
+  box-shadow: none;
+  aspect-ratio: auto;
+}
+
+.direction-main-card .catalog-card__content {
+  grid-column: 1;
+  grid-row: 1;
+  align-content: start;
+  max-width: none;
+  padding: 64px 60px;
+}
+
+.direction-main-card .catalog-card__title {
+  min-height: 0;
+  color: inherit;
+}
+
+.direction-main-card__image {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.direction-main-card__image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.direction-card__image {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* object-fit: contain; */
+  object-position: right bottom;
+  pointer-events: none;
+}
+
+.direction-card--with-image .catalog-card__link::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    rgba(245, 245, 245, 0.82) 44%,
+    rgba(245, 245, 245, 0.08) 78%
+  );
+  pointer-events: none;
 }
 
 .hero-features,
 .work-with-section__grid,
-.work-stages__grid {
+.work-stages__grid,
+.directions-section__grid {
   display: grid;
   gap: 12px;
   margin: 0;
@@ -70,13 +243,13 @@
 
 /* Карточки */
 .hero-features {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   width: min(100% - (var(--container-padding) * 2), var(--container-width));
   margin: 0 auto 72px;
 }
 
 .hero-feature-card {
-  min-height: 390px;
+  min-height: 350px;
   border-radius: var(--radius-large);
   background: var(--color-surface);
   overflow: hidden;
@@ -106,17 +279,9 @@ a.work-stages__card-body:hover {
 
 .hero-feature-card__top {
   display: flex;
-  min-height: 82px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 24px;
-}
-
-.hero-feature-card__number {
-  color: var(--color-brand);
-  font-size: 24px;
-  line-height: 1;
-  font-weight: 500;
 }
 
 .hero-feature-card__icon-wrap {
@@ -390,6 +555,28 @@ a.work-stages__card-body:hover {
 }
 
 @media (max-width: 900px) {
+  .direction-main-card .catalog-card__link {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 300px;
+  }
+
+  .direction-main-card .catalog-card__content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 48px 50px 24px;
+  }
+
+  .direction-main-card .catalog-card__more {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 0 50px 48px;
+  }
+
+  .direction-main-card__image {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
   .hero-features {
     grid-template-columns: 1fr;
     margin: 0 auto 64px;
@@ -424,10 +611,21 @@ a.work-stages__card-body:hover {
   .services-section__container {
     gap: 32px;
   }
-
 }
 
 @media (max-width: 560px) {
+  .direction-main-card .catalog-card__link {
+    grid-template-rows: auto auto 220px;
+  }
+
+  .direction-main-card .catalog-card__content {
+    padding: 34px 28px 20px;
+  }
+
+  .direction-main-card .catalog-card__more {
+    padding: 0 28px 34px;
+  }
+
   .hero {
     padding: 30px 16px;
   }
@@ -521,9 +719,13 @@ a.work-stages__card-body:hover {
 }
 
 @media (max-width: 460px) {
+  .hero-section {
+    margin-top: 70px;
+    padding: 24px 0;
+  }
+
   .hero {
     min-height: auto;
-    margin-top: 70px;
     padding: 34px 18px;
   }
 

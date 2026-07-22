@@ -1,0 +1,56 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if directions %}
+  {% for block in directions %}
+    {% if block.block_type == "directions" %}
+      <section class="directions-section">
+        <div class="container directions-section__container">
+          {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+          {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
+          {% with card=block.value.main_card %}
+            <article class="catalog-card direction-main-card">
+              <a class="catalog-card__link" href="{{ card.page.url }}">
+                <div class="catalog-card__content">
+                  {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
+                  <h3 class="catalog-card__title heading heading--h2">{{ card.title }}</h3>
+                  {% if card.description %}<p class="catalog-card__text">{{ card.description|richtext }}</p>{% endif %}
+                  <span class="catalog-card__more">Подробнее</span>
+                </div>
+                {% if card.image %}
+                  {% image card.image fill-1000x700 as main_card_image %}
+                  <div class="direction-main-card__image">
+                    <img src="{{ main_card_image.url }}"
+                         width="{{ main_card_image.width }}"
+                         height="{{ main_card_image.height }}"
+                         alt="">
+                  </div>
+                {% endif %}
+              </a>
+            </article>
+          {% endwith %}
+          <ul class="catalog-grid directions-section__grid" role="list">
+            {% for card in block.value.cards %}
+              <li class="catalog-card direction-card{% if card.image %} direction-card--with-image{% endif %}">
+                <a class="catalog-card__link" href="{{ card.page.url }}">
+                  <div class="catalog-card__content">
+                    {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
+                    <h3 class="catalog-card__title heading heading--h3">{{ card.title }}</h3>
+                    {% if card.description %}<p class="catalog-card__text">{{ card.description }}</p>{% endif %}
+                  </div>
+                  <span class="catalog-card__more">Подробнее</span>
+                  {% if card.image %}
+                    {% image card.image max-900x760 as card_image %}
+                    <img class="direction-card__image"
+                         src="{{ card_image.url }}"
+                         width="{{ card_image.width }}"
+                         height="{{ card_image.height }}"
+                         alt="">
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+{% endif %}
