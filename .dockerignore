@@ -23,3 +23,7 @@ static
 documents
 documents_library
 knowledge_base
+node_modules
+npm-debug.log*
+.vite
+home/static/home/dist
