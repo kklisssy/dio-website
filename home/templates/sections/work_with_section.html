@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% if page.work %}
-  {% for block in page.work %}
+{% if page.work_with %}
+  {% for block in page.work_with %}
     {% if block.block_type == "work_with" %}
       <section class="home-section">
         <div class="container home-section__container">

@@ -2,7 +2,7 @@ from django.db import models
 from django.shortcuts import redirect
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.fields import StreamField
+from wagtail.fields import StreamField, RichTextField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
@@ -408,6 +408,13 @@ class HomePage(Page):
         verbose_name="Направления аудита",
     )
 
+    products_description = RichTextField(
+        "Дополнительный текст секции решений",
+        blank=True,
+        features=["bold", "italic", "link", "ol", "ul"],
+        help_text="Текст отображается только в секции решений.",
+    )
+
     service_1c_actions = StreamField(
         [("actions", Service1CActionsBlock())],
         blank=True,
@@ -424,7 +431,7 @@ class HomePage(Page):
         verbose_name="Этапы работы",
     )
 
-    work = StreamField(
+    work_with = StreamField(
         [("work_with", WorkWithBlock())],
         blank=True,
         use_json_field=True,
@@ -450,10 +457,11 @@ class HomePage(Page):
         *Page.content_panels,
         FieldPanel('hero'),
         FieldPanel("hero_features"),
+        FieldPanel('work_with'),
         FieldPanel("directions"),
+        FieldPanel("products_description"),
         FieldPanel("service_1c_actions"),
         FieldPanel("work_stages"),
-        FieldPanel('work'),
         FieldPanel('partners'),
         FieldPanel('global_presence'),
     ]
@@ -475,6 +483,36 @@ class HomePage(Page):
         from services.models import ServiceIndexPage
 
         return ServiceIndexPage.objects.live().child_of(self).first()
+
+    def get_service_1c_index(self):
+        from services_1C.models import Service1CIndexPage
+
+        return Service1CIndexPage.objects.live().child_of(self).first()
+
+    def get_product_index(self):
+        from products.models import ProductIndexPage
+
+        return (
+            ProductIndexPage.objects.live()
+            .child_of(self)
+            .filter(slug="products")
+            .first()
+        )
+
+    def get_own_product_index(self):
+        from products.models import ProductIndexPage
+
+        return (
+            ProductIndexPage.objects.live()
+            .child_of(self)
+            .filter(slug="own-products")
+            .first()
+        )
+
+    def get_product_categories(self):
+        from products.models import ProductCategory
+
+        return ProductCategory.objects.all()
 
     def get_about_indicators(self):
         from about_company.models import AboutPage
