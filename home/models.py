@@ -6,7 +6,7 @@ from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
-from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
+from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, LinkedCardBlock
 
 
 # Hero блок
@@ -59,33 +59,8 @@ class HeroBlock(blocks.StructBlock):
         label = "Hero секция"
 
 
-class DirectionCardBlock(blocks.StructBlock):
+class DirectionCardBlock(LinkedCardBlock):
     """Карточка направления работ"""
-
-    page = blocks.PageChooserBlock(
-        required=True,
-        label="Страница",
-    )
-    category = blocks.CharBlock(
-        required=False,
-        max_length=80,
-        label="Категория",
-    )
-    title = blocks.CharBlock(
-        required=True,
-        max_length=150,
-        label="Заголовок",
-    )
-    description = blocks.TextBlock(
-        required=False,
-        max_length=300,
-        label="Описание",
-    )
-    image = ImageChooserBlock(
-        required=False,
-        label="Изображение",
-    )
-
     class Meta:
         label = "Карточка направления аудита"
         icon = "link"
@@ -112,6 +87,34 @@ class DirectionsBlock(blocks.StructBlock):
     class Meta:
         icon = "tick"
         label = "Направления аудита"
+
+
+class Service1CActionCardBlock(LinkedCardBlock):
+    """Карточка подключения сервисов 1С"""
+    class Meta:
+        label = "Карточка подключения сервисов 1С"
+        icon = "link"
+
+class Service1CActionsBlock(blocks.StructBlock):
+    """Блок для секции подключения сервисов 1С."""
+
+    title = blocks.CharBlock(
+        required=False,
+        max_length=150,
+        label="Заголовок",
+    )
+
+    description = blocks.TextBlock(
+        required=False,
+        max_length=300,
+        label="Описание",
+    )
+
+    cards = blocks.ListBlock(Service1CActionCardBlock(), min_num=1, label="Карточки подключения")
+
+    class Meta:
+        icon = "tick"
+        label = "Подключение сервисов 1С"
 
 
 class WorkStageItemBlock(blocks.StructBlock):
@@ -405,6 +408,14 @@ class HomePage(Page):
         verbose_name="Направления аудита",
     )
 
+    service_1c_actions = StreamField(
+        [("actions", Service1CActionsBlock())],
+        blank=True,
+        max_num=1,
+        use_json_field=True,
+        verbose_name="Действия с сервисами 1С",
+    )
+
     work_stages = StreamField(
         [("work_stages", WorkStagesBlock())],
         blank=True,
@@ -440,6 +451,7 @@ class HomePage(Page):
         FieldPanel('hero'),
         FieldPanel("hero_features"),
         FieldPanel("directions"),
+        FieldPanel("service_1c_actions"),
         FieldPanel("work_stages"),
         FieldPanel('work'),
         FieldPanel('partners'),

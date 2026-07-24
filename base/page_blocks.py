@@ -110,3 +110,39 @@ class RateBlock(blocks.StructBlock):
     class Meta:
         icon = "tick"
         label = "Тарифы"
+
+
+class LinkedCardBlock(blocks.StructBlock):
+    page = blocks.PageChooserBlock(
+        required=True,
+        label="Страница",
+    )
+    category = blocks.CharBlock(
+        required=False,
+        max_length=80,
+        label="Категория",
+    )
+    title = blocks.CharBlock(
+        required=True,
+        max_length=150,
+        label="Заголовок",
+    )
+    description = blocks.TextBlock(
+        required=False,
+        max_length=300,
+        label="Описание",
+    )
+    image = ImageChooserBlock(
+        required=False,
+        label="Изображение",
+    )
+    link_text = blocks.CharBlock(
+        required=False,
+        max_length=80,
+        default="Подробнее",
+        label="Текст ссылки",
+    )
+
+    class Meta:
+        icon = "link"
+        label = "Карточка со ссылкой"
