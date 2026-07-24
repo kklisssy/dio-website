@@ -3,11 +3,17 @@
   {% if services %}
     <section class="home-section" aria-labelledby="services-section-title">
       <div class="container home-section__container">
-        <header class="home-section__header page-header">
-          <h2 id="services-section-title"
-              class="services-section__title heading heading--h2">Услуги</h2>
-          {% if service_index.intro %}
-            <div class="text text--md">{{ service_index.intro|richtext }}</div>
+        <header class="services-section__header">
+          <div class="home-section__header page-header">
+            <h2 id="services-section-title"
+                class="services-section__title heading heading--h2">Услуги</h2>
+            {% if service_index.intro %}
+              <div class="text text--md">{{ service_index.intro|richtext }}</div>
+            {% endif %}
+          </div>
+          {% if service_index %}
+            <a class="button__cta button__cta--outline"
+               href="{% pageurl service_index %}">Все услуги</a>
           {% endif %}
         </header>
         <ul class="catalog-grid" role="list">

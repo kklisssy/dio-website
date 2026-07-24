@@ -310,6 +310,22 @@ a {
   background: #dedddd;
 }
 
+.button__cta--outline {
+  flex-shrink: 0;
+  padding: 12px 30px;
+  border-color: #000000;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow: 0 0 0 2px #000000 inset;
+  color: var(--color-text);
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.button__cta--outline:hover {
+  background: #b8b8b8;
+}
+
 @media (max-width: 1540px) {
   .heading--h1 {
     --heading-size: 55px;

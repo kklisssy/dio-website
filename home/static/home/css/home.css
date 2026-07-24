@@ -245,110 +245,6 @@ a.work-stages__card-body:hover {
   background: var(--color-brand);
 }
 
-/* Направления аудита */
-.direction-section {
-  padding: 32px 0 0;
-}
-.direction-main-card .catalog-card__link {
-  display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
-  grid-template-rows: 1fr auto;
-  padding: 0;
-  background:
-    radial-gradient(circle at 5% 90%, rgba(159, 48, 48, 0.42), transparent 34%),
-    linear-gradient(145deg, #30343b 0%, #22262d 100%);
-  color: #ffffff;
-  box-shadow: none;
-  aspect-ratio: auto;
-}
-
-.direction-main-card .catalog-card__content {
-  grid-column: 1;
-  grid-row: 1;
-  align-content: start;
-  max-width: none;
-  padding: 64px 60px;
-}
-
-.direction-main-card .catalog-card__title {
-  min-height: 0;
-  color: inherit;
-}
-
-.direction-main-card__image {
-  position: relative;
-  grid-column: 2;
-  grid-row: 1 / 3;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-}
-
-.direction-main-card__image img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.direction-card__image {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  /* object-fit: contain; */
-  object-position: right bottom;
-  pointer-events: none;
-}
-
-.direction-card--with-image .catalog-card__link::after {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  content: "";
-  background: linear-gradient(
-    180deg,
-    var(--color-surface) 0%,
-    rgba(245, 245, 245, 0.82) 44%,
-    rgba(245, 245, 245, 0.08) 78%
-  );
-  pointer-events: none;
-}
-
-/* Кейсы */
-.cases-section__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.cases-section__all {
-  flex-shrink: 0;
-}
-
-.cases-section__title {
-  --heading-size: 44px;
-  --heading-line-height: 1.1;
-}
-
-.button_cta--cases {
-  border-color: black;
-  box-shadow: 0 0 0 2px black inset;
-  color: var(--color-text);
-  background-color: #0000;
-  border-radius: 14px;
-  padding: 12px 30px;
-  font-size: 20px;
-}
-
-.button_cta--cases:hover {
-  background: #b8b8b8;
-}
-
 /* С кем работаем */
 .work-with-section__grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -403,6 +299,142 @@ a.work-stages__card-body:hover {
   color: #525456;
 }
 
+/* Направления аудита */
+.direction-section {
+  padding: 32px 0 0;
+}
+.direction-main-card .catalog-card__link {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  grid-template-rows: 1fr auto;
+  padding: 0;
+  background:
+    radial-gradient(circle at 5% 90%, rgba(159, 48, 48, 0.42), transparent 34%),
+    linear-gradient(145deg, #30343b 0%, #22262d 100%);
+  color: #ffffff;
+  box-shadow: none;
+  aspect-ratio: auto;
+}
+
+.direction-main-card .catalog-card__content {
+  grid-column: 1;
+  grid-row: 1;
+  align-content: start;
+  max-width: none;
+  padding: 64px 60px;
+}
+
+.direction-main-card .catalog-card__title {
+  min-height: 0;
+  color: inherit;
+}
+
+.direction-main-card__image {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.direction-main-card__image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.direction-card .catalog-card__link {
+  aspect-ratio: auto;
+}
+
+.direction-card__image {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* object-fit: contain; */
+  object-position: right bottom;
+  pointer-events: none;
+}
+
+.direction-card--with-image .catalog-card__link::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    rgba(245, 245, 245, 0.82) 44%,
+    rgba(245, 245, 245, 0.08) 78%
+  );
+  pointer-events: none;
+}
+
+/* Кейсы */
+.cases-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.cases-section__title {
+  --heading-size: 44px;
+  --heading-line-height: 1.1;
+}
+
+/* Продукты (решения 1С) */
+.products-section {
+  padding-bottom: 0px;
+}
+
+.products-section__container {
+  gap: 10px;
+}
+
+.products-section__header,
+.services-section__header,
+.service-actions-section__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.products-section__actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.products-section__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 48px;
+}
+
+.products-section__categories {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-self: center;
+}
+
+.products-section__category {
+  min-width: 0;
+  padding: 15px;
+  text-align: center;
+  white-space: normal;
+}
 /* Работа с сервисами 1С */
 .service-actions-section__grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -488,6 +520,12 @@ a.work-stages__card-body:hover {
 }
 
 @media (max-width: 1200px) {
+  .products-section__actions {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
   .hero {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -541,6 +579,40 @@ a.work-stages__card-body:hover {
 }
 
 @media (max-width: 900px) {
+  /*
+   * На мобильных экранах содержимое заголовка становится частью общей
+   * сетки секции, чтобы кнопки можно было поставить после карточек.
+   */
+  .cases-section__header,
+  .products-section__header,
+  .services-section__header,
+  .service-actions-section__header {
+    display: contents;
+  }
+
+  .cases-section__header > .button__cta,
+  .services-section__header > .button__cta,
+  .service-actions-section__header > .button__cta,
+  .products-section__actions {
+    order: 10;
+    justify-self: center;
+  }
+
+  .products-section__actions {
+    width: auto;
+    align-items: center;
+  }
+
+  .hero-features {
+    grid-template-columns: 1fr;
+    margin: 0 auto 64px;
+  }
+
+  .hero__text {
+    margin-top: 28px;
+    --text-size: 20px;
+  }
+
   .direction-main-card .catalog-card__link {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 300px;
@@ -563,14 +635,9 @@ a.work-stages__card-body:hover {
     grid-row: 3;
   }
 
-  .hero-features {
+  .products-section__grid,
+  .service-actions-section__grid {
     grid-template-columns: 1fr;
-    margin: 0 auto 64px;
-  }
-
-  .hero__text {
-    margin-top: 28px;
-    --text-size: 20px;
   }
 
   .work-stages__grid {
@@ -640,10 +707,6 @@ a.work-stages__card-body:hover {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 22px;
-  }
-
-  .service-actions-section__grid {
-    grid-template-columns: 1fr;
   }
 
   .work-with-card {

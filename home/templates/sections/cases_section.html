@@ -9,7 +9,7 @@
               class="cases-section__title heading heading--h2">Наши кейсы</h2>
           {% with case_index=page.get_case_index %}
             {% if case_index %}
-              <a class="cases-section__all button__cta button_cta--cases"
+              <a class="cases-section__all button__cta button__cta--outline"
                  href="{% pageurl case_index %}">Все кейсы</a>
             {% endif %}
           {% endwith %}
