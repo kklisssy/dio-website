@@ -2,10 +2,12 @@
 {% if directions %}
   {% for block in directions %}
     {% if block.block_type == "directions" %}
-      <section class="directions-section">
-        <div class="container directions-section__container">
-          {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-          {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
+      <section class="home-section direction-section">
+        <div class="container home-section__container">
+          <div class="home-section__header">
+            {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+            {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
+          </div>
           {% with card=block.value.main_card %}
             <article class="catalog-card direction-main-card">
               <a class="catalog-card__link" href="{{ card.page.url }}">
@@ -13,7 +15,10 @@
                   {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
                   <h3 class="catalog-card__title heading heading--h2">{{ card.title }}</h3>
                   {% if card.description %}<p class="catalog-card__text">{{ card.description|richtext }}</p>{% endif %}
-                  <span class="catalog-card__more">Подробнее</span>
+                  <span class="catalog-card__more">
+                    {{ card.link_text|default:"Подробнее" }}
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
                 </div>
                 {% if card.image %}
                   {% image card.image fill-1000x700 as main_card_image %}
@@ -27,7 +32,7 @@
               </a>
             </article>
           {% endwith %}
-          <ul class="catalog-grid directions-section__grid" role="list">
+          <ul class="catalog-grid home-section__grid" role="list">
             {% for card in block.value.cards %}
               <li class="catalog-card direction-card{% if card.image %} direction-card--with-image{% endif %}">
                 <a class="catalog-card__link" href="{{ card.page.url }}">
@@ -36,7 +41,10 @@
                     <h3 class="catalog-card__title heading heading--h3">{{ card.title }}</h3>
                     {% if card.description %}<p class="catalog-card__text">{{ card.description }}</p>{% endif %}
                   </div>
-                  <span class="catalog-card__more">Подробнее</span>
+                  <span class="catalog-card__more">
+                    {{ card.link_text|default:"Подробнее" }}
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
                   {% if card.image %}
                     {% image card.image max-900x760 as card_image %}
                     <img class="direction-card__image"

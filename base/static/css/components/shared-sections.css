@@ -154,7 +154,7 @@
   margin: 0 auto;
 }
 
-.global-presence-section__content {
+.global-presence-section__header {
   max-width: 720px;
 }
 
@@ -184,14 +184,6 @@
 }
 
 @media (max-width: 900px) {
-  .cases-section {
-    padding: 64px 0 72px;
-  }
-
-  .cases-section__container {
-    gap: 38px;
-  }
-
   .statistics-section__container {
     grid-template-columns: 1fr;
     grid-template-areas:

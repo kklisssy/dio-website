@@ -54,7 +54,7 @@
                   </span>
                 {% endif %}
               </div>
-              <h3 class="hero-feature-card__title heading heading--h3 heading--semibold">{{ feature.value.title }}</h3>
+              <h3 class="heading heading--h3 heading--semibold hero-feature-card__title">{{ feature.value.title }}</h3>
               <span class="hero-feature-card__accent" aria-hidden="true"></span>
               {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
             </a>
@@ -86,6 +86,7 @@
   {% include "sections/work_with_section.html" %}
   {% include "sections/services_section.html" %}
   {% include "sections/cases_section.html" %}
+  {% include "sections/service1C_action_section.html" with actions=page.service_1c_actions %}
   {% include "sections/work_stages_section.html" %}
   {% include "sections/global_presence_section.html" with global_presence=page.global_presence %}
 {% endblock %}

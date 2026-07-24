@@ -1,0 +1,42 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if actions %}
+  {% for block in actions %}
+    {% if block.block_type == "actions" %}
+      <section class="home-section">
+        <div class="container home-section__container">
+          <div class="home-section__header">
+            {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+            {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
+          </div>
+          <ul class="catalog-grid home-section__grid service-actions-section__grid"
+              role="list">
+            {% for card in block.value.cards %}
+              <li class="catalog-card">
+                <a class="catalog-card__link action-card__link"
+                   href="{{ card.page.url }}">
+                  <div class="catalog-card__content">
+                    {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
+                    <h3 class="catalog-card__title heading heading--h3 action-card__title">{{ card.title }}</h3>
+                    {% if card.description %}<p class="catalog-card__text action-card__text">{{ card.description }}</p>{% endif %}
+                  </div>
+                  <span class="catalog-card__more">
+                    {{ card.link_text|default:"Подробнее" }}
+                    <span class="catalog-card__arrow" aria-hidden="true"></span>
+                  </span>
+                  {% if card.image %}
+                    {% image card.image max-900x760 as card_image %}
+                    <img class="catalog-card__image"
+                         src="{{ card_image.url }}"
+                         width="{{ card_image.width }}"
+                         height="{{ card_image.height }}"
+                         alt="">
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+{% endif %}

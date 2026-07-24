@@ -1,8 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% with cases=page.get_cases %}
   {% if cases %}
-    <section class="cases-section" aria-labelledby="cases-section-title">
-      <div class="container cases-section__container">
+    <section class="home-section cases-section"
+             aria-labelledby="cases-section-title">
+      <div class="container home-section__container">
         <header class="cases-section__header">
           <h2 id="cases-section-title"
               class="cases-section__title heading heading--h2">Наши кейсы</h2>

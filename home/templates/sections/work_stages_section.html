@@ -1,14 +1,14 @@
 {% if page.work_stages %}
   {% for work_stages_block in page.work_stages %}
-    <section class="work-stages" aria-labelledby="work-stages-title">
-      <div class="container work-stages__container">
-        <div class="work-stages__header">
-          <h2 id="work-stages-title" class="heading heading--h2">{{ work_stages_block.value.title }}</h2>
+    <section class="home-section work-stages" aria-labelledby="work-stages-title">
+      <div class="container home-section__container">
+        <div class="home-section__header">
+          <h2 id="work-stages-title" class="heading heading--h2 work-stages-title">{{ work_stages_block.value.title }}</h2>
           {% if work_stages_block.value.intro %}
-            <p class="work-stages__intro text text--md">{{ work_stages_block.value.intro }}</p>
+            <p class="text text--md work-stages__text">{{ work_stages_block.value.intro }}</p>
           {% endif %}
         </div>
-        <ol class="work-stages__grid" role="list">
+        <ol class="home-section__grid work-stages__grid" role="list">
           {% for stage in work_stages_block.value.stages %}
             <li class="work-stages__card">
               {% if stage.page %}
