@@ -1,0 +1,38 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% with product_index=page.get_product_index own_product_index=page.get_own_product_index categories=page.get_product_categories %}
+  {% if product_index %}
+    <section class="home-section products-section"
+             aria-labelledby="products-section-title">
+      <div class="container home-section__container products-section__container">
+        <header class="products-section__header">
+          <div class="home-section__header page-header">
+            <h2 id="products-section-title"
+                class="services-section__title heading heading--h2">{{ product_index.headline }}</h2>
+            {% if product_index.intro %}<div class="text text--md">{{ product_index.intro|richtext }}</div>{% endif %}
+          </div>
+          <div class="products-section__actions">
+            {% if product_index %}
+              <a class="button__cta button__cta--outline"
+                 href="{% pageurl product_index %}">Все решения 1С</a>
+            {% endif %}
+            {% if own_product_index %}
+              <a class="button__cta button__cta--outline"
+                 href="{% pageurl own_product_index %}">Собственные решения</a>
+            {% endif %}
+          </div>
+        </header>
+        <div class="home-section__grid products-section__grid">
+          {% if page.products_description %}<div class="rich-content">{{ page.products_description|richtext }}</div>{% endif %}
+          {% if categories %}
+            <nav class="filter-list products-section__categories">
+              {% for category in categories %}
+                <a class="filter-pill products-section__category"
+                   href="{% pageurl product_index %}?category={{ category.value }}">{{ category.name }}</a>
+              {% endfor %}
+            </nav>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+{% endwith %}
