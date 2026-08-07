@@ -42,8 +42,8 @@
         <li class="hero-feature-card">
           {% if feature.value.page %}
             <a class="hero-feature-card__body" href="{{ feature.value.page.url }}">
-              <div class="hero-feature-card__top">
-                {% if feature.value.icon %}
+              {% if feature.value.icon %}
+                <div class="hero-feature-card__top">
                   {% image feature.value.icon max-96x96 as feature_icon %}
                   <span class="hero-feature-card__icon-wrap">
                     <img class="hero-feature-card__icon"
@@ -52,16 +52,16 @@
                          height="{{ feature_icon.height }}"
                          alt="">
                   </span>
-                {% endif %}
-              </div>
+                </div>
+              {% endif %}
               <h3 class="heading heading--h3 heading--semibold hero-feature-card__title">{{ feature.value.title }}</h3>
               <span class="hero-feature-card__accent" aria-hidden="true"></span>
               {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
             </a>
           {% else %}
             <div class="hero-feature-card__body">
-              <div class="hero-feature-card__top">
-                {% if feature.value.icon %}
+              {% if feature.value.icon %}
+                <div class="hero-feature-card__top">
                   {% image feature.value.icon max-96x96 as feature_icon %}
                   <span class="hero-feature-card__icon-wrap">
                     <img class="hero-feature-card__icon"
@@ -70,8 +70,8 @@
                          height="{{ feature_icon.height }}"
                          alt="">
                   </span>
-                {% endif %}
-              </div>
+                </div>
+              {% endif %}
               <h3 class="hero-feature-card__title heading heading--h3 heading--semibold">{{ feature.value.title }}</h3>
               <span class="hero-feature-card__accent" aria-hidden="true"></span>
               {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
