@@ -4,10 +4,12 @@
     {% if block.block_type == "directions" %}
       <section class="home-section direction-section">
         <div class="container home-section__container">
-          <div class="home-section__header">
-            {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-            {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
-          </div>
+          {% if block.value.title or block.value.description %}
+            <div class="home-section__header">
+              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+              {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
+            </div>
+          {% endif %}
           <ul class="catalog-grid direction-cards-grid" role="list">
             {% with card=block.value.main_card %}
               <li class="catalog-card direction-main-card">
