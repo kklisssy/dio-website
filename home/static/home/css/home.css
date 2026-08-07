@@ -173,7 +173,7 @@
 .action-card__title,
 .work-stages__card-title {
   font-size: 30px;
-  min-height: 65px;
+  min-height: 2lh;
 }
 
 /* Карточки */
@@ -475,10 +475,6 @@ a.work-stages__card-body:hover {
   aspect-ratio: auto;
 }
 
-.action-card__text {
-  font-size: 23px;
-}
-
 /* Этапы работы */
 .work-stages-title {
   color: #ffffff;
@@ -533,6 +529,41 @@ a.work-stages__card-body:hover {
 }
 
 @media (max-width: 1540px) {
+  .direction-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+  }
+
+  .direction-main-card {
+    grid-column: auto;
+  }
+
+  .direction-main-card .catalog-card__link {
+    padding: 45px 50px 40px;
+  }
+
+  .direction-main-card .catalog-card__content {
+    max-width: none;
+    padding: 0;
+  }
+
+  .direction-main-card .catalog-card__more {
+    padding: 0;
+  }
+
+  .direction-main-card .catalog-card__text {
+    font-size: 25px;
+  }
+
+  .direction-main-card .catalog-card__link::after {
+    background: linear-gradient(
+      90deg,
+      rgba(34, 38, 45, 0.97) 0%,
+      rgba(34, 38, 45, 0.84) 55%,
+      rgba(34, 38, 45, 0.36) 100%
+    );
+  }
+
   .hero-features {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -546,9 +577,21 @@ a.work-stages__card-body:hover {
   .service-actions-section__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .action-card__title {
+    font-size: 38px;
+  }
 }
 
 @media (max-width: 1200px) {
+  .direction-main-card .catalog-card__link {
+    padding: 45px 40px;
+  }
+
+  .direction-main-card .catalog-card__text {
+    font-size: 23px;
+  }
+
   .products-section__actions {
     flex-direction: column;
     flex-wrap: nowrap;
@@ -605,13 +648,13 @@ a.work-stages__card-body:hover {
   .work-with-card__text {
     --text-size: 20px;
   }
+
+  .action-card__text {
+    font-size: 23px;
+  }
 }
 
 @media (max-width: 900px) {
-  /*
-   * На мобильных экранах содержимое заголовка становится частью общей
-   * сетки секции, чтобы кнопки можно было поставить после карточек.
-   */
   .cases-section__header,
   .products-section__header,
   .services-section__header,
@@ -642,26 +685,25 @@ a.work-stages__card-body:hover {
     --text-size: 20px;
   }
 
-  .direction-main-card .catalog-card__link {
+  .direction-cards-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto 300px;
   }
 
-  .direction-main-card .catalog-card__content {
-    grid-column: 1;
-    grid-row: 1;
-    padding: 48px 50px 24px;
+  .direction-main-card .catalog-card__link {
+    padding: 48px 50px;
   }
 
-  .direction-main-card .catalog-card__more {
-    grid-column: 1;
-    grid-row: 2;
-    padding: 0 50px 48px;
+  .direction-main-card .catalog-card__text {
+    font-size: 28px;
   }
 
-  .direction-main-card__image {
-    grid-column: 1;
-    grid-row: 3;
+  .direction-main-card .catalog-card__link::after {
+    background: linear-gradient(
+      90deg,
+      rgba(34, 38, 45, 0.98) 0%,
+      rgba(34, 38, 45, 0.9) 48%,
+      rgba(34, 38, 45, 0.3) 100%
+    );
   }
 
   .products-section__grid,
@@ -697,15 +739,24 @@ a.work-stages__card-body:hover {
 
 @media (max-width: 560px) {
   .direction-main-card .catalog-card__link {
-    grid-template-rows: auto auto 220px;
+    padding: 34px 28px 32px;
   }
 
-  .direction-main-card .catalog-card__content {
-    padding: 34px 28px 20px;
+  .direction-main-card .catalog-card__title {
+    --heading-size: 28px;
   }
 
-  .direction-main-card .catalog-card__more {
-    padding: 0 28px 34px;
+  .direction-main-card .catalog-card__text {
+    font-size: 20px;
+  }
+
+  .direction-main-card .catalog-card__link::after {
+    background: linear-gradient(
+      180deg,
+      rgba(34, 38, 45, 0.96) 0%,
+      rgba(34, 38, 45, 0.82) 56%,
+      rgba(34, 38, 45, 0.38) 100%
+    );
   }
 
   .hero {

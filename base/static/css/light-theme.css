@@ -335,10 +335,6 @@ a {
     --heading-size: 42px;
   }
 
-  .heading--h3 {
-    --heading-size: 38px;
-  }
-
   .text--md {
     --text-size: 25px;
   }
@@ -353,6 +349,10 @@ a {
 @media (max-width: 900px) {
   :root {
     --container-padding: 16px;
+  }
+
+  .heading--h3 {
+    --heading-size: 38px;
   }
 }
 
