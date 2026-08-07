@@ -169,7 +169,6 @@
     linear-gradient(145deg, #30343b 0%, #22262d 100%);
 }
 
-.hero-feature-card__title,
 .action-card__title,
 .work-stages__card-title {
   font-size: 30px;
@@ -178,13 +177,22 @@
 
 /* Карточки */
 .hero-features {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
   width: min(100% - (var(--container-padding) * 2), var(--container-width));
   margin: 0 auto 32px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .hero-feature-card {
-  min-height: 350px;
+  grid-column: span 2;
+}
+
+.hero-feature-card:nth-child(n + 4) {
+  grid-column: span 3;
+}
+
+.hero-feature-card {
   border-radius: var(--radius-large);
   background: var(--color-surface);
   overflow: hidden;
@@ -193,7 +201,6 @@
 
 .hero-feature-card__body {
   display: grid;
-  grid-template-rows: auto auto auto 1fr;
   align-content: start;
   gap: 18px;
   padding: 25px 30px;
@@ -201,6 +208,10 @@
   transition:
     transform 0.2s ease,
     background-color 0.2s ease;
+}
+
+.hero-feature-card__title {
+  font-size: 30px;
 }
 
 .hero-feature-card:hover,
@@ -231,11 +242,6 @@ a.work-stages__card-body:hover {
   width: 44px;
   height: 44px;
   object-fit: contain;
-}
-
-.hero-feature-card__title {
-  min-height: 2.3em;
-  margin: 0;
 }
 
 .hero-feature-card__accent {
