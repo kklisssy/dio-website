@@ -72,6 +72,14 @@ class PracticeSinglePage(Page):
         verbose_name="Документ",
         help_text="Можно прикрепить файл для чек-листа или методички",
     )
+    background_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Фоновое изображение",
+    )
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
@@ -95,6 +103,12 @@ class PracticeSinglePage(Page):
                 FieldPanel("document"),
             ],
             heading="Основная информация",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("background_image"),
+            ],
+            heading="Оформление карточки"
         ),
         FieldPanel("content"),
     ]

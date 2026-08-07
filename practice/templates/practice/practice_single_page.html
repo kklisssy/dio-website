@@ -19,9 +19,7 @@
           {% if page.category %}<p class="page-hero__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
           {% if page.intro %}<p class="page-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
-          {% if page.document %}
-            <a class="button__cta" href="{{ page.document.url }}">Скачать материал</a>
-          {% endif %}
+          {% if page.document %}<a class="button__cta" href="{{ page.document.url }}">Скачать материал</a>{% endif %}
         </div>
       </div>
     </header>
@@ -43,18 +41,22 @@
               <li class="catalog-card">
                 <a class="catalog-card__link" href="{% pageurl practice %}">
                   <div class="catalog-card__content">
-                    {% if practice.category %}
-                      <p class="catalog-card__category">{{ practice.category.name }}</p>
-                    {% endif %}
+                    {% if practice.category %}<p class="catalog-card__category">{{ practice.category.name }}</p>{% endif %}
                     <h3 class="catalog-card__title heading heading--h3">{{ practice.headline|default:practice.title }}</h3>
-                    {% if practice.intro %}
-                      <p class="catalog-card__text">{{ practice.intro }}</p>
-                    {% endif %}
+                    {% if practice.intro %}<p class="catalog-card__text">{{ practice.intro }}</p>{% endif %}
                   </div>
                   <span class="catalog-card__more">
                     Подробнее
                     <span class="catalog-card__arrow" aria-hidden="true"></span>
                   </span>
+                  {% if practice.background_image %}
+                    {% image practice.background_image max-1600x1600 as image %}
+                    <img class="catalog-card__image"
+                         src="{{ image.url }}"
+                         width="{{ image.width }}"
+                         height="{{ image.height }}"
+                         alt="">
+                  {% endif %}
                 </a>
               </li>
             {% endfor %}

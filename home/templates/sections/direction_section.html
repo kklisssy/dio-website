@@ -25,12 +25,11 @@
                   </span>
                   {% if card.image %}
                     {% image card.image fill-1600x760 as main_card_image %}
-                    <div class="direction-main-card__image">
-                      <img src="{{ main_card_image.url }}"
-                           width="{{ main_card_image.width }}"
-                           height="{{ main_card_image.height }}"
-                           alt="">
-                    </div>
+                    <img class="catalog-card__image"
+                         src="{{ main_card_image.url }}"
+                         width="{{ main_card_image.width }}"
+                         height="{{ main_card_image.height }}"
+                         alt="">
                   {% endif %}
                 </a>
               </li>
@@ -49,7 +48,7 @@
                   </span>
                   {% if card.image %}
                     {% image card.image max-900x760 as card_image %}
-                    <img class="direction-card__image"
+                    <img class="catalog-card__image"
                          src="{{ card_image.url }}"
                          width="{{ card_image.width }}"
                          height="{{ card_image.height }}"
