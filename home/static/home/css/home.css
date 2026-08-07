@@ -303,39 +303,68 @@ a.work-stages__card-body:hover {
 .direction-section {
   padding: 32px 0 0;
 }
+
+.direction-cards-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.direction-main-card {
+  grid-column: 1 / -1;
+}
+
 .direction-main-card .catalog-card__link {
-  display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
-  grid-template-rows: 1fr auto;
   padding: 0;
-  background:
-    radial-gradient(circle at 5% 90%, rgba(159, 48, 48, 0.42), transparent 34%),
-    linear-gradient(145deg, #30343b 0%, #22262d 100%);
+  background: #22262d;
   color: #ffffff;
   box-shadow: none;
   aspect-ratio: auto;
 }
 
+.direction-main-card .catalog-card__link::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  background:
+    radial-gradient(circle at 4% 92%, rgba(159, 48, 48, 0.48), transparent 34%),
+    linear-gradient(
+      90deg,
+      rgba(34, 38, 45, 0.98) 0%,
+      rgba(34, 38, 45, 0.94) 31%,
+      rgba(34, 38, 45, 0.54) 48%,
+      rgba(34, 38, 45, 0.08) 70%
+    );
+  pointer-events: none;
+}
+
 .direction-main-card .catalog-card__content {
-  grid-column: 1;
-  grid-row: 1;
   align-content: start;
-  max-width: none;
-  padding: 64px 60px;
+  max-width: 950px;
+  padding: 64px 60px 24px;
+}
+
+.direction-main-card .catalog-card__more {
+  padding: 0 60px 64px;
+}
+
+.direction-main-card .catalog-card__text {
+  max-width: 660px;
+}
+
+.direction-main-card .catalog-card__text p {
+  margin: 0;
+  font: inherit;
 }
 
 .direction-main-card .catalog-card__title {
-  min-height: 0;
   color: inherit;
 }
 
 .direction-main-card__image {
-  position: relative;
-  grid-column: 2;
-  grid-row: 1 / 3;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
 }
 
 .direction-main-card__image img {
@@ -347,19 +376,19 @@ a.work-stages__card-body:hover {
   object-fit: cover;
 }
 
-.direction-card .catalog-card__link {
-  aspect-ratio: auto;
-}
-
 .direction-card__image {
   position: absolute;
   z-index: 0;
   inset: 0;
   width: 100%;
   height: 100%;
-  /* object-fit: contain; */
+  object-fit: cover;
   object-position: right bottom;
   pointer-events: none;
+}
+
+.direction-card .catalog-card__link {
+  aspect-ratio: auto;
 }
 
 .direction-card--with-image .catalog-card__link::after {
