@@ -157,7 +157,6 @@
 }
 
 .global-presence-section__title {
-  margin: 0 0 50px;
   color: #111418;
   --heading-line-height: 1.08;
 }
@@ -198,10 +197,6 @@
 
   .global-presence-section__content {
     max-width: none;
-  }
-
-  .global-presence-section__title {
-    margin-bottom: 34px;
   }
 
   .case-card__link {

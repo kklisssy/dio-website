@@ -4,7 +4,7 @@
     {% if block.block_type == "presence" %}
       <section class="global-presence-section">
         <div class="container global-presence-section__container">
-          <div class="global-presence-section__content">
+          <div class="global-presence-section__content global-presence-section__header page-header">
             <h2 class="global-presence-section__title heading heading--h2">{{ block.value.title }}</h2>
             {% if block.value.description %}<div class="list-content">{{ block.value.description|richtext }}</div>{% endif %}
           </div>
