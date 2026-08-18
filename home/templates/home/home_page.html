@@ -5,7 +5,6 @@
 {% endblock extra_css %}
 {% block content %}
   {% for block in page.hero %}
-    {% if block.block_type == "hero" %}
       <section class="hero-section">
         <div class="container hero">
           <div class="hero__glass" aria-hidden="true"></div>
@@ -34,7 +33,6 @@
           {% endif %}
         </div>
       </section>
-    {% endif %}
   {% endfor %}
   {% if page.hero_features %}
     <ul class="hero-features" role="list">
@@ -81,13 +79,13 @@
       {% endfor %}
     </ul>
   {% endif %}
-  {% include "about_company/sections/statistics_section.html" with indicators=page.get_about_indicators %}
-  {% include "sections/direction_section.html" with directions=page.directions %}
-  {% include "sections/work_with_section.html" %}
-  {% include "sections/services_section.html" %}
-  {% include "sections/cases_section.html" %}
-  {% include "sections/products_section.html" %}
-  {% include "sections/service1C_action_section.html" with actions=page.service_1c_actions %}
-  {% include "sections/work_stages_section.html" %}
-  {% include "sections/global_presence_section.html" with global_presence=page.global_presence %}
+  {% include "about_company/sections/statistics_section.html" with blocks=page.get_about_indicators only %}
+  {% include "sections/direction_section.html" with blocks=page.directions only %}
+  {% include "sections/work_with_section.html" with blocks=page.work_with only %}
+  {% include "sections/services_section.html" with services=page.get_services service_index=page.get_service_index only %}
+  {% include "sections/cases_section.html" with cases=page.get_cases case_index=page.get_case_index only %}
+  {% include "sections/products_section.html" with product_index=page.get_product_index own_product_index=page.get_own_product_index categories=page.get_product_categories description=page.products_description only %}
+  {% include "sections/service1C_action_section.html" with blocks=page.service_1c_actions service_1c_index=page.get_service_1c_index only %}
+  {% include "sections/work_stages_section.html" with blocks=page.work_stages only %}
+  {% include "sections/global_presence_section.html" with blocks=page.global_presence only %}
 {% endblock %}

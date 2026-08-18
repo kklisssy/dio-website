@@ -1,6 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
-{% if indicators %}
-  {% for indicators_block in indicators %}
+  {% for indicators_block in blocks %}
     <section class="statistics-section">
       <div class="container statistics-section__container">
         <div class="statistics-section__header">
@@ -74,4 +73,3 @@
         });
     </script>
   {% endfor %}
-{% endif %}

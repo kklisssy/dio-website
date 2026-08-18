@@ -1,6 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% with product_index=page.get_product_index own_product_index=page.get_own_product_index categories=page.get_product_categories %}
-  {% if product_index %}
+{% if product_index %}
     <section class="home-section products-section"
              aria-labelledby="products-section-title">
       <div class="container home-section__container products-section__container">
@@ -22,7 +21,7 @@
           </div>
         </header>
         <div class="home-section__grid products-section__grid">
-          {% if page.products_description %}<div class="rich-content">{{ page.products_description|richtext }}</div>{% endif %}
+          {% if description %}<div class="rich-content">{{ description|richtext }}</div>{% endif %}
           {% if categories %}
             <nav class="filter-list products-section__categories">
               {% for category in categories %}
@@ -34,5 +33,4 @@
         </div>
       </div>
     </section>
-  {% endif %}
-{% endwith %}
+{% endif %}

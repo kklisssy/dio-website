@@ -1,6 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% with services=page.get_services service_index=page.get_service_index %}
-  {% if services %}
+{% if services %}
     <section class="home-section" aria-labelledby="services-section-title">
       <div class="container home-section__container">
         <header class="services-section__header">
@@ -35,5 +34,4 @@
         </ul>
       </div>
     </section>
-  {% endif %}
-{% endwith %}
+{% endif %}

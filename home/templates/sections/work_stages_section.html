@@ -1,5 +1,4 @@
-{% if page.work_stages %}
-  {% for work_stages_block in page.work_stages %}
+  {% for work_stages_block in blocks %}
     <section class="home-section work-stages" aria-labelledby="work-stages-title">
       <div class="container home-section__container">
         <div class="home-section__header">
@@ -30,4 +29,3 @@
       </div>
     </section>
   {% endfor %}
-{% endif %}

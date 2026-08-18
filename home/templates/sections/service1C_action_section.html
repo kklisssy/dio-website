@@ -1,8 +1,5 @@
 {% load wagtailcore_tags %}
-{% with service_1c_index=page.get_service_1c_index %}
-  {% if actions %}
-    {% for block in actions %}
-      {% if block.block_type == "actions" %}
+    {% for block in blocks %}
         <section class="home-section">
           <div class="container home-section__container">
             <header class="service-actions-section__header">
@@ -36,7 +33,4 @@
             </ul>
           </div>
         </section>
-      {% endif %}
     {% endfor %}
-  {% endif %}
-{% endwith %}

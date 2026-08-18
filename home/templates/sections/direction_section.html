@@ -1,7 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% if directions %}
-  {% for block in directions %}
-    {% if block.block_type == "directions" %}
+  {% for block in blocks %}
       <section class="home-section direction-section">
         <div class="container home-section__container">
           {% if block.value.title or block.value.description %}
@@ -60,6 +58,4 @@
           </ul>
         </div>
       </section>
-    {% endif %}
   {% endfor %}
-{% endif %}
