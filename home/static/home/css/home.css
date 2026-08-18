@@ -663,8 +663,7 @@ a.work-stages__card-body:hover {
 
   .hero-features {
     grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-auto-rows: auto;
+    grid-auto-rows: 1fr;
     margin: 0 auto 64px;
   }
 
