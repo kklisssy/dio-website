@@ -3,6 +3,9 @@
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 {% endblock extra_css %}
+{% block extra_js %}
+  <script src="{% static 'home/js/hero-cloud.js' %}" defer></script>
+{% endblock extra_js %}
 {% block content %}
   {% for block in page.hero %}
       <section class="hero-section">
@@ -22,7 +25,53 @@
               </div>
             {% endif %}
           </div>
-          {% if block.value.image %}
+          {% if block.value.interactive_cloud %}
+            {% with cloud=block.value.interactive_cloud.0.value %}
+              <div class="hero-cloud" data-hero-cloud>
+                <svg class="hero-cloud__connections" aria-hidden="true">
+                  {% for node in cloud.nodes %}<line data-cloud-line="{{ forloop.counter0 }}"></line>{% endfor %}
+                </svg>
+                <a class="hero-cloud__node hero-cloud__node--center"
+                   {% if cloud.center.page %}href="{% pageurl cloud.center.page %}"{% else %}aria-disabled="true"{% endif %}
+                   data-cloud-center>
+                  <span class="hero-cloud__node-content">
+                    {% if cloud.center.eyebrow %}<span class="hero-cloud__eyebrow">{{ cloud.center.eyebrow }}</span>{% endif %}
+                    <strong class="hero-cloud__title">{{ cloud.center.title }}</strong>
+                    {% if cloud.center.icon %}
+                      {% image cloud.center.icon max-64x64 as center_icon %}
+                      <img class="hero-cloud__icon"
+                           src="{{ center_icon.url }}"
+                           width="{{ center_icon.width }}"
+                           height="{{ center_icon.height }}"
+                           alt="">
+                    {% endif %}
+                  </span>
+                </a>
+                <ul class="hero-cloud__nodes" role="list">
+                  {% for node in cloud.nodes %}
+                    <li class="hero-cloud__item" data-cloud-item="{{ forloop.counter0 }}">
+                      <a class="hero-cloud__node"
+                         {% if node.page %}href="{% pageurl node.page %}"{% else %}aria-disabled="true"{% endif %}
+                         data-cloud-node="{{ forloop.counter0 }}">
+                        <span class="hero-cloud__node-content">
+                          {% if node.eyebrow %}<span class="hero-cloud__eyebrow">{{ node.eyebrow }}</span>{% endif %}
+                          <strong class="hero-cloud__title">{{ node.title }}</strong>
+                          {% if node.icon %}
+                            {% image node.icon max-56x56 as node_icon %}
+                            <img class="hero-cloud__icon"
+                                 src="{{ node_icon.url }}"
+                                 width="{{ node_icon.width }}"
+                                 height="{{ node_icon.height }}"
+                                 alt="">
+                          {% endif %}
+                        </span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endwith %}
+          {% elif block.value.image %}
             <div class="hero__image">
               {% image block.value.image max-900x700 as hero_image %}
               <img src="{{ hero_image.url }}"

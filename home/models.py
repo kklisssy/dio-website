@@ -2,11 +2,16 @@ from django.db import models
 from django.shortcuts import redirect
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.fields import StreamField, RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
-from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, LinkedCardBlock
+from base.page_blocks import (
+    FeaturesBlock,
+    LinkedCardBlock,
+    RichTextSectionBlock,
+    TableSectionBlock,
+)
 
 
 # Hero блок
@@ -34,6 +39,41 @@ class HeroFeaturesBlock(blocks.StructBlock):
     )
 
 
+class HeroCloudNodeBlock(blocks.StructBlock):
+    """Кликабельный узел интерактивного облака."""
+
+    eyebrow = blocks.CharBlock(
+        required=False,
+        max_length=24,
+        label="Короткая подпись",
+        help_text="Например: Финансы или Проекты",
+    )
+    title = blocks.CharBlock(max_length=18, label="Название")
+    icon = ImageChooserBlock(required=False, label="Иконка")
+    page = blocks.PageChooserBlock(required=True, label="Страница")
+
+    class Meta:
+        icon = "link"
+        label = "Узел облака"
+
+
+class HeroInteractiveCloudBlock(blocks.StructBlock):
+    """Центральный узел и настраиваемые внешние узлы."""
+
+    center = HeroCloudNodeBlock(label="Центральный узел")
+    nodes = blocks.ListBlock(
+        HeroCloudNodeBlock(),
+        min_num=4,
+        max_num=6,
+        label="Внешние узлы",
+        help_text="Добавьте от 4 до 6 узлов. Порядок идет сверху по часовой стрелке.",
+    )
+
+    class Meta:
+        icon = "grip"
+        label = "Интерактивное облако"
+
+
 class HeroBlock(blocks.StructBlock):
     """Блок для hero"""
 
@@ -52,7 +92,17 @@ class HeroBlock(blocks.StructBlock):
         max_num=2,
         label="Кнопки",
     )
-    image = ImageChooserBlock(required=True, label="Большое изображение")
+    interactive_cloud = blocks.StreamBlock(
+        [("cloud", HeroInteractiveCloudBlock())],
+        required=False,
+        max_num=1,
+        label="Интерактивное облако",
+    )
+    image = ImageChooserBlock(
+        required=False,
+        label="Резервное изображение",
+        help_text="Показывается, пока интерактивное облако не заполнено.",
+    )
 
     class Meta:
         icon = "image"
@@ -477,7 +527,7 @@ class HomePage(Page):
 
     def get_services(self):
         from services.models import SingleServicePage
-        return SingleServicePage.objects.live().order_by("-date")
+        return SingleServicePage.objects.live().order_by("-date")[:9]
 
     def get_service_index(self):
         from services.models import ServiceIndexPage
@@ -492,22 +542,12 @@ class HomePage(Page):
     def get_product_index(self):
         from products.models import ProductIndexPage
 
-        return (
-            ProductIndexPage.objects.live()
-            .child_of(self)
-            .filter(slug="products")
-            .first()
-        )
+        return ProductIndexPage.objects.live().child_of(self).filter(slug="products").first()
 
     def get_own_product_index(self):
         from products.models import ProductIndexPage
 
-        return (
-            ProductIndexPage.objects.live()
-            .child_of(self)
-            .filter(slug="own-products")
-            .first()
-        )
+        return ProductIndexPage.objects.live().child_of(self).filter(slug="own-products").first()
 
     def get_product_categories(self):
         from products.models import ProductCategory
