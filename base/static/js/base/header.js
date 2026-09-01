@@ -181,18 +181,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function setupSimpleDropdown(dropdown, toggle, dropdownLink) {
-        function closeActiveDropdown() {
+    function setupSimpleDropdown(dropdown, toggle) {
+        toggle.addEventListener("mouseenter", function() {
             closeActiveDropdownOnDesktop(dropdown);
-        }
-
-        dropdownLink?.addEventListener("mouseenter", closeActiveDropdown);
-        toggle.addEventListener("mouseenter", closeActiveDropdown);
+        });
     }
 
     function setupDropdown(dropdown) {
-        const toggle = dropdown.querySelector(".main-nav__dropdown-toggle, .main-nav__mega-toggle");
-        const dropdownLink = dropdown.querySelector(".main-nav__dropdown-link");
+        const toggle = dropdown.querySelector(".main-nav__mega-toggle");
         const megaMenu = dropdown.querySelector(".main-nav__mega-menu");
 
         if (!toggle) {
@@ -202,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (megaMenu) {
             setupMegaDropdown(dropdown, toggle, megaMenu);
         } else {
-            setupSimpleDropdown(dropdown, toggle, dropdownLink);
+            setupSimpleDropdown(dropdown, toggle);
         }
 
         toggle.addEventListener("click", function(event) {
@@ -211,64 +207,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function setupMegaPanels(megaMenu) {
-        const triggers = megaMenu.querySelectorAll("[data-mega-panel-trigger]");
-        const panels = megaMenu.querySelectorAll("[data-mega-panel]");
-        const fixedPanelIndex = megaMenu.querySelector("[data-mega-fixed-panel]")?.getAttribute("data-mega-fixed-panel");
-
-        function setActivePanel(panelIndex) {
-            const visiblePanelIndex = fixedPanelIndex || panelIndex;
-            const activePanel = megaMenu.querySelector(`[data-mega-panel="${visiblePanelIndex}"]`);
-
-            triggers.forEach(function(trigger) {
-                trigger.classList.toggle(
-                    "is-active",
-                    trigger.getAttribute("data-mega-panel-trigger") === panelIndex
-                );
-            });
-
-            panels.forEach(function(panel) {
-                panel.classList.toggle(
-                    "is-active",
-                    panel.getAttribute("data-mega-panel") === visiblePanelIndex
-                );
-            });
-
-            return Boolean(activePanel);
-        }
-
-        triggers.forEach(function(trigger) {
-            function activate() {
-                if (mobileBreakpoint.matches) {
-                    return;
-                }
-
-                setActivePanel(trigger.getAttribute("data-mega-panel-trigger"));
-            }
-
-            trigger.addEventListener("mouseenter", activate);
-            trigger.addEventListener("focus", activate);
-            trigger.addEventListener("click", function(event) {
-                if (mobileBreakpoint.matches) {
-                    return;
-                }
-
-                const panelIndex = trigger.getAttribute("data-mega-panel-trigger");
-                const isAlreadyActive = trigger.classList.contains("is-active");
-
-                if (setActivePanel(panelIndex) && !isAlreadyActive) {
-                    event.preventDefault();
-                }
-            });
-        });
-    }
-
     mobileToggle?.addEventListener("click", function() {
         setMobileMenu(!nav.classList.contains("is-mobile-open"));
     });
 
     dropdowns.forEach(setupDropdown);
-    document.querySelectorAll(".main-nav__mega-menu").forEach(setupMegaPanels);
 
     mobilePanel?.querySelectorAll("a").forEach(function(link) {
         link.addEventListener("click", function() {

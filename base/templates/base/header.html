@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags mega_menu %}
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
 <nav class="main-nav">
   <div class="main-nav__container">
     <a href="{% slugurl 'home' %}" class="main-nav__brand-link">
@@ -37,10 +37,7 @@
                  class="main-nav__link">{{ item.value.name }}</a>
             {% elif item.value.menu_type == "mega" %}
               <div class="main-nav__dropdown main-nav__dropdown--mega">
-                <button class="main-nav__mega-toggle"
-                        aria-expanded="false"
-                        aria-controls="mega-menu-{{ item.id }}"
-                        type="button">
+                <button class="main-nav__mega-toggle" aria-expanded="false" type="button">
                   {{ item.value.name }}
                   <svg class="main-nav__dropdown-chevron"
                        width="16"
@@ -52,68 +49,24 @@
                 </button>
                 <div id="mega-menu-{{ item.id }}"
                      class="main-nav__dropdown-menu main-nav__mega-menu">
-                  {% build_mega_menu item.value settings.base.ContactSettings as mega_menu %}
-                  <div class="main-nav__mega-layout{% if mega_menu.has_panels %} main-nav__mega-layout--with-panel{% endif %}"
-                       {% if mega_menu.has_fixed_panel %}data-mega-fixed-panel="{{ mega_menu.fixed_panel_index }}"{% endif %}>
-                    <div class="main-nav__mega-list" role="list">
-                      {% for subitem in mega_menu.items %}
-                        {% if subitem.has_link %}
-                          <a href="{{ subitem.url }}"
-                             class="main-nav__mega-card{% if subitem.is_active %} is-active{% endif %}"
-                             data-mega-panel-trigger="{{ subitem.index }}"
-                             role="listitem">
-                            <span class="main-nav__mega-copy">
-                              <span class="main-nav__mega-title">{{ subitem.name }}</span>
-                              {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
-                            </span>
-                            <span class="main-nav__mega-card-arrow" aria-hidden="true"></span>
-                          </a>
-                        {% else %}
-                          <div class="main-nav__mega-card{% if subitem.is_active %} is-active{% endif %}"
-                               data-mega-panel-trigger="{{ subitem.index }}"
-                               role="listitem">
-                            <span class="main-nav__mega-copy">
-                              <span class="main-nav__mega-title">{{ subitem.name }}</span>
-                              {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
-                            </span>
-                            <span class="main-nav__mega-card-arrow" aria-hidden="true"></span>
-                          </div>
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                    {% if mega_menu.has_panels %}
-                      <div class="main-nav__mega-panels">
-                        {% for panel in mega_menu.panels %}
-                          <div class="main-nav__mega-panel{% if panel.index == mega_menu.active_panel_index or panel.index == mega_menu.fixed_panel_index %} is-active{% endif %}"
-                               data-mega-panel="{{ panel.index }}">
-                            {% if panel.type == "contacts" %}
-                              <div class="main-nav__mega-contacts">
-                                {% if panel.phone %}
-                                  <a class="main-nav__mega-contact-link" href="tel:{{ panel.phone }}">{{ panel.phone }}</a>
-                                {% endif %}
-                                {% if panel.email %}
-                                  <a class="main-nav__mega-contact-link" href="mailto:{{ panel.email }}">{{ panel.email }}</a>
-                                {% endif %}
-                                {% if panel.address %}<p class="main-nav__mega-contact-address">{{ panel.address }}</p>{% endif %}
-                              </div>
-                            {% else %}
-                              {% if panel.title %}<p class="main-nav__mega-panel-title">{{ panel.title }}</p>{% endif %}
-                              <ul class="main-nav__mega-category-list" role="list">
-                                {% for category in panel.items %}
-                                  <li>
-                                    <a class="main-nav__mega-category-link" href="{{ category.url }}">
-                                      <span class="main-nav__mega-category-arrow" aria-hidden="true"></span>
-                                      <span>{{ category.name }}</span>
-                                    </a>
-                                  </li>
-                                {% endfor %}
-                              </ul>
-                            {% endif %}
-                          </div>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
+                  <div class="main-nav__mega-header">
+                    <a class="main-nav__mega-heading"
+                       {% if item.value.page %} href="{{ item.value.page.url }}" {% elif item.value.external_url %} href="{{ item.value.external_url }}" {% else %} aria-disabled="true" {% endif %}>
+                      <span class="main-nav__mega-title main-nav__mega-header-title">{{ item.value.name }}</span>
+                    </a>
+                    {% if item.value.intro %}<span class="main-nav__mega-description">{{ item.value.intro }}</span>{% endif %}
                   </div>
+                  <ul class="main-nav__mega-list" role="list">
+                    {% for subitem in item.value.mega_menu_items %}
+                      <li class="main-nav__mega-list-item">
+                        <a class="main-nav__mega-card"
+                           {% if subitem.page %} href="{{ subitem.page.url }}" {% elif subitem.external_url %} href="{{ subitem.external_url }}" {% else %} aria-disabled="true" {% endif %}>
+                          <span class="main-nav__mega-title">{{ subitem.name }}</span>
+                          {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
                 </div>
               </div>
             {% else %}

@@ -59,6 +59,13 @@ class HeaderSettings(BaseGenericSetting):
                             ),
                         ),
                         (
+                            "intro",
+                            TextBlock(
+                                required=False,
+                                label="Описание",
+                            ),
+                        ),
+                        (
                             "page",
                             PageChooserBlock(
                                 required=False,
@@ -80,7 +87,7 @@ class HeaderSettings(BaseGenericSetting):
                                 choices=[
                                     ("none", "Без подменю"),
                                     ("simple", "Простое подменю"),
-                                    ("mega", "Мегаменю"),
+                                    ("mega", "Широкое подменю"),
                                 ],
                                 default="none",
                                 label="Тип меню*",
@@ -160,11 +167,11 @@ class HeaderSettings(BaseGenericSetting):
                                         ),
                                     ],
                                     icon="doc-full",
-                                    label="Карточка мегаменю",
+                                    label="Карточка расширенного подменю",
                                 ),
                                 required=False,
-                                label="Карточки мегаменю",
-                                help_text="Используется для типа 'Мегаменю'",
+                                label="Карточки широкого подменю",
+                                help_text="Используется для типа 'Широкое подменю'",
                             ),
                         ),
                     ],
