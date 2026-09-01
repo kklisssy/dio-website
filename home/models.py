@@ -115,6 +115,17 @@ class DirectionCardBlock(LinkedCardBlock):
         label = "Карточка направления аудита"
         icon = "link"
 
+class MainDirectionCardBlock(DirectionCardBlock):
+    details = blocks.RichTextBlock(
+        required=False,
+        features=["bold", "italic", "ol", "ul", "link"],
+        label="Дополнительный текст и список",
+    )
+
+    class Meta:
+        label = "Главная карточка"
+        icon = "list-ul"
+
 class DirectionsBlock(blocks.StructBlock):
     title = blocks.CharBlock(
         required=False,
@@ -128,7 +139,7 @@ class DirectionsBlock(blocks.StructBlock):
         label="Описание",
     )
 
-    main_card = DirectionCardBlock(
+    main_card = MainDirectionCardBlock(
         label="Главная карточка",
     )
 
