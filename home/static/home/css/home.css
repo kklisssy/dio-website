@@ -148,7 +148,9 @@
   stroke: rgba(255, 255, 255, 0.2);
   stroke-width: 1.5;
   stroke-dasharray: 4 7;
-  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+  transition:
+    stroke 0.2s ease,
+    stroke-width 0.2s ease;
 }
 
 .hero-cloud__connections line.is-active {
@@ -180,12 +182,18 @@
   place-items: center;
   padding: 2px;
   clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(239, 91, 81, 0.48));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.5),
+    rgba(239, 91, 81, 0.48)
+  );
   color: #ffffff;
   text-align: center;
   text-decoration: none;
   filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.26));
-  transition: filter 0.2s ease, transform 0.2s ease;
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
 }
 
 .hero-cloud__node::before {
@@ -193,7 +201,11 @@
   inset: 2px;
   clip-path: inherit;
   background:
-    radial-gradient(circle at 50% 100%, rgba(159, 48, 48, 0.26), transparent 58%),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(159, 48, 48, 0.26),
+      transparent 58%
+    ),
     linear-gradient(145deg, rgba(54, 59, 69, 0.98), rgba(27, 31, 38, 0.98));
   content: "";
 }
@@ -212,7 +224,11 @@
 
 .hero-cloud__node:focus-visible::before {
   background:
-    radial-gradient(circle at 50% 100%, rgba(239, 91, 81, 0.48), transparent 64%),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(239, 91, 81, 0.48),
+      transparent 64%
+    ),
     linear-gradient(145deg, rgba(64, 68, 78, 0.98), rgba(30, 32, 39, 0.98));
 }
 
@@ -225,7 +241,12 @@
   aspect-ratio: 1.12;
   height: auto;
   transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, #ff9a82, #8e3034 65%, rgba(255, 255, 255, 0.55));
+  background: linear-gradient(
+    135deg,
+    #ff9a82,
+    #8e3034 65%,
+    rgba(255, 255, 255, 0.55)
+  );
 }
 
 .hero-cloud__node--center:hover,
@@ -235,7 +256,11 @@
 
 .hero-cloud__node--center::before {
   background:
-    radial-gradient(circle at 50% 100%, rgba(246, 95, 79, 0.5), transparent 62%),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(246, 95, 79, 0.5),
+      transparent 62%
+    ),
     linear-gradient(145deg, #71383e, #302d34);
 }
 
@@ -251,19 +276,19 @@
 .hero-cloud__eyebrow {
   overflow-wrap: anywhere;
   color: #c8c9cc;
-  font-size: clamp(9px, 0.72vw, 12px);
+  font-size: clamp(0.5625rem, 0.72vw, 0.75rem);
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .hero-cloud__title {
   overflow-wrap: anywhere;
-  font-size: clamp(17px, 1.4vw, 24px);
+  font-size: clamp(1.0625rem, 1.4vw, 1.5rem);
   line-height: 1;
 }
 
 .hero-cloud__node--center .hero-cloud__title {
-  font-size: clamp(24px, 2vw, 34px);
+  font-size: clamp(1.5rem, 2vw, 2.125rem);
 }
 
 .hero-cloud__icon {
@@ -867,20 +892,19 @@ a.work-stages__card-body:hover {
   }
 
   .hero-cloud__eyebrow {
-    font-size: 9px;
+    font-size: 0.5625rem;
   }
 
   .hero-cloud__title {
-    font-size: clamp(14px, 4vw, 19px);
+    font-size: clamp(0.875rem, 4vw, 1.1875rem);
   }
 
   .hero-cloud__node--center .hero-cloud__title {
-    font-size: clamp(20px, 5.5vw, 27px);
+    font-size: clamp(1.25rem, 5.5vw, 1.6875rem);
   }
 
   .hero__text {
     margin: 0;
-    --text-size: 18px;
   }
 
   .home-section {
@@ -1012,15 +1036,15 @@ a.work-stages__card-body:hover {
   }
 
   .hero-cloud__eyebrow {
-    font-size: 7px;
+    font-size: 0.4375rem;
   }
 
   .hero-cloud__title {
-    font-size: clamp(12px, 3.8vw, 16px);
+    font-size: clamp(0.75rem, 3.8vw, 1rem);
   }
 
   .hero-cloud__node--center .hero-cloud__title {
-    font-size: clamp(18px, 5vw, 22px);
+    font-size: clamp(1.125rem, 5vw, 1.375rem);
   }
 
   .hero-cloud__icon {
