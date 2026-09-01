@@ -1,75 +1,75 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
-  {% for indicators_block in blocks %}
-    <section class="statistics-section">
-      <div class="container statistics-section__container">
-        <div class="statistics-section__header">
-          {% if indicators_block.value.title %}
-            <h3 class="statistics-section__title heading heading--h3">{{ indicators_block.value.title }}</h3>
-          {% endif %}
-          {% if indicators_block.value.intro %}
-            <div class="text text--xl">{{ indicators_block.value.intro|richtext }}</div>
-          {% endif %}
-        </div>
-        <ul class="statistics-section__grid" role="list">
-          {% for achievement in indicators_block.value.items %}
-            <li class="statistics-section__item">
-              <div class="statistics-section__value counter-element"
-                   data-value="{{ achievement.value }}"
-                   data-suffix="{{ achievement.suffix }}">0{{ achievement.suffix }}</div>
-              <h3 class="text text--xl statistics-section__label">{{ achievement.label }}</h3>
-              {% if achievement.description %}
-                <div class="statistics-section__description text text--relaxed text--soft">{{ achievement.description|richtext }}</div>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+{% for indicators_block in blocks %}
+  <section class="statistics-section">
+    <div class="container statistics-section__container">
+      <div class="statistics-section__header">
+        {% if indicators_block.value.title %}
+          <h3 class="statistics-section__title heading heading--h3">{{ indicators_block.value.title }}</h3>
+        {% endif %}
+        {% if indicators_block.value.intro %}
+          <div class="text text--xl">{{ indicators_block.value.intro|richtext }}</div>
+        {% endif %}
       </div>
-    </section>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function animateCounter(element, start, end, duration, suffix) {
-                let startTime = null;
+      <ul class="statistics-section__grid" role="list">
+        {% for achievement in indicators_block.value.items %}
+          <li class="statistics-section__item">
+            <div class="statistics-section__value counter-element"
+                 data-value="{{ achievement.value }}"
+                 data-suffix="{{ achievement.suffix }}">0{{ achievement.suffix }}</div>
+            <h3 class="text text--xl statistics-section__label">{{ achievement.label }}</h3>
+            {% if achievement.description %}
+              <div class="statistics-section__description text text--relaxed text--soft">{{ achievement.description|richtext }}</div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          function animateCounter(element, start, end, duration, suffix) {
+              let startTime = null;
 
-                function updateCounter(timestamp) {
-                    if (!startTime) {
-                        startTime = timestamp;
-                    }
+              function updateCounter(timestamp) {
+                  if (!startTime) {
+                      startTime = timestamp;
+                  }
 
-                    const progress = Math.min((timestamp - startTime) / duration, 1);
-                    const currentValue = Math.floor(progress * (end - start) + start);
-                    element.textContent = currentValue + suffix;
+                  const progress = Math.min((timestamp - startTime) / duration, 1);
+                  const currentValue = Math.floor(progress * (end - start) + start);
+                  element.textContent = currentValue + suffix;
 
-                    if (progress < 1) {
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        element.classList.add("animated");
-                    }
-                }
+                  if (progress < 1) {
+                      requestAnimationFrame(updateCounter);
+                  } else {
+                      element.classList.add("animated");
+                  }
+              }
 
-                requestAnimationFrame(updateCounter);
-            }
+              requestAnimationFrame(updateCounter);
+          }
 
-            function isElementInViewport(element) {
-                const rect = element.getBoundingClientRect();
-                return rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
-            }
+          function isElementInViewport(element) {
+              const rect = element.getBoundingClientRect();
+              return rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
+          }
 
-            function handleCounters() {
-                document.querySelectorAll(".counter-element").forEach(function(counter) {
-                    if (!isElementInViewport(counter) || counter.classList.contains("animated")) {
-                        return;
-                    }
+          function handleCounters() {
+              document.querySelectorAll(".counter-element").forEach(function(counter) {
+                  if (!isElementInViewport(counter) || counter.classList.contains("animated")) {
+                      return;
+                  }
 
-                    const value = parseInt(counter.getAttribute("data-value"), 10) || 0;
-                    const suffix = counter.getAttribute("data-suffix") || "";
-                    animateCounter(counter, 0, value, 1000, suffix);
-                });
-            }
+                  const value = parseInt(counter.getAttribute("data-value"), 10) || 0;
+                  const suffix = counter.getAttribute("data-suffix") || "";
+                  animateCounter(counter, 0, value, 1000, suffix);
+              });
+          }
 
-            window.addEventListener("scroll", handleCounters, {
-                passive: true
-            });
-            handleCounters();
-        });
-    </script>
-  {% endfor %}
+          window.addEventListener("scroll", handleCounters, {
+              passive: true
+          });
+          handleCounters();
+      });
+  </script>
+{% endfor %}
