@@ -35,7 +35,7 @@
 
 .case-card__letter {
   color: var(--color-brand);
-  font-size: 84px;
+  font-size: 5.25rem;
   font-weight: 600;
   line-height: 1;
 }
@@ -47,7 +47,7 @@
 }
 
 .case-card__title {
-  --heading-size: 25px;
+  --heading-size: var(--font-card-title);
   --heading-line-height: 1.25;
   display: -webkit-box;
   overflow: hidden;
@@ -114,7 +114,7 @@
 
 .statistics-section__value {
   margin-bottom: 10px;
-  font-size: clamp(48px, 4.2vw, 68px);
+  font-size: clamp(3rem, 4.2vw, 4.25rem);
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: 0;
@@ -126,7 +126,7 @@
 }
 
 .statistics-section__label {
-  --text-size: 14px;
+  --text-size: var(--font-meta);
   color: var(--color-muted);
   font-weight: 400;
 }
@@ -228,7 +228,7 @@
   }
 
   .statistics-section__value {
-    font-size: clamp(38px, 12vw, 52px);
+    font-size: clamp(2.375rem, 12vw, 3.25rem);
   }
 }
 
@@ -236,10 +236,6 @@
   .cases-section__header {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .cases-section__title {
-    --heading-size: 36px;
   }
 
   .statistics-section {
@@ -250,30 +246,14 @@
     padding: 36px 22px 44px;
   }
 
-  .statistics-section__title {
-    --heading-size: 24px;
-  }
-
   .global-presence-section {
     padding: 56px 16px 64px;
-  }
-
-  .global-presence-section__title {
-    --heading-size: 36px;
   }
 
   .case-card__link {
     min-height: 390px;
     padding: 28px 22px;
     border-radius: 18px;
-  }
-
-  .case-card__title {
-    --heading-size: 23px;
-  }
-
-  .case-card__intro {
-    --text-size: 18px;
   }
 
   .case-card__intro p {

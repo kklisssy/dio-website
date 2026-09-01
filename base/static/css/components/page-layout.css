@@ -48,7 +48,7 @@
   border-radius: var(--radius-pill);
   background: var(--color-brand);
   color: #ffffff;
-  font-size: 18px;
+  font-size: var(--font-body);
   line-height: 1.1;
   font-weight: 700;
   text-transform: uppercase;
@@ -100,7 +100,7 @@
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  padding: 45px 50px 40px;
+  padding: 40px 35px 35px;
   border-radius: 30px;
   background: var(--color-surface);
   isolation: isolate;
@@ -161,26 +161,33 @@
   border-radius: 30px;
   background: var(--color-brand);
   color: #ffffff;
-  font-size: 14px;
+  font-size: var(--font-meta);
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.catalog-card__title {
+.heading.catalog-card__title {
   min-height: 2lh;
   color: currentColor;
-  --heading-size: 42px;
   --heading-line-height: 1.05;
 }
 
 .catalog-card__text {
   margin: 0;
   max-width: 480px;
-  font-size: 25px;
-  line-height: 1.22;
-  font-weight: 400;
+  font-size: var(--font-body);
+  line-height: var(--line-tight);
+  font-weight: var(--weight-regular);
+}
+
+.catalog-card__text > :first-child {
+  margin-top: 0;
+}
+
+.catalog-card__text > :last-child {
+  margin-bottom: 0;
 }
 
 .catalog-card__more {
@@ -191,9 +198,9 @@
   align-items: center;
   gap: 12px;
   margin-top: 28px;
-  font-size: 22px;
+  font-size: var(--font-body);
   line-height: 1;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .catalog-card__arrow {
@@ -281,7 +288,6 @@
 
   .catalog-card__text {
     max-width: none;
-    font-size: 28px;
   }
 }
 
@@ -297,13 +303,7 @@
     border-radius: 18px;
   }
 
-  .catalog-card__title {
+  .heading.catalog-card__title {
     min-height: 2lh;
-    --heading-size: 34px;
-  }
-
-  .catalog-card__text,
-  .catalog-card__more {
-    font-size: 20px;
   }
 }

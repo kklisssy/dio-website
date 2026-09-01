@@ -1,27 +1,25 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-  {% for block in blocks %}
-      <section class="home-section">
-        <div class="container home-section__container">
-          <div class="home-section__header">
-            <h2 class="heading heading--h2">{{ block.value.title }}</h2>
-            {% if block.value.intro %}
-              <div class="text text--md">{{ block.value.intro|richtext }}</div>
-            {% endif %}
-          </div>
-          <ul class="home-section__grid work-with-section__grid" role="list">
-            {% for card in block.value.cards %}
-              {% if card.image %}
-                {% image card.image fill-900x760 as card_image %}
-              {% endif %}
-              <li class="work-with-card"
-                  {% if card.image %}style="background-image: url('{{ card_image.url }}')"{% endif %}>
-                <div class="work-with-card__body">
-                  <h3 class="work-with-card__title heading heading--h3 heading--semibold">{{ card.title }}</h3>
-                  <div class="work-with-card__text text text--md text--tight">{{ card.text|richtext }}</div>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </section>
-  {% endfor %}
+{% for block in blocks %}
+  <section class="home-section">
+    <div class="container home-section__container">
+      <div class="home-section__header">
+        <h2 class="heading heading--h2">{{ block.value.title }}</h2>
+        {% if block.value.intro %}<div class="text text--xl">{{ block.value.intro|richtext }}</div>{% endif %}
+      </div>
+      <ul class="home-section__grid work-with-section__grid" role="list">
+        {% for card in block.value.cards %}
+          {% if card.image %}
+            {% image card.image fill-900x760 as card_image %}
+          {% endif %}
+          <li class="work-with-card"
+              {% if card.image %}style="background-image: url('{{ card_image.url }}')"{% endif %}>
+            <div class="work-with-card__body">
+              <h3 class="work-with-card__title heading heading--h3 heading--semibold">{{ card.title }}</h3>
+              <div class="work-with-card__text text text--md text--tight">{{ card.text|richtext }}</div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endfor %}

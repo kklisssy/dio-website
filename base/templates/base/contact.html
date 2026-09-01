@@ -7,7 +7,7 @@
         <span class="contact-card__badge">Контакты</span>
         <h2 class="heading heading--h2 heading--inverse">{{ contact.title }}</h2>
         {% if contact.description %}
-          <p class="contact-card__description text text--md text--strong text--inverse">{{ contact.description }}</p>
+          <p class="contact-card__description text text--xl text--inverse">{{ contact.description }}</p>
         {% endif %}
         <div class="contact-card__items">
           {% if contact.phone %}
@@ -103,9 +103,7 @@
           </label>
           <div class="contact-form__footer">
             <button class="button__cta" type="submit">{{ contact.submit_button_text }}</button>
-            {% if contact.form_note %}
-              <p class="contact-form__note">{{ contact.form_note }}</p>
-            {% endif %}
+            {% if contact.form_note %}<p class="contact-form__note">{{ contact.form_note }}</p>{% endif %}
           </div>
           <label class="contact-form__privacy">
             <input class="contact-form__privacy-checkbox"

@@ -1,36 +1,40 @@
 {% load wagtailcore_tags %}
-    {% for block in blocks %}
-        <section class="home-section">
-          <div class="container home-section__container">
-            <header class="service-actions-section__header">
-              <div class="home-section__header">
-                {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-                {% if block.value.description %}<p class="text text--md">{{ block.value.description }}</p>{% endif %}
+{% for block in blocks %}
+  <section class="home-section">
+    <div class="container home-section__container">
+      <header class="service-actions-section__header">
+        <div class="home-section__header">
+          {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+          {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
+        </div>
+      </header>
+      <ul class="catalog-grid home-section__grid service-actions-section__grid"
+          role="list">
+        {% for card in block.value.cards %}
+          <li class="catalog-card">
+            <a class="catalog-card__link action-card__link"
+               href="{{ card.page.url }}">
+              <div class="catalog-card__content">
+                {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
+                <h3 class="catalog-card__title heading heading--h3 action-card__title">{{ card.title }}</h3>
+                {% if card.description %}
+                  <div class="catalog-card__text text--md">{{ card.description|richtext }}</div>
+                {% endif %}
               </div>
-              {% if service_1c_index %}
-                <a class="button__cta button__cta--outline"
-                   href="{% pageurl service_1c_index %}">Все сервисы</a>
-              {% endif %}
-            </header>
-            <ul class="catalog-grid home-section__grid service-actions-section__grid"
-                role="list">
-              {% for card in block.value.cards %}
-                <li class="catalog-card">
-                  <a class="catalog-card__link action-card__link"
-                     href="{{ card.page.url }}">
-                    <div class="catalog-card__content">
-                      {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
-                      <h3 class="catalog-card__title heading heading--h3 action-card__title">{{ card.title }}</h3>
-                      {% if card.description %}<p class="catalog-card__text text--md">{{ card.description }}</p>{% endif %}
-                    </div>
-                    <span class="catalog-card__more">
-                      {{ card.link_text|default:"Подробнее" }}
-                      <span class="catalog-card__arrow" aria-hidden="true"></span>
-                    </span>
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </section>
-    {% endfor %}
+              <span class="catalog-card__more">
+                {{ card.link_text|default:"Подробнее" }}
+                <span class="catalog-card__arrow" aria-hidden="true"></span>
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if service_1c_index %}
+        <div class="home-section__actions">
+          <a class="button__cta button__cta--outline"
+             href="{% pageurl service_1c_index %}">Все сервисы</a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endfor %}

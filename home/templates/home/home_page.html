@@ -8,122 +8,103 @@
 {% endblock extra_js %}
 {% block content %}
   {% for block in page.hero %}
-      <section class="hero-section">
-        <div class="container hero">
-          <div class="hero__glass" aria-hidden="true"></div>
-          <div class="hero__content">
-            <h1 class="heading heading--h1 heading-hero">{{ block.value.title }}</h1>
-            {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
-            {% if block.value.buttons %}
-              <div class="buttons__cta">
-                {% for button in block.value.buttons %}
-                  <a href="{% if button.is_secondary %}{{ button.url }}{% else %}#contacts{% endif %}"
-                     class="button__cta{% if button.is_secondary %} button__cta--secondary{% endif %}">
-                    {{ button.text }}
-                  </a>
-                {% endfor %}
-              </div>
-            {% endif %}
-          </div>
-          {% if block.value.interactive_cloud %}
-            {% with cloud=block.value.interactive_cloud.0.value %}
-              <div class="hero-cloud" data-hero-cloud>
-                <svg class="hero-cloud__connections" aria-hidden="true">
-                  {% for node in cloud.nodes %}<line data-cloud-line="{{ forloop.counter0 }}"></line>{% endfor %}
-                </svg>
-                <a class="hero-cloud__node hero-cloud__node--center"
-                   {% if cloud.center.page %}href="{% pageurl cloud.center.page %}"{% else %}aria-disabled="true"{% endif %}
-                   data-cloud-center>
-                  <span class="hero-cloud__node-content">
-                    {% if cloud.center.eyebrow %}<span class="hero-cloud__eyebrow">{{ cloud.center.eyebrow }}</span>{% endif %}
-                    <strong class="hero-cloud__title">{{ cloud.center.title }}</strong>
-                    {% if cloud.center.icon %}
-                      {% image cloud.center.icon max-64x64 as center_icon %}
-                      <img class="hero-cloud__icon"
-                           src="{{ center_icon.url }}"
-                           width="{{ center_icon.width }}"
-                           height="{{ center_icon.height }}"
-                           alt="">
-                    {% endif %}
-                  </span>
+    <section class="hero-section">
+      <div class="container hero">
+        <div class="hero__glass" aria-hidden="true"></div>
+        <div class="hero__content">
+          <h1 class="heading heading--h1 heading-hero">{{ block.value.title }}</h1>
+          {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
+          {% if block.value.buttons %}
+            <div class="buttons__cta">
+              {% for button in block.value.buttons %}
+                <a href="{% if button.is_secondary %}{{ button.url }}{% else %}#contacts{% endif %}"
+                   class="button__cta{% if button.is_secondary %} button__cta--secondary{% endif %}">
+                  {{ button.text }}
                 </a>
-                <ul class="hero-cloud__nodes" role="list">
-                  {% for node in cloud.nodes %}
-                    <li class="hero-cloud__item" data-cloud-item="{{ forloop.counter0 }}">
-                      <a class="hero-cloud__node"
-                         {% if node.page %}href="{% pageurl node.page %}"{% else %}aria-disabled="true"{% endif %}
-                         data-cloud-node="{{ forloop.counter0 }}">
-                        <span class="hero-cloud__node-content">
-                          {% if node.eyebrow %}<span class="hero-cloud__eyebrow">{{ node.eyebrow }}</span>{% endif %}
-                          <strong class="hero-cloud__title">{{ node.title }}</strong>
-                          {% if node.icon %}
-                            {% image node.icon max-56x56 as node_icon %}
-                            <img class="hero-cloud__icon"
-                                 src="{{ node_icon.url }}"
-                                 width="{{ node_icon.width }}"
-                                 height="{{ node_icon.height }}"
-                                 alt="">
-                          {% endif %}
-                        </span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endwith %}
-          {% elif block.value.image %}
-            <div class="hero__image">
-              {% image block.value.image max-900x700 as hero_image %}
-              <img src="{{ hero_image.url }}"
-                   width="{{ hero_image.width }}"
-                   height="{{ hero_image.height }}"
-                   alt="{{ block.value.title }}">
+              {% endfor %}
             </div>
           {% endif %}
         </div>
-      </section>
+        {% if block.value.interactive_cloud %}
+          {% with cloud=block.value.interactive_cloud.0.value %}
+            <div class="hero-cloud" data-hero-cloud>
+              <svg class="hero-cloud__connections" aria-hidden="true">
+                {% for node in cloud.nodes %}<line data-cloud-line="{{ forloop.counter0 }}"></line>{% endfor %}
+              </svg>
+              <a class="hero-cloud__node hero-cloud__node--center"
+                 {% if cloud.center.page %}href="{% pageurl cloud.center.page %}"{% else %}aria-disabled="true"{% endif %}
+                 data-cloud-center>
+                <span class="hero-cloud__node-content">
+                  {% if cloud.center.eyebrow %}<span class="hero-cloud__eyebrow">{{ cloud.center.eyebrow }}</span>{% endif %}
+                  <strong class="hero-cloud__title">{{ cloud.center.title }}</strong>
+                  {% if cloud.center.icon %}
+                    {% image cloud.center.icon max-64x64 as center_icon %}
+                    <img class="hero-cloud__icon"
+                         src="{{ center_icon.url }}"
+                         width="{{ center_icon.width }}"
+                         height="{{ center_icon.height }}"
+                         alt="">
+                  {% endif %}
+                </span>
+              </a>
+              <ul class="hero-cloud__nodes" role="list">
+                {% for node in cloud.nodes %}
+                  <li class="hero-cloud__item" data-cloud-item="{{ forloop.counter0 }}">
+                    <a class="hero-cloud__node"
+                       {% if node.page %}href="{% pageurl node.page %}"{% else %}aria-disabled="true"{% endif %}
+                       data-cloud-node="{{ forloop.counter0 }}">
+                      <span class="hero-cloud__node-content">
+                        {% if node.eyebrow %}<span class="hero-cloud__eyebrow">{{ node.eyebrow }}</span>{% endif %}
+                        <strong class="hero-cloud__title">{{ node.title }}</strong>
+                        {% if node.icon %}
+                          {% image node.icon max-56x56 as node_icon %}
+                          <img class="hero-cloud__icon"
+                               src="{{ node_icon.url }}"
+                               width="{{ node_icon.width }}"
+                               height="{{ node_icon.height }}"
+                               alt="">
+                        {% endif %}
+                      </span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endwith %}
+        {% elif block.value.image %}
+          <div class="hero__image">
+            {% image block.value.image max-900x700 as hero_image %}
+            <img src="{{ hero_image.url }}"
+                 width="{{ hero_image.width }}"
+                 height="{{ hero_image.height }}"
+                 alt="{{ block.value.title }}">
+          </div>
+        {% endif %}
+      </div>
+    </section>
   {% endfor %}
   {% if page.hero_features %}
     <ul class="hero-features" role="list">
       {% for feature in page.hero_features %}
         <li class="hero-feature-card">
-          {% if feature.value.page %}
-            <a class="hero-feature-card__body" href="{{ feature.value.page.url }}">
-              {% if feature.value.icon %}
-                <div class="hero-feature-card__top">
-                  {% image feature.value.icon max-96x96 as feature_icon %}
-                  <span class="hero-feature-card__icon-wrap">
-                    <img class="hero-feature-card__icon"
-                         src="{{ feature_icon.url }}"
-                         width="{{ feature_icon.width }}"
-                         height="{{ feature_icon.height }}"
-                         alt="">
-                  </span>
-                </div>
-              {% endif %}
-              <h3 class="heading heading--h3 heading--semibold hero-feature-card__title">{{ feature.value.title }}</h3>
-              <span class="hero-feature-card__accent" aria-hidden="true"></span>
-              {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
-            </a>
-          {% else %}
-            <div class="hero-feature-card__body">
-              {% if feature.value.icon %}
-                <div class="hero-feature-card__top">
-                  {% image feature.value.icon max-96x96 as feature_icon %}
-                  <span class="hero-feature-card__icon-wrap">
-                    <img class="hero-feature-card__icon"
-                         src="{{ feature_icon.url }}"
-                         width="{{ feature_icon.width }}"
-                         height="{{ feature_icon.height }}"
-                         alt="">
-                  </span>
-                </div>
-              {% endif %}
-              <h3 class="hero-feature-card__title heading heading--h3 heading--semibold">{{ feature.value.title }}</h3>
-              <span class="hero-feature-card__accent" aria-hidden="true"></span>
-              {% if feature.value.description %}<p class="text text--strong text--md">{{ feature.value.description }}</p>{% endif %}
-            </div>
-          {% endif %}
+          <a class="hero-feature-card__body"
+             {% if feature.value.page %}href="{{ feature.value.page.url }}"{% else %}aria-disabled="true"{% endif %}>
+            {% if feature.value.icon %}
+              <div class="hero-feature-card__top">
+                {% image feature.value.icon max-96x96 as feature_icon %}
+                <span class="hero-feature-card__icon-wrap">
+                  <img class="hero-feature-card__icon"
+                       src="{{ feature_icon.url }}"
+                       width="{{ feature_icon.width }}"
+                       height="{{ feature_icon.height }}"
+                       alt="">
+                </span>
+              </div>
+            {% endif %}
+            <h3 class="hero-feature-card__title heading heading--h3">{{ feature.value.title }}</h3>
+            <span class="hero-feature-card__accent" aria-hidden="true"></span>
+            {% if feature.value.description %}<p class="text text--md">{{ feature.value.description }}</p>{% endif %}
+          </a>
         </li>
       {% endfor %}
     </ul>

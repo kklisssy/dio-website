@@ -94,7 +94,7 @@
 
 .contact-form__label {
   color: var(--color-text);
-  font-size: 22px;
+  font-size: var(--font-section-description);
   font-weight: 600;
   margin: 0;
   margin-bottom: 5px;
@@ -112,7 +112,7 @@
   background: var(--color-page);
   color: var(--color-text);
   font: inherit;
-  font-size: 18px;
+  font-size: var(--font-body);
   outline: none;
   transition:
     border-color 0.2s ease,

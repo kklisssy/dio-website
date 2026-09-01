@@ -4,25 +4,18 @@
         <div class="home-section__header">
           <h2 id="work-stages-title" class="heading heading--h2 work-stages-title">{{ work_stages_block.value.title }}</h2>
           {% if work_stages_block.value.intro %}
-            <p class="text text--md work-stages__text">{{ work_stages_block.value.intro }}</p>
+            <p class="text text--xl work-stages__text">{{ work_stages_block.value.intro }}</p>
           {% endif %}
         </div>
         <ol class="home-section__grid work-stages__grid" role="list">
           {% for stage in work_stages_block.value.stages %}
             <li class="work-stages__card">
-              {% if stage.page %}
-                <a class="work-stages__card-body" href="{{ stage.page.url }}">
-                  <span class="work-stages__number">{{ forloop.counter }}</span>
-                  <h3 class="work-stages__card-title heading heading--h3 heading--semibold">{{ stage.title }}</h3>
-                  <p class="work-stages__text text text--md">{{ stage.text }}</p>
-                </a>
-              {% else %}
-                <div class="work-stages__card-body">
-                  <span class="work-stages__number">{{ forloop.counter }}</span>
-                  <h3 class="work-stages__card-title heading heading--h3 heading--semibold">{{ stage.title }}</h3>
-                  <p class="work-stages__text text text--md">{{ stage.text }}</p>
-                </div>
-              {% endif %}
+              <a class="work-stages__card-body"
+                 {% if stage.page %}href="{{ stage.page.url }}"{% else %}aria-disabled="true"{% endif %}>
+                <span class="work-stages__number">{{ forloop.counter }}</span>
+                <h3 class="work-stages__card-title heading heading--h3">{{ stage.title }}</h3>
+                <p class="work-stages__text text text--md">{{ stage.text }}</p>
+              </a>
             </li>
           {% endfor %}
         </ol>
