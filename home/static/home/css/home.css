@@ -495,9 +495,9 @@ a.work-stages__card-body[href]:hover {
 }
 
 .direction-main-card .catalog-card__link {
-  padding: 0;
+  padding: 50px 50px 35px;
   background: #22262d;
-  color: #ffffff;
+  color: var(--color-surface);
   box-shadow: none;
   aspect-ratio: auto;
 }
@@ -517,16 +517,6 @@ a.work-stages__card-body[href]:hover {
       rgba(34, 38, 45, 0.08) 70%
     );
   pointer-events: none;
-}
-
-.direction-main-card .catalog-card__content {
-  align-content: start;
-  max-width: 950px;
-  padding: 64px 60px 24px;
-}
-
-.direction-main-card .catalog-card__more {
-  padding: 0 60px 64px;
 }
 
 .direction-main-card .catalog-card__text {
