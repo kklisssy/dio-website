@@ -82,34 +82,34 @@
           </div>
         {% endif %}
       </div>
-    </section>
-  {% endfor %}
-  {% if page.hero_features %}
-    <ul class="hero-features" role="list">
-      {% for feature in page.hero_features %}
-        <li class="hero-feature-card">
-          <a class="hero-feature-card__body"
-             {% if feature.value.page %}href="{{ feature.value.page.url }}"{% else %}aria-disabled="true"{% endif %}>
-            {% if feature.value.icon %}
-              <div class="hero-feature-card__top">
-                {% image feature.value.icon max-96x96 as feature_icon %}
-                <span class="hero-feature-card__icon-wrap">
-                  <img class="hero-feature-card__icon"
-                       src="{{ feature_icon.url }}"
-                       width="{{ feature_icon.width }}"
-                       height="{{ feature_icon.height }}"
-                       alt="">
-                </span>
-              </div>
-            {% endif %}
-            <h3 class="hero-feature-card__title heading heading--h3">{{ feature.value.title }}</h3>
-            <span class="hero-feature-card__accent" aria-hidden="true"></span>
-            {% if feature.value.description %}<p class="text text--md">{{ feature.value.description }}</p>{% endif %}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+    {% endfor %}
+    {% if page.hero_features %}
+      <ul class="hero-features" role="list">
+        {% for feature in page.hero_features %}
+          <li class="hero-feature-card">
+            <a class="hero-feature-card__body"
+               {% if feature.value.page %}href="{{ feature.value.page.url }}"{% else %}aria-disabled="true"{% endif %}>
+              {% if feature.value.icon %}
+                <div class="hero-feature-card__top">
+                  {% image feature.value.icon max-96x96 as feature_icon %}
+                  <span class="hero-feature-card__icon-wrap">
+                    <img class="hero-feature-card__icon"
+                         src="{{ feature_icon.url }}"
+                         width="{{ feature_icon.width }}"
+                         height="{{ feature_icon.height }}"
+                         alt="">
+                  </span>
+                </div>
+              {% endif %}
+              <h3 class="hero-feature-card__title heading heading--h3">{{ feature.value.title }}</h3>
+              <span class="hero-feature-card__accent" aria-hidden="true"></span>
+              {% if feature.value.description %}<p class="hero__text text text--md">{{ feature.value.description }}</p>{% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
   {% include "about_company/sections/statistics_section.html" with blocks=page.get_about_indicators only %}
   {% include "sections/direction_section.html" with blocks=page.directions only %}
   {% include "sections/work_with_section.html" with blocks=page.work_with only %}
