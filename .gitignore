@@ -51,6 +51,7 @@ knowledge_base/
 .tmp/
 scripts/backup.sh
 backups
+deploy-data
 
 # Node.js
 node_modules/
