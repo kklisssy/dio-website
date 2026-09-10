@@ -92,6 +92,14 @@
   color: #ffffff;
 }
 
+.hero-eyebrow {
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+
+  color: var(--color-brand);
+}
+
 .hero__glass {
   position: absolute;
   z-index: 1;

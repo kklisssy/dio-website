@@ -77,6 +77,13 @@ class HeroInteractiveCloudBlock(blocks.StructBlock):
 class HeroBlock(blocks.StructBlock):
     """Блок для hero"""
 
+    eyebrow = blocks.CharBlock(
+        required=False,
+        max_length=50,
+        label="Короткая подпись",
+        help_text="Например: Партнер 1С",
+    )
+
     title = blocks.TextBlock(
         required=True,
         label="Заголовок",
