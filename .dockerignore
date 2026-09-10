@@ -3,6 +3,7 @@
 .dockerignore
 .env
 .env.*
+deploy-data
 .venv
 venv
 env
