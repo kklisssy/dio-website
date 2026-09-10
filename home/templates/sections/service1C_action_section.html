@@ -17,9 +17,7 @@
               <div class="catalog-card__content">
                 {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
                 <h3 class="catalog-card__title heading heading--h3 action-card__title">{{ card.title }}</h3>
-                {% if card.description %}
-                  <div class="catalog-card__text text--md">{{ card.description|richtext }}</div>
-                {% endif %}
+                {% if card.description %}<div class="catalog-card__text text--md">{{ card.description|richtext }}</div>{% endif %}
               </div>
               <span class="catalog-card__more">
                 {{ card.link_text|default:"Подробнее" }}

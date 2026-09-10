@@ -1,42 +1,42 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% if cases %}
-    <section class="home-section cases-section"
-             aria-labelledby="cases-section-title">
-      <div class="container home-section__container">
-        <header class="cases-section__header">
-          <h2 id="cases-section-title"
-              class="cases-section__title heading heading--h2">Наши кейсы</h2>
-        </header>
-        <ul class="cases-list grid-list" role="list">
-          {% for case in cases %}
-            <li class="case-card">
-              <a class="case-card__link hover-card" href="{% pageurl case %}">
-                <div class="case-card__media">
-                  {% if case.customer_logo %}
-                    {% image case.customer_logo max-180x90 as case_logo %}
-                    <img src="{{ case_logo.url }}"
-                         width="{{ case_logo.width }}"
-                         height="{{ case_logo.height }}"
-                         alt="{{ case.customer_name }}">
-                  {% else %}
-                    <span class="case-card__letter" aria-hidden="true">{{ case.title|first|upper }}</span>
-                  {% endif %}
-                </div>
-                <div class="case-card__content">
-                  {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
-                  <h3 class="case-card__title heading">{{ case.title }}</h3>
-                  {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
-                </div>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-        {% if case_index %}
-          <div class="home-section__actions">
-            <a class="cases-section__all button__cta button__cta--outline"
-               href="{% pageurl case_index %}">Все кейсы</a>
-          </div>
-        {% endif %}
-      </div>
-    </section>
+  <section class="home-section cases-section"
+           aria-labelledby="cases-section-title">
+    <div class="container home-section__container">
+      <header class="cases-section__header">
+        <h2 id="cases-section-title"
+            class="cases-section__title heading heading--h2">Наши кейсы</h2>
+      </header>
+      <ul class="cases-list grid-list" role="list">
+        {% for case in cases %}
+          <li class="case-card">
+            <a class="case-card__link hover-card" href="{% pageurl case %}">
+              <div class="case-card__media">
+                {% if case.customer_logo %}
+                  {% image case.customer_logo max-180x90 as case_logo %}
+                  <img src="{{ case_logo.url }}"
+                       width="{{ case_logo.width }}"
+                       height="{{ case_logo.height }}"
+                       alt="{{ case.customer_name }}">
+                {% else %}
+                  <span class="case-card__letter" aria-hidden="true">{{ case.title|first|upper }}</span>
+                {% endif %}
+              </div>
+              <div class="case-card__content">
+                {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
+                <h3 class="case-card__title heading">{{ case.title }}</h3>
+                {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if case_index %}
+        <div class="home-section__actions">
+          <a class="cases-section__all button__cta button__cta--outline"
+             href="{% pageurl case_index %}">Все кейсы</a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
 {% endif %}

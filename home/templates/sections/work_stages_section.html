@@ -1,24 +1,24 @@
-  {% for work_stages_block in blocks %}
-    <section class="home-section work-stages" aria-labelledby="work-stages-title">
-      <div class="container home-section__container">
-        <div class="home-section__header">
-          <h2 id="work-stages-title" class="heading heading--h2 work-stages-title">{{ work_stages_block.value.title }}</h2>
-          {% if work_stages_block.value.intro %}
-            <p class="text text--xl work-stages__text">{{ work_stages_block.value.intro }}</p>
-          {% endif %}
-        </div>
-        <ol class="home-section__grid work-stages__grid" role="list">
-          {% for stage in work_stages_block.value.stages %}
-            <li class="work-stages__card">
-              <a class="work-stages__card-body"
-                 {% if stage.page %}href="{{ stage.page.url }}"{% else %}aria-disabled="true"{% endif %}>
-                <span class="work-stages__number">{{ forloop.counter }}</span>
-                <h3 class="work-stages__card-title heading heading--h3">{{ stage.title }}</h3>
-                <p class="work-stages__text text text--md">{{ stage.text }}</p>
-              </a>
-            </li>
-          {% endfor %}
-        </ol>
+{% for work_stages_block in blocks %}
+  <section class="home-section work-stages" aria-labelledby="work-stages-title">
+    <div class="container home-section__container">
+      <div class="home-section__header">
+        <h2 id="work-stages-title" class="heading heading--h2 work-stages-title">{{ work_stages_block.value.title }}</h2>
+        {% if work_stages_block.value.intro %}
+          <p class="text text--xl work-stages__text">{{ work_stages_block.value.intro }}</p>
+        {% endif %}
       </div>
-    </section>
-  {% endfor %}
+      <ol class="home-section__grid work-stages__grid" role="list">
+        {% for stage in work_stages_block.value.stages %}
+          <li class="work-stages__card">
+            <a class="work-stages__card-body"
+               {% if stage.page %}href="{{ stage.page.url }}"{% else %}aria-disabled="true"{% endif %}>
+              <span class="work-stages__number">{{ forloop.counter }}</span>
+              <h3 class="work-stages__card-title heading heading--h3">{{ stage.title }}</h3>
+              <p class="work-stages__text text text--md">{{ stage.text }}</p>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+{% endfor %}

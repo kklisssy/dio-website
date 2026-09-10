@@ -1,20 +1,20 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-  {% for block in blocks %}
-      <section class="global-presence-section">
-        <div class="container global-presence-section__container">
-          <div class="global-presence-section__content global-presence-section__header page-header">
-            <h2 class="global-presence-section__title heading heading--h2">{{ block.value.title }}</h2>
-            {% if block.value.description %}<div class="list-content">{{ block.value.description|richtext }}</div>{% endif %}
-          </div>
-          {% if block.value.image %}
-            <div class="global-presence-section__image">
-              {% image block.value.image max-1100x760 as global_image %}
-              <img src="{{ global_image.url }}"
-                   width="{{ global_image.width }}"
-                   height="{{ global_image.height }}"
-                   alt="{{ block.value.title }}">
-            </div>
-          {% endif %}
+{% for block in blocks %}
+  <section class="global-presence-section">
+    <div class="container global-presence-section__container">
+      <div class="global-presence-section__content global-presence-section__header page-header">
+        <h2 class="global-presence-section__title heading heading--h2">{{ block.value.title }}</h2>
+        {% if block.value.description %}<div class="list-content">{{ block.value.description|richtext }}</div>{% endif %}
+      </div>
+      {% if block.value.image %}
+        <div class="global-presence-section__image">
+          {% image block.value.image max-1100x760 as global_image %}
+          <img src="{{ global_image.url }}"
+               width="{{ global_image.width }}"
+               height="{{ global_image.height }}"
+               alt="{{ block.value.title }}">
         </div>
-      </section>
-  {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+{% endfor %}

@@ -1,34 +1,34 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% if product_index %}
-    <section class="home-section products-section"
-             aria-labelledby="products-section-title">
-      <div class="container home-section__container products-section__container">
-        <header class="products-section__header">
-          <div class="home-section__header page-header">
-            <h2 id="products-section-title"
-                class="services-section__title heading heading--h2">{{ product_index.headline }}</h2>
-            {% if product_index.intro %}<div class="text text--xl">{{ product_index.intro|richtext }}</div>{% endif %}
-          </div>
-        </header>
-        <div class="home-section__grid products-section__grid">
-          {% if description %}<div class="rich-content">{{ description|richtext }}</div>{% endif %}
-          {% if categories %}
-            <nav class="filter-list products-section__categories">
-              {% for category in categories %}
-                <a class="filter-pill products-section__category"
-                   href="{% pageurl product_index %}?category={{ category.value }}">{{ category.name }}</a>
-              {% endfor %}
-            </nav>
-          {% endif %}
+  <section class="home-section products-section"
+           aria-labelledby="products-section-title">
+    <div class="container home-section__container products-section__container">
+      <header class="products-section__header">
+        <div class="home-section__header page-header">
+          <h2 id="products-section-title"
+              class="services-section__title heading heading--h2">{{ product_index.headline }}</h2>
+          {% if product_index.intro %}<div class="text text--xl">{{ product_index.intro|richtext }}</div>{% endif %}
         </div>
-        <div class="home-section__actions products-section__actions">
-          <a class="button__cta button__cta--outline"
-             href="{% pageurl product_index %}">Все решения 1С</a>
-          {% if own_product_index %}
-            <a class="button__cta button__cta--outline"
-               href="{% pageurl own_product_index %}">Собственные решения</a>
-          {% endif %}
-        </div>
+      </header>
+      <div class="home-section__grid products-section__grid">
+        {% if description %}<div class="rich-content">{{ description|richtext }}</div>{% endif %}
+        {% if categories %}
+          <nav class="filter-list products-section__categories">
+            {% for category in categories %}
+              <a class="filter-pill products-section__category"
+                 href="{% pageurl product_index %}?category={{ category.value }}">{{ category.name }}</a>
+            {% endfor %}
+          </nav>
+        {% endif %}
       </div>
-    </section>
+      <div class="home-section__actions products-section__actions">
+        <a class="button__cta button__cta--outline"
+           href="{% pageurl product_index %}">Все решения 1С</a>
+        {% if own_product_index %}
+          <a class="button__cta button__cta--outline"
+             href="{% pageurl own_product_index %}">Собственные решения</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
 {% endif %}
