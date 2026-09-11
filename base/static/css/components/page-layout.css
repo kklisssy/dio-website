@@ -239,6 +239,23 @@
   object-position: right bottom;
   opacity: 0.28;
   pointer-events: none;
+  transition: transform 0.5s ease;
+}
+
+.catalog-card__link:hover .catalog-card__image,
+.catalog-card__link:focus-visible .catalog-card__image {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-card__image {
+    transition: none;
+  }
+
+  .catalog-card__link:hover .catalog-card__image,
+  .catalog-card__link:focus-visible .catalog-card__image {
+    transform: none;
+  }
 }
 
 @media (max-width: 1540px) {
