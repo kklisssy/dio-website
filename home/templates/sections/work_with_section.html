@@ -2,10 +2,10 @@
 {% for block in blocks %}
   <section class="home-section">
     <div class="container home-section__container">
-      <div class="home-section__header">
+      <header class="home-section__header">
         <h2 class="heading heading--h2">{{ block.value.title }}</h2>
         {% if block.value.intro %}<div class="text text--xl">{{ block.value.intro|richtext }}</div>{% endif %}
-      </div>
+      </header>
       <ul class="home-section__grid work-with-section__grid" role="list">
         {% for card in block.value.cards %}
           {% if card.image %}

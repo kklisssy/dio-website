@@ -39,12 +39,6 @@
   padding: 50px;
 }
 
-.home-section__header {
-  display: grid;
-  gap: 10px;
-  max-width: 920px;
-}
-
 .hero-section {
   position: relative;
   isolation: isolate;
@@ -606,13 +600,6 @@ a.work-stages__card-body[href]:hover {
 }
 
 /* Кейсы */
-.cases-section__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
 .home-section__actions {
   display: flex;
   flex-wrap: wrap;
@@ -623,15 +610,6 @@ a.work-stages__card-body[href]:hover {
 /* Продукты (решения 1С) */
 .products-section {
   padding-bottom: 0px;
-}
-
-.products-section__header,
-.services-section__header,
-.service-actions-section__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 32px;
 }
 
 .products-section__actions {

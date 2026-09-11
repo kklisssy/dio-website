@@ -2,12 +2,10 @@
 {% if services %}
   <section class="home-section" aria-labelledby="services-section-title">
     <div class="container home-section__container">
-      <header class="services-section__header">
-        <div class="home-section__header page-header">
-          <h2 id="services-section-title"
-              class="services-section__title heading heading--h2">Услуги</h2>
-          {% if service_index.intro %}<div class="text text--xl">{{ service_index.intro|richtext }}</div>{% endif %}
-        </div>
+      <header class="page-header">
+        <h2 id="services-section-title"
+            class="services-section__title heading heading--h2">Услуги</h2>
+        {% if service_index.intro %}<div class="text text--xl">{{ service_index.intro|richtext }}</div>{% endif %}
       </header>
       <ul class="catalog-grid" role="list">
         {% for service in services %}

@@ -2,11 +2,9 @@
 {% for block in blocks %}
   <section class="home-section">
     <div class="container home-section__container">
-      <header class="service-actions-section__header">
-        <div class="home-section__header">
-          {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-          {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
-        </div>
+      <header class="page-header">
+        {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+        {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
       </header>
       <ul class="catalog-grid home-section__grid service-actions-section__grid"
           role="list">

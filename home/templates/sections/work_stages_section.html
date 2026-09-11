@@ -1,12 +1,12 @@
 {% for work_stages_block in blocks %}
   <section class="home-section work-stages" aria-labelledby="work-stages-title">
     <div class="container home-section__container">
-      <div class="home-section__header">
+      <header class="page-header">
         <h2 id="work-stages-title" class="heading heading--h2 work-stages-title">{{ work_stages_block.value.title }}</h2>
         {% if work_stages_block.value.intro %}
           <p class="text text--xl work-stages__text">{{ work_stages_block.value.intro }}</p>
         {% endif %}
-      </div>
+      </header>
       <ol class="home-section__grid work-stages__grid" role="list">
         {% for stage in work_stages_block.value.stages %}
           <li class="work-stages__card">
