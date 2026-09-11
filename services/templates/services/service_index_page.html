@@ -8,7 +8,8 @@
         {% if page.intro %}<div class="service-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
       </header>
       {% if service_categories %}
-        <nav class="service-index__filters filter-list" aria-label="Категории услуг">
+        <nav class="service-index__filters filter-list"
+             aria-label="Категории услуг">
           <a class="service-index__filter filter-pill{% if not current_category %} filter-pill--active{% endif %}"
              href="{% pageurl page %}">Все</a>
           {% for category in service_categories %}
@@ -20,7 +21,7 @@
       {% if services %}
         <ul class="catalog-grid" role="list">
           {% for service in services %}
-            <li class="catalog-card{% if forloop.counter == 3 or forloop.counter == 4 %} catalog-card--accent{% endif %}">
+            <li class="catalog-card">
               <a class="catalog-card__link" href="{% pageurl service %}">
                 <div class="catalog-card__content">
                   {% if service.category %}<p class="catalog-card__category">{{ service.category.name }}</p>{% endif %}
