@@ -52,20 +52,19 @@
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
 }
 
 .case-card__intro {
   max-width: 1220px;
+  display: -webkit-box;
   overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .case-card__intro p {
-  display: -webkit-box;
-  overflow: hidden;
   margin: 0;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 .case-card__intro b {
@@ -180,6 +179,12 @@
   object-fit: contain;
 }
 
+@media (max-width: 1200px) {
+  .case-card__title {
+    -webkit-line-clamp: 2;
+  }
+}
+
 @media (max-width: 900px) {
   .statistics-section__container {
     grid-template-columns: 1fr;
@@ -254,9 +259,5 @@
     min-height: 390px;
     padding: 28px 22px;
     border-radius: 18px;
-  }
-
-  .case-card__intro p {
-    -webkit-line-clamp: 4;
   }
 }
