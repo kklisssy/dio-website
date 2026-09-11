@@ -420,6 +420,13 @@
   box-shadow: inset 0 0 45px var(--color-inner-shadow);
 }
 
+.hero-feature-card__title {
+  min-height: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .hero-feature-card__body {
   display: grid;
   align-content: start;
@@ -439,13 +446,6 @@
 .work-with-card:hover,
 a.work-stages__card-body[href]:hover {
   transform: translateY(-4px);
-}
-
-.hero-feature-card__top {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 24px;
 }
 
 .hero-feature-card__icon-wrap {
@@ -819,10 +819,6 @@ a.work-stages__card-body[href]:hover {
 
   .hero-feature-card:first-child {
     grid-column: 1 / -1;
-  }
-
-  .hero-feature-card__title {
-    min-height: auto;
   }
 
   .home-section__container {

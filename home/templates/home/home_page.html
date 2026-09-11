@@ -90,8 +90,8 @@
         <li class="hero-feature-card">
           <a class="hero-feature-card__body"
              {% if feature.value.page %}href="{{ feature.value.page.url }}"{% else %}aria-disabled="true"{% endif %}>
-            {% if feature.value.icon %}
-              <div class="hero-feature-card__top">
+            <div class="hero-feature-card__title">
+              {% if feature.value.icon %}
                 {% image feature.value.icon max-96x96 as feature_icon %}
                 <span class="hero-feature-card__icon-wrap">
                   <img class="hero-feature-card__icon"
@@ -100,9 +100,9 @@
                        height="{{ feature_icon.height }}"
                        alt="">
                 </span>
-              </div>
-            {% endif %}
-            <h3 class="hero-feature-card__title heading heading--h3">{{ feature.value.title }}</h3>
+              {% endif %}
+              <h3 class="heading heading--h3">{{ feature.value.title }}</h3>
+            </div>
             <span class="hero-feature-card__accent" aria-hidden="true"></span>
             {% if feature.value.description %}<p class="text text--md">{{ feature.value.description }}</p>{% endif %}
           </a>
