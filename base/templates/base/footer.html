@@ -5,16 +5,15 @@
     <div class="container site-footer__container">
       <div class="site-footer__top">
         <div class="site-footer__brand-column">
-          <a class="site-footer__brand" href="/">
+          <a class="site-footer__brand" href="/" aria-label="На главную">
             {% if header.logo %}
-              {% image header.logo max-64x64 as footer_logo %}
-              <img class=".main-nav__brand-image"
+              {% image header.logo max-560x160 as footer_logo %}
+              <img class="site-footer__brand-image"
                    src="{{ footer_logo.url }}"
                    width="{{ footer_logo.width }}"
                    height="{{ footer_logo.height }}"
                    alt="{{ header.site_title|default:'ДИО-Консалт' }}">
             {% endif %}
-            <span class="site-footer__brand-name">{{ header.site_title|default:"ДИО-Консалт" }}</span>
           </a>
           <div class="footer-subscribe" id="footer-subscribe">
             <h3 class="heading heading--sm">Подписка</h3>

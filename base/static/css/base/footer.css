@@ -1,4 +1,5 @@
 .site-footer {
+  --footer-logo-height: 80px;
   padding: 72px 0 42px;
   background: var(--color-page);
   color: var(--color-text);
@@ -19,27 +20,22 @@
 .site-footer__brand {
   display: inline-flex;
   align-items: center;
-  gap: 24px;
-  margin-bottom: 55px;
+  margin-bottom: 25px;
 }
 
-.site-footer__brand-name {
-  color: var(--color-text);
-  font-size: 38px;
-  line-height: 1;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+.site-footer__brand-image {
+  display: block;
+  width: 280px;
+  max-width: 100%;
+  height: var(--footer-logo-height);
+  object-fit: contain;
+  object-position: left center;
 }
 
-.footer-subscribe__text {
-  margin: 0 0 18px;
-  --text-line-height: 1.35;
-}
-
-.footer-subscribe .heading,
-.site-footer__column .heading {
-  margin-bottom: 18px;
-  letter-spacing: 0.08em;
+.footer-subscribe {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .footer-subscribe__form {
@@ -47,7 +43,6 @@
   grid-template-columns: minmax(320px, 1fr) 200px;
   gap: 24px;
   max-width: 880px;
-  margin-bottom: 18px;
 }
 
 .footer-subscribe__form input {
@@ -129,7 +124,7 @@
 .site-footer__list,
 .site-footer__social-list {
   display: grid;
-  gap: 20px;
+  gap: 15px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -194,6 +189,15 @@
   color: var(--color-brand);
 }
 
+@media (min-width: 1201px) {
+  .site-footer__column .heading {
+    display: flex;
+    min-height: var(--footer-logo-height);
+    align-items: center;
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 1200px) {
   .site-footer__top {
     grid-template-columns: 1fr;
@@ -214,8 +218,9 @@
     margin-bottom: 36px;
   }
 
-  .site-footer__brand-name {
-    font-size: 28px;
+  .site-footer__brand-image {
+    width: 220px;
+    height: 64px;
   }
 
   .footer-subscribe__form {

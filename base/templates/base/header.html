@@ -1,10 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
 <nav class="main-nav">
   <div class="main-nav__container">
-    <a href="{% slugurl 'home' %}" class="main-nav__brand-link">
+    <a href="{% slugurl 'home' %}" class="main-nav__brand-link" aria-label="На главную">
       {% get_settings use_default_site=True as settings %}
       {% if settings.base.HeaderSettings.logo %}
-        {% image settings.base.HeaderSettings.logo width-80 height-80 as logo %}
+        {% image settings.base.HeaderSettings.logo max-440x128 as logo %}
         <div class="main-nav__brand-logo">
           <img src="{{ logo.url }}"
                alt="{{ settings.base.HeaderSettings.site_title|default:'Логотип сайта' }}">
@@ -17,7 +17,6 @@
           </svg>
         </div>
       {% endif %}
-      <span class="main-nav__brand-name heading heading--h3">{{ settings.base.HeaderSettings.site_title }}</span>
     </a>
     <button class="main-nav__mobile-toggle"
             type="button"

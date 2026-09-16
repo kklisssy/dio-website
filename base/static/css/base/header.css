@@ -43,8 +43,8 @@
 
 .main-nav__brand-logo {
   display: flex;
-  width: 52px;
-  height: 52px;
+  width: 220px;
+  height: 64px;
   align-items: center;
   justify-content: center;
 }
@@ -53,13 +53,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-.main-nav__brand-name {
-  margin-bottom: 0;
-  color: var(--color-muted);
-  --heading-size: 25px;
-  font-weight: 400;
 }
 
 .main-nav__list > li,
@@ -279,21 +272,16 @@ a.main-nav__mega-card[href]:is(:hover, :focus-visible) .main-nav__mega-title {
   }
 
   .main-nav__brand-logo {
-    width: 48px;
-    height: 48px;
-  }
-
-  .main-nav__brand-name {
-    color: var(--color-text);
-    font-size: clamp(20px, 5vw, 26px);
+    width: 200px;
+    height: 60px;
   }
 
   .main-nav__mobile-toggle {
     position: relative;
     z-index: 2;
     display: flex;
-    width: 44px;
-    height: 44px;
+    width: 180px;
+    height: 56px;
     flex-direction: column;
     flex-shrink: 0;
     align-items: center;
