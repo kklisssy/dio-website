@@ -341,7 +341,7 @@ a {
 
 @media (max-width: 1540px) {
   :root {
-    --font-display: 55px;
+    --font-display: 58px;
     --font-section: 42px;
   }
 }
@@ -352,12 +352,18 @@ a {
   }
 }
 
+@media (max-width: 720px) {
+  :root {
+    --font-display: 52px;
+  }
+}
+
 @media (max-width: 560px) {
   :root {
-    --font-display: 32px;
-    --font-section: 32px;
-    --font-card-title: 28px;
-    --font-body: 18px;
+    --font-display: 28px;
+    --font-section: 28px;
+    --font-card-title: 24px;
+    --font-body: 16px;
   }
 
   .list-content {
