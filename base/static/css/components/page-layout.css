@@ -94,6 +94,7 @@
 .catalog-card__link {
   position: relative;
   display: flex;
+  gap: 15px;
   min-height: 400px;
   height: 100%;
   flex-direction: column;
@@ -168,7 +169,6 @@
   width: fit-content;
   align-items: center;
   gap: 12px;
-  margin-top: 28px;
   font-size: var(--font-body);
   line-height: 1;
   font-weight: var(--weight-bold);
@@ -244,10 +244,7 @@
   .catalog-card__link {
     padding: 45px 40px;
   }
-
-  .catalog-card__title {
-    min-height: 3lh;
-  }
+  
 }
 
 @media (max-width: 900px) {
@@ -269,8 +266,8 @@
     max-width: none;
   }
 
-  .catalog-card__title {
-    min-height: 2lh;
+  .heading.catalog-card__title {
+    min-height: 0;
     max-width: none;
   }
 
