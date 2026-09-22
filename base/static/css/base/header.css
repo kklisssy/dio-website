@@ -280,7 +280,6 @@ a.main-nav__mega-card[href]:is(:hover, :focus-visible) .main-nav__mega-title {
     position: relative;
     z-index: 2;
     display: flex;
-    width: 180px;
     height: 56px;
     flex-direction: column;
     flex-shrink: 0;
@@ -493,8 +492,7 @@ a.main-nav__mega-card[href]:is(:hover, :focus-visible) .main-nav__mega-title {
   }
 
   .main-nav__brand-logo {
-    width: 44px;
-    height: 44px;
+    width: 130px;
   }
 
   .main-nav__mobile-panel {
