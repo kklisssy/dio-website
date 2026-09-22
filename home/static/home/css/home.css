@@ -636,6 +636,13 @@ a.work-stages__card-body[href]:hover {
   text-align: center;
   white-space: normal;
 }
+
+.products-section__actions .button__cta {
+  width: 270px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
 /* Работа с сервисами 1С */
 .service-actions-section__grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
