@@ -415,7 +415,6 @@
 }
 
 .hero-feature-card__title {
-  min-height: auto;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -524,7 +523,6 @@ a.work-stages__card-body[href]:hover {
 
 .direction-main-card .catalog-card__title {
   color: inherit;
-  min-height: auto;
 }
 
 .direction-card .catalog-card__link {
@@ -707,7 +705,6 @@ a.work-stages__card-body[href]:hover {
 
 .work-stages__card-title {
   color: #ffffff;
-  min-height: 2lh;
 }
 
 @media (max-width: 1540px) {
@@ -957,10 +954,6 @@ a.work-stages__card-body[href]:hover {
     height: 52px;
     margin-bottom: 28px;
     font-size: var(--font-body);
-  }
-
-  .work-stages__card-title {
-    min-height: 0;
   }
 }
 
