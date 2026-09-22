@@ -460,7 +460,7 @@ a.work-stages__card-body[href]:hover {
 }
 
 .hero-feature-card__accent {
-  width: 40px;
+  width: 76px;
   height: 3px;
   border-radius: var(--radius-pill);
   background: var(--color-brand);
