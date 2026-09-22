@@ -23,11 +23,11 @@
   --color-shadow: rgba(0, 0, 0, 0.25);
 
   --font-main: "JetBrains Sans", Arial, Helvetica, sans-serif;
-  --font-display: 70px;
+  --font-display: 60px;
   --font-section: 48px;
   --font-section-description: 24px;
   --font-card-title: 26px;
-  --font-body: 20px;
+  --font-body: 18px;
   --font-meta: 14px;
   --line-heading: 1.15;
   --line-body: 1.45;
