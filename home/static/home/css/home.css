@@ -489,7 +489,7 @@ a.work-stages__card-body[href]:hover {
 }
 
 .direction-main-card .catalog-card__link {
-  padding: 50px 50px 35px;
+  padding: 40px 50px 35px;
   background: #22262d;
   color: var(--color-surface);
   box-shadow: none;
