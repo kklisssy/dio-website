@@ -364,6 +364,7 @@ a {
     --font-section: 28px;
     --font-card-title: 24px;
     --font-body: 16px;
+    --font-section-description: 16px;
   }
 
   .list-content {
