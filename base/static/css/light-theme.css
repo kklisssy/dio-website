@@ -266,13 +266,57 @@ a {
 .hover-card {
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
   transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
+    transform 0.24s ease,
+    box-shadow 0.24s ease;
 }
 
 .hover-card:hover {
-  transform: translateY(-3px);
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+}
+
+.catalog-card__link,
+.home-case-card,
+.hero-feature-card,
+.work-with-card,
+a.work-stages__card-body[href] {
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease;
+}
+
+.catalog-card__link:not(.home-case-card__link):hover,
+.catalog-card__link:not(.home-case-card__link):focus-visible,
+.home-case-card:hover,
+.home-case-card:focus-within,
+.hover-card:hover,
+.hover-card:focus-visible,
+.hero-feature-card:hover,
+.hero-feature-card:focus-within,
+.work-with-card:hover,
+.work-with-card:focus-within {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    .catalog-card__link,
+    .home-case-card,
+    .hover-card,
+    .hero-feature-card,
+    .work-with-card,
+
+  ),
+  :is(
+    .catalog-card__link,
+    .home-case-card,
+    .hover-card,
+    .hero-feature-card,
+    .work-with-card,
+
+  ):is(:hover, :focus-visible, :focus-within) {
+    transition: none;
+    transform: none;
+  }
 }
 
 .button__cta {
