@@ -26,6 +26,13 @@ class HeroButtonBlock(blocks.StructBlock):
         label="Вторичная кнопка",
     )
 
+class HeroPropertyBlock(blocks.StructBlock):
+    """Блок для отображения небольших блоков"""
+
+    text = blocks.CharBlock(max_length=50, required=True, label="Главный текст блока")
+    description = blocks.CharBlock(max_length=50, required=True, label="Доп описание")
+
+
 class HeroFeaturesBlock(blocks.StructBlock):
     """Блок для отображения свойств hero"""
 
@@ -98,6 +105,12 @@ class HeroBlock(blocks.StructBlock):
         required=True,
         max_num=2,
         label="Кнопки",
+    )
+    proporties = blocks.ListBlock(
+        HeroPropertyBlock(),
+        required=False,
+        max_num=3,
+        label="Блоки с важными чертами"
     )
     interactive_cloud = blocks.StreamBlock(
         [("cloud", HeroInteractiveCloudBlock())],
