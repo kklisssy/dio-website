@@ -101,7 +101,7 @@
   justify-content: space-between;
   overflow: hidden;
   padding: 40px 35px 35px;
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background: var(--color-surface);
   isolation: isolate;
   transition:
@@ -130,7 +130,7 @@
   justify-self: start;
   margin: 0;
   padding: 10px 14px;
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background: var(--color-brand);
   color: #ffffff;
   font-size: var(--font-meta);

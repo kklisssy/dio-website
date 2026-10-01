@@ -588,7 +588,7 @@ a.work-stages__card-body[href]:hover {
   position: relative;
   overflow: hidden;
   height: 100%;
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background-color: #f4f7fc;
   background-position: center;
   background-size: cover;
@@ -701,7 +701,7 @@ a.work-stages__card-body[href]:hover {
 .work-stages__card {
   height: 100%;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background: #7e7d7d47;
   box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
 }

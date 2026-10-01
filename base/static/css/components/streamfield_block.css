@@ -163,7 +163,7 @@
   min-height: 350px;
   padding: 40px;
   border: 2px solid black;
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background: var(--color-page);
   box-shadow: 0 10px 30px rgba(17, 20, 24, 0.07);
 }
@@ -272,7 +272,7 @@
   min-width: 0;
   padding: 35px 30px 30px;
   border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background: var(--color-page);
   box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
 }
@@ -332,7 +332,7 @@
   width: min(100%, 205px);
   margin-top: 14px;
   padding: 20px;
-  border-radius: 30px;
+  border-radius: var(--radius-large);
   background: var(--color-brand);
   color: #ffffff;
   font-size: 14px;

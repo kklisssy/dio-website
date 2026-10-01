@@ -40,7 +40,8 @@
   --container-padding: 48px;
   --hero-width: 1570px;
   --radius-pill: 999px;
-  --radius-large: 30px;
+  --radius-large: 20px;
+  --radius-button: 14px;
 }
 
 *,
@@ -278,7 +279,7 @@ a {
   position: relative;
   padding: 12px 20px;
   border: 1px solid rgb(158 77 77);
-  border-radius: 30px;
+  border-radius: var(--radius-button);
   background: var(--color-brand);
   color: #ffffff;
   font: inherit;
@@ -327,7 +328,7 @@ a {
   flex-shrink: 0;
   padding: 12px 30px;
   border-color: #000000;
-  border-radius: 14px;
+  border-radius: var(--radius-button);
   background: transparent;
   box-shadow: 0 0 0 2px #000000 inset;
   color: var(--color-text);
