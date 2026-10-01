@@ -25,6 +25,16 @@
               {% endfor %}
             </div>
           {% endif %}
+          {% if block.value.proporties %}
+            <ul class="hero-properties" role="list">
+              {% for property in block.value.proporties %}
+                <li class="hero-property">
+                  <p class="hero-property__title">{{ property.text }}</p>
+                  <p class="hero-property__description">{{ property.description }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </div>
         {% if block.value.interactive_cloud %}
           {% with cloud=block.value.interactive_cloud.0.value %}
