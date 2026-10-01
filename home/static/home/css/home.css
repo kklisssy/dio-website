@@ -707,7 +707,7 @@ a.work-stages__card-body[href]:hover {
   color: #ffffff;
 }
 
-@media (max-width: 1540px) {
+@media (max-width: 1400px) {
   .direction-cards-grid {
     grid-template-columns: 1fr;
   }
@@ -806,7 +806,7 @@ a.work-stages__card-body[href]:hover {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .buttons__cta {
     justify-content: flex-start;
   }
@@ -848,9 +848,7 @@ a.work-stages__card-body[href]:hover {
     grid-auto-rows: 1fr;
     align-items: stretch;
   }
-}
 
-@media (max-width: 720px) {
   .hero {
     padding: 45px 40px;
   }

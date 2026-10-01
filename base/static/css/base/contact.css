@@ -220,7 +220,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .contact-section {
     padding: 64px 0 72px;
   }

@@ -477,7 +477,7 @@ a.main-nav__mega-card[href]:is(:hover, :focus-visible) .main-nav__mega-title {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .main-nav__mega-list {
     grid-template-columns: 1fr;
     grid-template-rows: none;

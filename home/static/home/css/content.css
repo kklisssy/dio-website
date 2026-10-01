@@ -61,7 +61,7 @@
   background: var(--color-surface);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .content-detail__hero {
     min-height: 500px;
   }

@@ -9,7 +9,7 @@
   line-height: 1.1;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .single-product__price {
     font-size: 34px;
   }

@@ -339,21 +339,16 @@ a {
   background: #b8b8b8;
 }
 
-@media (max-width: 1540px) {
+@media (max-width: 1400px) {
   :root {
     --font-display: 58px;
     --font-section: 42px;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   :root {
     --container-padding: 16px;
-  }
-}
-
-@media (max-width: 720px) {
-  :root {
     --font-display: 52px;
   }
 }
