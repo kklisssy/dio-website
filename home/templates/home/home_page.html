@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block extra_css %}
+  <link rel="modulepreload" href="{% static 'home/js/hero-cloud/three.module.min.js' %}">
+  <link rel="modulepreload" href="{% static 'home/js/hero-cloud/hero-tag-cloud.js' %}">
   <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/hero-cloud.css' %}">
 {% endblock extra_css %}
 {% block extra_js %}
-  <script src="{% static 'home/js/hero-cloud.js' %}" defer></script>
+  <script type="module"
+          src="{% static 'home/js/hero-cloud/hero-tag-cloud.js' %}"></script>
   <script src="{% static 'home/js/scroll-reveal.js' %}" defer></script>
 {% endblock extra_js %}
 {% block content %}
@@ -38,45 +42,25 @@
         </div>
         {% if block.value.interactive_cloud %}
           {% with cloud=block.value.interactive_cloud.0.value %}
-            <div class="hero-cloud" data-hero-cloud>
-              <svg class="hero-cloud__connections" aria-hidden="true">
-                {% for node in cloud.nodes %}<line data-cloud-line="{{ forloop.counter0 }}"></line>{% endfor %}
+            <div class="hero-cloud is-loading" data-hero-cloud>
+              <svg class="cloud-preview" viewBox="0 0 590 590" aria-hidden="true">
+                <ellipse cx="295" cy="295" rx="230" ry="175" />
+                <ellipse cx="295" cy="295" rx="230" ry="175" transform="rotate(60 295 295)" />
+                <ellipse cx="295" cy="295" rx="230" ry="175" transform="rotate(120 295 295)" />
+                <circle class="cloud-preview__halo" cx="295" cy="295" r="90" />
               </svg>
-              <a class="hero-cloud__node hero-cloud__node--center"
-                 {% if cloud.center.page %}href="{% pageurl cloud.center.page %}"{% else %}aria-disabled="true"{% endif %}
-                 data-cloud-center>
-                <span class="hero-cloud__node-content">
-                  {% if cloud.center.eyebrow %}<span class="hero-cloud__eyebrow">{{ cloud.center.eyebrow }}</span>{% endif %}
-                  <strong class="hero-cloud__title">{{ cloud.center.title }}</strong>
-                  {% if cloud.center.icon %}
-                    {% image cloud.center.icon max-64x64 as center_icon %}
-                    <img class="hero-cloud__icon"
-                         src="{{ center_icon.url }}"
-                         width="{{ center_icon.width }}"
-                         height="{{ center_icon.height }}"
-                         alt="">
-                  {% endif %}
-                </span>
-              </a>
-              <ul class="hero-cloud__nodes" role="list">
+              <div class="cloud-stage" aria-hidden="true">
+                <canvas class="cloud-canvas" data-cloud-canvas></canvas>
+              </div>
+              <div class="cloud-labels" data-cloud-labels></div>
+              <div class="cloud-core">
+                <strong>{{ cloud.center.title }}</strong>
+              </div>
+              <ul class="cloud-fallback" data-cloud-source>
                 {% for node in cloud.nodes %}
-                  <li class="hero-cloud__item" data-cloud-item="{{ forloop.counter0 }}">
-                    <a class="hero-cloud__node"
-                       {% if node.page %}href="{% pageurl node.page %}"{% else %}aria-disabled="true"{% endif %}
-                       data-cloud-node="{{ forloop.counter0 }}">
-                      <span class="hero-cloud__node-content">
-                        {% if node.eyebrow %}<span class="hero-cloud__eyebrow">{{ node.eyebrow }}</span>{% endif %}
-                        <strong class="hero-cloud__title">{{ node.title }}</strong>
-                        {% if node.icon %}
-                          {% image node.icon max-56x56 as node_icon %}
-                          <img class="hero-cloud__icon"
-                               src="{{ node_icon.url }}"
-                               width="{{ node_icon.width }}"
-                               height="{{ node_icon.height }}"
-                               alt="">
-                        {% endif %}
-                      </span>
-                    </a>
+                  <li>
+                    <a href="{% pageurl node.page %}"
+                       data-cloud-category="{{ node.category|default:'default' }}">{{ node.title }}</a>
                   </li>
                 {% endfor %}
               </ul>
