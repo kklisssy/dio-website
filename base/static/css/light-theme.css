@@ -21,6 +21,8 @@
   --color-border: rgba(0, 0, 0, 0.08);
   --color-inner-shadow: #dddddd;
   --color-shadow: rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 0 45px var(--color-inner-shadow);
+  --shadow-outer: 0 14px 34px rgba(15, 23, 42, 0.08);
 
   --font-main: "JetBrains Sans", Arial, Helvetica, sans-serif;
   --font-display: 60px;
@@ -326,7 +328,6 @@ a.work-stages__card-body[href] {
   border-radius: var(--radius-button);
   background: var(--color-brand);
   color: #ffffff;
-  font: inherit;
   cursor: pointer;
   overflow: hidden;
   transition: background 0.2s ease;
