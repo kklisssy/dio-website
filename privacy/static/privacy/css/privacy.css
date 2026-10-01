@@ -1,0 +1,27 @@
+.privacy-page__header {
+  max-width: var(--container-width);
+  margin-bottom: 34px;
+}
+
+.privacy-page__header h1 {
+  max-width: 980px;
+}
+
+.privacy-page__content {
+  --stack-gap: 34px;
+}
+
+@media (max-width: 768px) {
+  .privacy-page.page-section {
+    padding-top: 44px;
+    padding-bottom: 54px;
+  }
+
+  .privacy-page__header {
+    margin-bottom: 24px;
+  }
+
+  .privacy-page__header h1 {
+    --heading-size: 40px;
+  }
+}
