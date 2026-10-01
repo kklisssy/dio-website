@@ -49,14 +49,15 @@ class HeroFeaturesBlock(blocks.StructBlock):
 class HeroCloudNodeBlock(blocks.StructBlock):
     """Кликабельный узел интерактивного облака."""
 
-    eyebrow = blocks.CharBlock(
-        required=False,
-        max_length=24,
-        label="Короткая подпись",
-        help_text="Например: Финансы или Проекты",
-    )
     title = blocks.CharBlock(max_length=18, label="Название")
-    icon = ImageChooserBlock(required=False, label="Иконка")
+    category = blocks.ChoiceBlock(
+        choices=[
+            ("primary", "Решение"),
+            ("service", "Сервис"),
+            ("data", "Данные и интеграции"),
+            ("default", "Прочее"),
+        ],
+    )
     page = blocks.PageChooserBlock(required=True, label="Страница")
 
     class Meta:
@@ -71,9 +72,9 @@ class HeroInteractiveCloudBlock(blocks.StructBlock):
     nodes = blocks.ListBlock(
         HeroCloudNodeBlock(),
         min_num=4,
-        max_num=6,
+        max_num=18,
         label="Внешние узлы",
-        help_text="Добавьте от 4 до 6 узлов. Порядок идет сверху по часовой стрелке.",
+        help_text="Добавьте от 4 до 18 узлов.",
     )
 
     class Meta:
