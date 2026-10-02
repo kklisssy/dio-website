@@ -1,6 +1,6 @@
 /* Текст */
 .rich-content {
-  font-size: var(--font-body);
+  font-size: var(--font-section-description);
   line-height: 1.65;
 }
 
