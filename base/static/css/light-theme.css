@@ -165,7 +165,6 @@ a {
 }
 
 .list-content {
-  color: var(--color-muted);
   font-size: var(--font-section-description);
   line-height: 1.35;
   font-weight: var(--weight-semibold);
@@ -180,7 +179,6 @@ a {
 .list-content:is(ul, ol) {
   display: grid;
   gap: var(--list-gap, 36px);
-  margin: var(--list-margin, 34px 0 0);
   padding: 0;
   list-style: none;
 }
@@ -208,6 +206,28 @@ a {
   border-radius: 50%;
   content: "";
   box-sizing: border-box;
+}
+
+.list-content ol,
+ol.list-content {
+  counter-reset: list-content-item;
+}
+
+.list-content ol > li,
+ol.list-content > li {
+  counter-increment: list-content-item;
+}
+
+.list-content ol > li::before,
+ol.list-content > li::before {
+  top: 0;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  color: var(--color-brand);
+  content: counter(list-content-item) ".";
+  font-weight: var(--weight-bold);
 }
 
 .clean-list,

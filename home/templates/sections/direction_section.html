@@ -16,7 +16,7 @@
                 {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
                 <h3 class="catalog-card__title heading heading--h2">{{ card.title }}</h3>
                 {% if card.description %}<div class="catalog-card__text">{{ card.description }}</div>{% endif %}
-                {% if card.details %}<div class="rich-content catalog-card__details">{{ card.details|richtext }}</div>{% endif %}
+                {% if card.details %}<div class="list-content catalog-card__details">{{ card.details|richtext }}</div>{% endif %}
               </div>
               <span class="catalog-card__more">
                 {{ card.link_text|default:"Подробнее" }}
