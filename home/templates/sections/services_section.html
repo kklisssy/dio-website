@@ -7,7 +7,7 @@
             class="services-section__title heading heading--h2">Услуги</h2>
         {% if service_index.intro %}<div class="text text--xl">{{ service_index.intro|richtext }}</div>{% endif %}
       </header>
-      <ul class="catalog-grid" role="list">
+      <ul class="card-carousel" role="list" tabindex="0" aria-label="Услуги: горизонтальная прокрутка">
         {% for service in services %}
           <li class="catalog-card">
             <a class="catalog-card__link" href="{% pageurl service %}">

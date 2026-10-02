@@ -79,7 +79,7 @@
     </section>
   {% endfor %}
   {% if page.hero_features %}
-    <ul class="hero-features" role="list">
+    <ul class="hero-features card-carousel card-carousel--responsive" role="list" tabindex="0" aria-label="Преимущества">
       {% for feature in page.hero_features %}
         <li class="hero-feature-card">
           <a class="hero-feature-card__body"

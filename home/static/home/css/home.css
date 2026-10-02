@@ -254,9 +254,9 @@
 
 /* Карточки */
 .hero-features {
+  --carousel-desktop-columns: 6;
   width: min(100% - (var(--container-padding) * 2), var(--container-width));
   margin: 0 auto 32px;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .hero-feature-card {
@@ -342,14 +342,13 @@
   gap: 12px;
 }
 
-.direction-cards-list {
-  display: grid;
-  min-width: 0;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.direction-cards-carousel {
+  --carousel-desktop-columns: 2;
+  --carousel-visible: 2;
+}
+
+.service-actions-section__grid {
+  --carousel-desktop-columns: 4;
 }
 
 .direction-main-card .catalog-card__link {
@@ -599,6 +598,9 @@
 }
 
 @media (max-width: 1400px) {
+  .service-actions-section__grid {
+    --carousel-desktop-columns: 2;
+  }
   .direction-cards-grid {
     grid-template-columns: 1fr;
   }
@@ -694,8 +696,8 @@
 }
 
 @media (max-width: 768px) {
-  .buttons__cta {
-    justify-content: flex-start;
+  .direction-cards-carousel {
+    --carousel-visible: 1;
   }
 
   .hero-features {

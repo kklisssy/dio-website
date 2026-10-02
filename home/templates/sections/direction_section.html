@@ -33,7 +33,7 @@
             </a>
           </article>
         {% endwith %}
-        <ul class="direction-cards-list" role="list">
+        <ul class="card-carousel card-carousel--responsive direction-cards-carousel" role="list" tabindex="0" aria-label="Направления аудита">
           {% for card in block.value.cards %}
             <li class="catalog-card direction-card{% if card.image %} direction-card--with-image{% endif %}">
               <a class="catalog-card__link" href="{{ card.page.url }}">

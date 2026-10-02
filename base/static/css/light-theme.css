@@ -1,6 +1,7 @@
 @import url("components/page-layout.css");
 @import url("components/shared-sections.css");
 @import url("components/streamfield_block.css");
+@import url("components/pagination.css");
 
 @font-face {
   font-family: "JetBrains Sans";
@@ -253,16 +254,6 @@ a {
   border-color: var(--color-brand);
   background: var(--color-brand);
   color: #ffffff;
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  color: var(--color-brand);
-  font-size: var(--font-body);
-  font-weight: var(--weight-bold);
 }
 
 .hover-card {
