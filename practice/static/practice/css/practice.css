@@ -13,7 +13,7 @@
   padding: 34px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .practice-article__cards {
     grid-template-columns: 1fr;
   }

@@ -102,7 +102,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 610px) {
   .contact-page__map-wrap {
     min-height: 400px;
     border-radius: 18px;
