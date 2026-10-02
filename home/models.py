@@ -309,10 +309,15 @@ class GlobalPresenceBlock(blocks.StructBlock):
         default="Глобальное присутствие",
         label="Заголовок"
     )
-    description = blocks.RichTextBlock(
-        features=["bold", "italic", "ol", "ul", "link", "superscript"],
+    description = blocks.TextBlock(
         required=False,
-        label="Описание"
+        max_length=300,
+        label="Описание",
+    )
+    content = blocks.RichTextBlock(
+        required=False,
+        features=["bold", "italic", "ol", "ul", "link"],
+        label="Дополнительный контент",
     )
     image = ImageChooserBlock(
         required=True,

@@ -143,16 +143,9 @@
 }
 
 /* Глобальное присутсвие */
-.global-presence-section__container {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.82fr) minmax(420px, 1.18fr);
-  align-items: center;
-  gap: clamp(40px, 5vw, 72px);
-  margin: 0 auto;
-}
 
-.global-presence-section__header {
-  max-width: 720px;
+.global-presence-section .catalog-card__content {
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 3.5fr);
 }
 
 .global-presence-section__title {
@@ -193,11 +186,6 @@
       "stats";
     gap: 48px;
     padding: 64px 40px;
-  }
-
-  .global-presence-section__container {
-    grid-template-columns: 1fr;
-    gap: 48px;
   }
 
   .global-presence-section__content {
