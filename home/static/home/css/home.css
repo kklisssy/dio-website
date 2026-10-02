@@ -35,17 +35,11 @@
   gap: 46px;
 }
 
-.home-section__container-accent {
-  background:
-    radial-gradient(
-      circle at 12% 112%,
-      rgba(218, 116, 55, 0.28),
-      transparent 30%
-    ),
-    radial-gradient(circle at 86% 12%, rgba(159, 48, 48, 0.5), transparent 34%),
-    linear-gradient(145deg, #30343b 0%, #22262d 100%);
-  border-radius: var(--radius-large);
-  padding: 50px;
+.home-section__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 
 .hero-section {
@@ -86,7 +80,7 @@
   align-items: center;
   gap: 24px;
   margin: 0 auto;
-  padding: 50px 70px;
+  padding: 30px 50px;
   overflow: hidden;
   border-radius: var(--radius-large);
   background: transparent;
