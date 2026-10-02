@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'cases/css/cases.css' %}">
+{% endblock extra_css %}
 {% block content %}
   <section class="case-index page-section">
     <div class="container case-index__container page-section__container">
@@ -23,8 +26,8 @@
             <li class="case-card">
               <a class="case-card__link hover-card" href="{% pageurl case %}">
                 <div class="case-card__media">
-                  {% if case.customer_logo %}
-                    {% image case.customer_logo max-180x90 as case_logo %}
+                  {% if case.card_image %}
+                    {% image case.card_image max-180x90 as case_logo %}
                     <img src="{{ case_logo.url }}"
                          width="{{ case_logo.width }}"
                          height="{{ case_logo.height }}"

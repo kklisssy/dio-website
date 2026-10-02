@@ -7,25 +7,48 @@
         <h2 id="cases-section-title"
             class="cases-section__title heading heading--h2">Наши кейсы</h2>
       </header>
-      <ul class="cases-list grid-list" role="list">
+      <ul class="card-carousel card-carousel--responsive" role="list" tabindex="0"
+          aria-label="Кейсы">
         {% for case in cases %}
-          <li class="case-card">
-            <a class="case-card__link hover-card" href="{% pageurl case %}">
-              <div class="case-card__media">
-                {% if case.customer_logo %}
-                  {% image case.customer_logo max-180x90 as case_logo %}
-                  <img src="{{ case_logo.url }}"
-                       width="{{ case_logo.width }}"
-                       height="{{ case_logo.height }}"
-                       alt="{{ case.customer_name }}">
-                {% else %}
-                  <span class="case-card__letter" aria-hidden="true">{{ case.title|first|upper }}</span>
-                {% endif %}
+          <li class="home-case-card">
+            <a class="catalog-card__link home-case-card__link"
+               href="{% pageurl case %}">
+              <div class="catalog-card__content home-case-card__hero">
+                <div class="home-case-card__heading">
+                  {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
+                  <h3 class="catalog-card__title heading heading--h3">{{ case.title }}</h3>
+                </div>
+                <div class="home-case-card__media">
+                  {% if case.card_image %}
+                    {% image case.card_image max-900x700 as case_logo %}
+                    <img src="{{ case_logo.url }}"
+                         width="{{ case_logo.width }}"
+                         height="{{ case_logo.height }}"
+                         alt="{{ case.customer_name }}">
+                  {% else %}
+                    <span class="case-card__letter" aria-hidden="true">{{ case.title|first|upper }}</span>
+                  {% endif %}
+                </div>
               </div>
-              <div class="case-card__content">
-                {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
-                <h3 class="case-card__title heading">{{ case.title }}</h3>
-                {% if case.intro %}<div class="case-card__intro text">{{ case.intro|richtext }}</div>{% endif %}
+              <div class="home-case-card__body">
+                {% if case.before_text %}
+                  <div class="home-case-card__row home-case-card__row--before">
+                    <p class="home-case-card__label">Было</p>
+                    <p class="catalog-card__text home-case-card__description">{{ case.before_text }}</p>
+                  </div>
+                {% endif %}
+                {% if case.work_text %}
+                  <div class="home-case-card__row home-case-card__row--work">
+                    <p class="home-case-card__label">Сделали</p>
+                    <p class="catalog-card__text home-case-card__description">{{ case.work_text }}</p>
+                  </div>
+                {% endif %}
+                {% if case.after_text %}
+                  <div class="home-case-card__row home-case-card__row--after">
+                    <p class="home-case-card__label">Стало</p>
+                    <p class="catalog-card__text home-case-card__description">{{ case.after_text }}</p>
+                  </div>
+                {% endif %}
               </div>
             </a>
           </li>

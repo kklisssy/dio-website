@@ -238,10 +238,6 @@
   list-style: none;
 }
 
-.cases-section {
-  background: var(--color-accent);
-}
-
 .work-stages {
   background:
     radial-gradient(
@@ -463,11 +459,130 @@
 }
 
 /* Кейсы */
-.home-section__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+.cases-section {
+  background: var(--color-accent);
+}
+
+.cases-section .card-carousel {
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+}
+
+.home-case-card {
+  --case-hero-height: 360px;
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: var(--shadow-outer);
+}
+
+.home-case-card__link {
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  gap: 0;
+  min-height: 0;
+  background: #ffffff;
+  aspect-ratio: auto;
+  box-shadow: none;
+  padding: 0;
+  border-radius: inherit;
+}
+
+.home-case-card__hero {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 16px;
+  min-height: 0;
+  height: var(--case-hero-height);
+  padding: 32px 32px 20px;
+  overflow: hidden;
+  background: #2d3138;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 6%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 6%) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.home-case-card__heading {
+  display: grid;
+  gap: 16px;
+  color: #ffffff;
+}
+
+.home-case-card__media {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.home-case-card__hero img {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  object-fit: contain;
+  margin: 0;
+  transition: transform 0.5s ease;
+}
+
+.home-case-card:hover .home-case-card__hero img,
+.home-case-card:focus-within .home-case-card__hero img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-case-card__hero img {
+    transition: none;
+  }
+
+  .home-case-card:hover .home-case-card__hero img,
+  .home-case-card:focus-within .home-case-card__hero img {
+    transform: none;
+  }
+}
+
+.home-case-card__row {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px 32px;
+  border-top: 1px solid #dce1e5;
+}
+
+.home-case-card__label,
+.home-case-card__description {
+  margin: 0;
+}
+
+.home-case-card__label {
+  color: var(--color-brand);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+}
+
+.home-case-card__body {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+
+.home-case-card__row--before {
+  grid-row: 1;
+}
+
+.home-case-card__row--work {
+  grid-row: 2;
+}
+
+.home-case-card__row--after {
+  grid-row: 3;
 }
 
 /* Продукты (решения 1С) */
@@ -752,6 +867,20 @@
 }
 
 @media (max-width: 560px) {
+  .home-case-card__hero {
+    padding-inline: 24px;
+  }
+
+  .home-case-card__hero::after {
+    left: 24px;
+  }
+
+  .home-case-card__row {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 16px;
+    padding: 24px;
+  }
+
   .direction-main-card .catalog-card__link {
     padding: 34px 28px 32px;
   }

@@ -553,9 +553,10 @@ class HomePage(Page):
         FieldPanel('global_presence'),
     ]
 
-    def get_cases(self, count=6):
+    def get_cases(self, count=None):
         from cases.models import SingleCasePage
-        return SingleCasePage.objects.live().order_by("-project_date")[:count]
+        cases = SingleCasePage.objects.live().order_by("-project_date")
+        return cases if count is None else cases[:count]
 
     def get_case_index(self):
         from cases.models import CaseIndexPage

@@ -70,6 +70,41 @@ class TechnologiesBlock(blocks.StructBlock):
 
 
 class SingleCasePage(Page):
+    card_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Изображение карточки",
+    )
+    before_text = models.TextField(
+        "Было",
+        blank=True,
+    )
+    work_text = models.TextField(
+        "Сделали",
+        blank=True,
+    )
+    after_text = models.TextField(
+        "Стало",
+        blank=True,
+    )
+    main_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Основное изображение",
+    )
+    intro = RichTextField(
+        "Краткое описание",
+        features=["bold", "italic", "link"],
+        blank=True,
+        help_text="1-3 предложения для анонса",
+    )
+
     customer_name = models.CharField("Название компании-клиента", max_length=255)
     industry = models.ForeignKey(
         "cases.CaseIndustry",
@@ -82,28 +117,7 @@ class SingleCasePage(Page):
     project_date = models.DateField("Дата реализации проекта", default=timezone.now)
     duration = models.CharField("Длительность проекта", max_length=50, blank=True)
     location = models.CharField("Местоположение", max_length=100, blank=True)
-    customer_logo = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Логотип клиента",
-    )
-    intro = RichTextField(
-        "Краткое описание",
-        features=["bold", "italic", "link"],
-        blank=True,
-        help_text="1-3 предложения для анонса",
-    )
-    main_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Основное изображение",
-    )
+
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
@@ -122,17 +136,25 @@ class SingleCasePage(Page):
         *Page.content_panels,
         MultiFieldPanel(
             [
+                FieldPanel("card_image"),
+                FieldPanel("before_text"),
+                FieldPanel("work_text"),
+                FieldPanel("after_text"),
+            ],
+            heading="Оформление главной страницы",
+        ),
+        FieldPanel("intro"),
+        MultiFieldPanel(
+            [
+                FieldPanel("main_image"),
                 FieldPanel("customer_name"),
                 FieldPanel("industry"),
                 FieldPanel("project_date"),
                 FieldPanel("duration"),
                 FieldPanel("location"),
-                FieldPanel("customer_logo"),
-                FieldPanel("main_image"),
             ],
             heading="Основная информация",
         ),
-        FieldPanel("intro"),
         FieldPanel("content"),
     ]
 
