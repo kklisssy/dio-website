@@ -595,8 +595,8 @@
 
 .products-section__grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
   gap: 48px;
+  align-items: center;
 }
 
 .products-section__categories {
@@ -612,6 +612,8 @@
   padding: 15px;
   text-align: center;
   white-space: normal;
+  font-weight: var(--weight-regular);
+  border-radius: var(--radius-button);
 }
 
 .products-section__actions .button__cta {
