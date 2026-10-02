@@ -385,6 +385,10 @@
   color: inherit;
 }
 
+.direction-main-card .list-content {
+  color: inherit;
+}
+
 .direction-card .catalog-card__link {
   aspect-ratio: auto;
   box-shadow: var(--shadow-outer);

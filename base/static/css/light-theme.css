@@ -259,7 +259,6 @@ ol.list-content > li::before {
   border: 1px solid rgba(11, 54, 151, 0.2);
   border-radius: var(--radius-pill);
   background: #ffffff;
-  color: var(--color-text);
   font-size: var(--font-body);
   line-height: 1;
   font-weight: var(--weight-semibold);
