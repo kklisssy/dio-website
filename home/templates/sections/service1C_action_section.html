@@ -10,7 +10,7 @@
           role="list">
         {% for card in block.value.cards %}
           <li class="catalog-card">
-            <a class="catalog-card__link action-card__link"
+            <a class="catalog-card__link action-card__link{% if card.image %} action-card__link--with-image{% endif %}"
                href="{{ card.page.url }}">
               {% if card.image %}
                 {% image card.image max-900x600 as card_image %}

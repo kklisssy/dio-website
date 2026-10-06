@@ -618,11 +618,16 @@
 /* Работа с сервисами 1С */
 .catalog-card__link.action-card__link {
   aspect-ratio: auto;
+  min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(120px, 4fr) minmax(min-content, 6fr);
+  grid-template-rows: auto;
   gap: 0;
   padding: 0;
+}
+
+.catalog-card__link.action-card__link--with-image {
+  grid-template-rows: auto 1fr;
 }
 
 .action-card__body {
@@ -640,6 +645,7 @@
 
 .action-card__media {
   position: relative;
+  aspect-ratio: 3 / 2;
   min-width: 0;
   overflow: hidden;
 }
