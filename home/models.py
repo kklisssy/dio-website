@@ -204,6 +204,7 @@ class WorkStageItemBlock(blocks.StructBlock):
 
     title = blocks.CharBlock(max_length=120, label="Название этапа")
     text = blocks.TextBlock(label="Описание этапа")
+    result_text = blocks.TextBlock(label="Результат этапа")
     page = blocks.PageChooserBlock(
         required=False,
         page_type=["home.WorkStagePage"],
