@@ -14,8 +14,8 @@
   gap: clamp(64px, 9vw, 144px);
   align-items: start;
   padding: 64px;
-  border-bottom: 1px solid #dedede;
   border-radius: 0;
+  align-items: center;
 }
 
 .statistics-section__header {
