@@ -73,10 +73,6 @@
   margin: 0;
 }
 
-.global-presence-section {
-  padding: 64px 0;
-}
-
 /* Глобальное присутсвие */
 
 .global-presence-section .catalog-card__content {
@@ -86,6 +82,14 @@
 .global-presence-section__title {
   color: #111418;
   --heading-line-height: 1.08;
+}
+
+.global-presence__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  gap: 15px;
 }
 
 .global-presence-section__content p,
@@ -114,7 +118,7 @@
 }
 
 @media (max-width: 900px) {
-  .global-presence-section .catalog-card__content {
+  .global-presence__content {
     grid-template-columns: 240px minmax(0, 1fr);
   }
 }
@@ -127,10 +131,6 @@
       "stats";
     gap: 48px;
     padding: 64px 40px;
-  }
-
-  .global-presence-section__content {
-    max-width: none;
   }
 
   .statistics-section__grid {
@@ -157,11 +157,7 @@
     padding: 36px 22px 44px;
   }
 
-  .global-presence-section {
-    padding: 56px 16px 64px;
-  }
-
-  .global-presence-section .catalog-card__content {
+  .global-presence__content {
     grid-template-columns: 1fr;
   }
 }

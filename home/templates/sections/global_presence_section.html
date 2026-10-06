@@ -1,12 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% for block in blocks %}
-  <section class="global-presence-section">
-    <div class="container">
+  <section class="home-section">
+    <div class="container home-section__container">
       <header class="page-header">
         <h2 class="global-presence-section__title heading heading--h2">{{ block.value.title }}</h2>
         {% if block.value.description %}<div class="text text--xl">{{ block.value.description }}</div>{% endif %}
       </header>
-      <div class="catalog-card__content">
+      <div class="global-presence__content">
         {% if block.value.content %}
           <div class="list-content catalog-card__details">{{ block.value.content|richtext }}</div>
         {% endif %}
