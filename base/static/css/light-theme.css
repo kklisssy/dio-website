@@ -39,6 +39,7 @@
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
+  --card-padding: 40px 35px 35px;
   --container-width: 1350px;
   --container-padding: 48px;
   --hero-width: 1570px;
@@ -411,6 +412,7 @@ a.work-stages__card-body[href] {
 
 @media (max-width: 610px) {
   :root {
+    --card-padding: 34px 28px 32px;
     --font-display: 28px;
     --font-section: 28px;
     --font-card-title: 24px;

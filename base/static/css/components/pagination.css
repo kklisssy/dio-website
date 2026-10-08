@@ -11,8 +11,9 @@
 .card-carousel {
   --carousel-visible: 3;
   --carousel-gap: 12px;
-  --carousel-margin-block: 0px;
-  --carousel-padding-block: 0px;
+  --carousel-shadow-space: 32px;
+  --carousel-margin-block: calc(-1 * var(--carousel-shadow-space));
+  --carousel-padding-block: var(--carousel-shadow-space);
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: none;
@@ -56,8 +57,8 @@
 @media (max-width: 1200px) {
   .card-carousel { --carousel-visible: 2; }
   .card-carousel--responsive {
-    --carousel-margin-block: 0px;
-    --carousel-padding-block: 0px;
+    --carousel-margin-block: calc(-1 * var(--carousel-shadow-space));
+    --carousel-padding-block: var(--carousel-shadow-space);
     grid-auto-flow: column;
     grid-template-columns: none;
     grid-auto-columns: calc((100% - (var(--carousel-visible) - 1) * var(--carousel-gap)) / var(--carousel-visible));

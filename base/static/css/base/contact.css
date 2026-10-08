@@ -21,7 +21,7 @@
 }
 
 .contact-card--info {
-  padding: 34px;
+  padding: var(--card-padding);
   background:
     radial-gradient(
       circle at 86% 12%,
@@ -44,7 +44,7 @@
 }
 
 .contact-info-item {
-  padding: 24px;
+  padding: var(--card-padding);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
@@ -59,7 +59,7 @@
 }
 
 .contact-card--form {
-  padding: 34px;
+  padding: var(--card-padding);
   background: var(--color-page);
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
 }
@@ -225,10 +225,6 @@
     padding: 64px 0 72px;
   }
 
-  .contact-card--info,
-  .contact-card--form {
-    padding: 24px;
-  }
 
   .contact-form__grid {
     grid-template-columns: 1fr;
