@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block extra_css %}
-  <link rel="modulepreload" href="{% static 'home/js/hero-cloud/three.module.min.js' %}">
-  <link rel="modulepreload" href="{% static 'home/js/hero-cloud/hero-tag-cloud.js' %}">
+  <link rel="modulepreload"
+        href="{% static 'home/js/hero-cloud/three.module.min.js' %}">
+  <link rel="modulepreload"
+        href="{% static 'home/js/hero-cloud/hero-tag-cloud.js' %}">
   <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
   <link rel="stylesheet" href="{% static 'home/css/hero-cloud.css' %}">
 {% endblock extra_css %}
@@ -15,7 +17,6 @@
   {% for block in page.hero %}
     <section class="hero-section">
       <div class="container hero">
-        <div class="hero__glass" aria-hidden="true"></div>
         <div class="hero__content">
           <h1 class="heading heading--h1 heading-hero">{{ block.value.title }}</h1>
           {% if block.value.text %}<div class="hero__text text text--md">{{ block.value.text|richtext }}</div>{% endif %}
@@ -79,7 +80,10 @@
     </section>
   {% endfor %}
   {% if page.hero_features %}
-    <ul class="hero-features card-carousel card-carousel--responsive" role="list" tabindex="0" aria-label="Преимущества">
+    <ul class="hero-features card-carousel card-carousel--responsive"
+        role="list"
+        tabindex="0"
+        aria-label="Преимущества">
       {% for feature in page.hero_features %}
         <li class="hero-feature-card">
           <a class="hero-feature-card__body"
