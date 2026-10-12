@@ -27,9 +27,9 @@
 
   --font-main: "JetBrains Sans", Arial, Helvetica, sans-serif;
   --font-display: 60px;
-  --font-section: 48px;
+  --font-section: 46px;
   --font-section-description: 24px;
-  --font-card-title: 26px;
+  --font-card-title: 24px;
   --font-body: 16px;
   --font-meta: 14px;
   --line-heading: 1.15;
@@ -40,7 +40,7 @@
   --weight-semibold: 600;
   --weight-bold: 700;
   --card-padding: 40px 35px 35px;
-  --container-width: 1350px;
+  --container-width: 1250px;
   --container-padding: 48px;
   --hero-width: 1570px;
   --radius-pill: 999px;
