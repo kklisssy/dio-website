@@ -46,8 +46,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  margin: 90px 0 32px;
-  padding: 32px 0;
+  margin: 0 0 32px;
   background:
     radial-gradient(
       circle at 12% 112%,
@@ -711,10 +710,6 @@
     align-items: stretch;
   }
 
-  .hero {
-    padding: 45px 40px;
-  }
-
   .hero__text {
     margin: 0;
   }
@@ -746,10 +741,6 @@
       rgba(34, 38, 45, 0.82) 56%,
       rgba(34, 38, 45, 0.38) 100%
     );
-  }
-
-  .hero {
-    padding: 40px 35px;
   }
 
   .hero .buttons__cta {
@@ -785,7 +776,7 @@
 
 @media (max-width: 460px) {
   .hero-section {
-    margin-top: 70px;
+    margin-top: 0;
     padding: 24px 0;
   }
 
