@@ -1,14 +1,15 @@
 .hero-cloud {
   position: relative;
   z-index: 2;
-  width: min(100%, 590px);
+  /* Include the canvas's 15% extension on both sides in the column width. */
+  width: min(calc(100% / 1.3), 590px);
   min-width: 0;
   aspect-ratio: 1;
   justify-self: center;
 }
 .cloud-stage {
   position: absolute;
-  inset: 0;
+  inset: -15%;
   overflow: hidden;
 }
 
@@ -218,13 +219,13 @@
 
 @media (max-width: 1200px) {
   .hero-cloud {
-    width: min(100%, 560px);
+    width: min(calc(100% / 1.3), 560px);
   }
 }
 
 @media (max-width: 767px) {
   .hero-cloud {
-    width: min(100%, 470px);
+    width: min(calc(100% / 1.3), 470px);
   }
   .cloud-tag {
     max-width: 160px;
@@ -256,7 +257,7 @@
 
 @media (max-width: 460px) {
   .hero-cloud {
-    width: 100%;
+    width: calc(100% / 1.3);
     margin: 8px 0;
   }
   .cloud-core {

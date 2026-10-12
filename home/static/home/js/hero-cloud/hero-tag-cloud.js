@@ -2,6 +2,7 @@ const root = document.querySelector("[data-hero-cloud]");
 
 if (root) {
   const canvas = root.querySelector("[data-cloud-canvas]");
+  const stage = root.querySelector(".cloud-stage");
   const labelsLayer = root.querySelector("[data-cloud-labels]");
 
   const tags = [...root.querySelectorAll('[data-cloud-source] a')].map((link) => ({
@@ -139,7 +140,7 @@ if (root) {
 
     const pointer = { x: 0, y: 0 };
     const smoothPointer = { x: 0, y: 0 };
-    const viewport = { width: 1, height: 1 };
+    const viewport = { width: 1, height: 1, renderWidth: 1, renderHeight: 1 };
     let pointerRect = root.getBoundingClientRect();
     const refreshPointerRect = () => {
       pointerRect = root.getBoundingClientRect();
@@ -176,21 +177,30 @@ if (root) {
       pointerRect = rect;
       viewport.width = width;
       viewport.height = height;
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.position.set(0, 0, width < 520 ? 7.2 : 6.2);
+      const stageRect = stage.getBoundingClientRect();
+      const renderWidth = Math.max(1, Math.floor(stageRect.width));
+      const renderHeight = Math.max(1, Math.floor(stageRect.height));
+      viewport.renderWidth = renderWidth;
+      viewport.renderHeight = renderHeight;
+      renderer.setSize(renderWidth, renderHeight, false);
+      camera.aspect = renderWidth / renderHeight;
+      // Expand the drawing area while keeping the scene's pixel scale unchanged.
+      camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(
+        Math.tan(THREE.MathUtils.degToRad(36 / 2)) * renderHeight / height
+      ));
+      camera.position.set(0, 0, width < 520 ? 7.6 : 7.2);
       camera.updateProjectionMatrix();
     }
 
     function updateLabels() {
-      const { width, height } = viewport;
+      const { width, height, renderWidth, renderHeight } = viewport;
       const edgePadding = width < 520 ? 10 : 16;
 
       nodes.forEach(({ mesh, label, width: labelWidth, height: labelHeight }) => {
         mesh.getWorldPosition(world);
         projected.copy(world).project(camera);
-        const x = (projected.x * 0.5 + 0.5) * width;
-        const y = (-projected.y * 0.5 + 0.5) * height;
+        const x = projected.x * renderWidth / 2 + width / 2;
+        const y = -projected.y * renderHeight / 2 + height / 2;
         const depth = THREE.MathUtils.clamp(1 - (projected.z + 1) / 2, 0, 1);
         const scale = THREE.MathUtils.lerp(0.86, 1.16, depth);
         const opacity = THREE.MathUtils.lerp(0.48, 1, depth);
