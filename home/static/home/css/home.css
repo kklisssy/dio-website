@@ -75,12 +75,12 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(600px, 1.08fr) minmax(380px, 0.92fr);
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
   align-items: center;
   gap: 24px;
   margin: 0 auto;
   padding: 80px 0;
-  overflow: hidden;
+  overflow: visible;
   border-radius: var(--radius-large);
   background: transparent;
   color: #ffffff;
