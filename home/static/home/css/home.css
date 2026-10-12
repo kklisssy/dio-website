@@ -429,7 +429,7 @@
   display: grid;
   grid-template-columns: 90px minmax(0, 1fr);
   gap: 24px;
-  padding: 30px 35px;
+  padding: var(--inner-card-padding);
   border-top: 1px solid #dce1e5;
 }
 

@@ -44,7 +44,7 @@
 }
 
 .contact-info-item {
-  padding: var(--card-padding);
+  padding: var(--inner-card-padding);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
