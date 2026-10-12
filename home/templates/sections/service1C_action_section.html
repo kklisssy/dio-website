@@ -6,29 +6,32 @@
         {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
         {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
       </header>
-      <ul class="card-carousel card-carousel--responsive service-actions-section__grid" tabindex="0" aria-label="Сервисы 1С"
+      <ul class="card-carousel card-carousel--responsive service-actions-section__grid"
+          tabindex="0"
+          aria-label="Сервисы 1С"
           role="list">
         {% for card in block.value.cards %}
-          <li class="catalog-card">
-            <a class="catalog-card__link action-card__link{% if card.image %} action-card__link--with-image{% endif %}"
+          <li class="catalog-card-with-hero action-card">
+            <a class="catalog-card__link catalog-card-with-hero__link action-card__link"
                href="{{ card.page.url }}">
-              {% if card.image %}
-                {% image card.image max-900x600 as card_image %}
-                <div class="action-card__media">
-                  <img class="action-card__image"
-                       src="{{ card_image.url }}"
-                       width="{{ card_image.width }}"
-                       height="{{ card_image.height }}"
-                       alt=""
-                       loading="lazy">
-                </div>
-              {% endif %}
-              <div class="action-card__body">
-                <div class="catalog-card__content">
+              <div class="catalog-card-with-hero__hero action-card__hero">
+                <div class="catalog-card-with-hero__heading">
                   {% if card.category %}<p class="catalog-card__category">{{ card.category }}</p>{% endif %}
                   <h3 class="catalog-card__title heading heading--h3 action-card__title">{{ card.title }}</h3>
-                  {% if card.description %}<div class="catalog-card__text text--md">{{ card.description|richtext }}</div>{% endif %}
                 </div>
+                <div class="catalog-card-with-hero__media">
+                  {% if card.image %}
+                    {% image card.image max-400x200 as card_image %}
+                    <img src="{{ card_image.url }}"
+                         width="{{ card_image.width }}"
+                         height="{{ card_image.height }}"
+                         alt=""
+                         loading="lazy">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="catalog-card-with-hero__body action-card__body">
+                {% if card.description %}<div class="catalog-card__text text--md">{{ card.description|richtext }}</div>{% endif %}
                 <span class="catalog-card__more">
                   {{ card.link_text|default:"Подробнее" }}
                   <span class="catalog-card__arrow" aria-hidden="true"></span>

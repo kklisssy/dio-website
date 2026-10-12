@@ -7,20 +7,22 @@
         <h2 id="cases-section-title"
             class="cases-section__title heading heading--h2">Наши кейсы</h2>
       </header>
-      <ul class="card-carousel card-carousel--responsive" role="list" tabindex="0"
+      <ul class="card-carousel card-carousel--responsive"
+          role="list"
+          tabindex="0"
           aria-label="Кейсы">
         {% for case in cases %}
-          <li class="home-case-card">
-            <a class="catalog-card__link home-case-card__link"
+          <li class="catalog-card-with-hero home-case-card">
+            <a class="catalog-card__link catalog-card-with-hero__link home-case-card__link"
                href="{% pageurl case %}">
-              <div class="catalog-card__content home-case-card__hero">
-                <div class="home-case-card__heading">
+              <div class="catalog-card-with-hero__hero">
+                <div class="catalog-card-with-hero__heading">
                   {% if case.industry %}<p class="catalog-card__category">{{ case.industry.name }}</p>{% endif %}
                   <h3 class="catalog-card__title heading heading--h3">{{ case.title }}</h3>
                 </div>
-                <div class="home-case-card__media">
+                <div class="catalog-card-with-hero__media">
                   {% if case.card_image %}
-                    {% image case.card_image max-900x700 as case_logo %}
+                    {% image case.card_image max-400x200 as case_logo %}
                     <img src="{{ case_logo.url }}"
                          width="{{ case_logo.width }}"
                          height="{{ case_logo.height }}"
@@ -30,7 +32,7 @@
                   {% endif %}
                 </div>
               </div>
-              <div class="home-case-card__body">
+              <div class="catalog-card-with-hero__body home-case-card__body">
                 {% if case.before_text %}
                   <div class="home-case-card__row home-case-card__row--before">
                     <p class="home-case-card__label">Было</p>

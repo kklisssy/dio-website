@@ -410,89 +410,25 @@
 }
 
 .home-case-card {
-  --case-hero-height: 360px;
   display: grid;
   grid-row: span 4;
   grid-template-rows: subgrid;
   row-gap: 0;
-  overflow: hidden;
   border-radius: 16px;
   box-shadow: var(--shadow-outer);
 }
 
-.home-case-card__link {
-  display: grid;
+.catalog-card-with-hero__link.home-case-card__link {
   grid-row: span 4;
   grid-template-rows: subgrid;
-  gap: 0;
-  min-height: 0;
   background: #ffffff;
-  aspect-ratio: auto;
   box-shadow: none;
-  padding: 0;
-  border-radius: inherit;
 }
-
-.home-case-card__hero {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: 16px;
-  min-height: 0;
-  height: var(--case-hero-height);
-  padding: var(--card-padding);
-  overflow: hidden;
-  background: #2d3138;
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 6%) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 6%) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.home-case-card__heading {
-  display: grid;
-  gap: 16px;
-  color: #ffffff;
-}
-
-.home-case-card__media {
-  display: grid;
-  place-items: center;
-  min-height: 0;
-}
-
-.home-case-card__hero img {
-  display: block;
-  width: 100%;
-  max-width: 280px;
-  height: 100%;
-  min-height: 0;
-  max-height: 100%;
-  object-fit: contain;
-  margin: 0;
-  transition: transform 0.5s ease;
-}
-
-.home-case-card:hover .home-case-card__hero img,
-.home-case-card:focus-within .home-case-card__hero img {
-  transform: scale(1.06);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-case-card__hero img {
-    transition: none;
-  }
-
-  .home-case-card:hover .home-case-card__hero img,
-  .home-case-card:focus-within .home-case-card__hero img {
-    transform: none;
-  }
-}
-
 .home-case-card__row {
   display: grid;
   grid-template-columns: 90px minmax(0, 1fr);
   gap: 24px;
-  padding: var(--card-padding);
+  padding: 30px 35px;
   border-top: 1px solid #dce1e5;
 }
 
@@ -507,11 +443,14 @@
   text-transform: uppercase;
 }
 
-.home-case-card__body {
+.catalog-card-with-hero__body.home-case-card__body {
   display: grid;
   grid-row: span 3;
+  gap: 0;
+  padding: 0;
   grid-template-rows: subgrid;
   row-gap: 0;
+  background: #ffffff;
 }
 
 .home-case-card__row--before {
@@ -560,63 +499,25 @@
 }
 
 /* Работа с сервисами 1С */
-.catalog-card__link.action-card__link {
-  aspect-ratio: auto;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto;
-  gap: 0;
-  padding: 0;
+.action-card {
+  --hero-image-width: 170px;
 }
 
-.catalog-card__link.action-card__link--with-image {
-  grid-template-rows: auto 1fr;
+.catalog-card-with-hero__link.action-card__link {
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .action-card__body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
-  min-width: 0;
-  padding: var(--card-padding);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-inner);
+}
+.action-card .catalog-card-with-hero__hero {
+  --hero-height: 285px;
 }
 
-.action-card__body .catalog-card__content {
-  align-content: start;
-}
-
-.action-card__media {
-  position: relative;
-  aspect-ratio: 3 / 2;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.action-card__image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  inset: 0;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.action-card__link:hover .action-card__image,
-.action-card__link:focus-visible .action-card__image {
-  transform: scale(1.06);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .action-card__image {
-    transition: none;
-  }
-
-  .action-card__link:hover .action-card__image,
-  .action-card__link:focus-visible .action-card__image {
-    transform: none;
-  }
+.action-card__title {
+  min-height: 2lh;
 }
 
 /* Этапы работы */
@@ -723,7 +624,6 @@
     min-height: 100%;
   }
 
-
   .direction-main-card .catalog-card__content {
     max-width: none;
     padding: 0;
@@ -745,7 +645,6 @@
       rgba(34, 38, 45, 0.36) 100%
     );
   }
-
 
   .work-with-section__grid,
   .work-stages__grid {
@@ -781,7 +680,6 @@
   .home-section__container {
     gap: 48px;
   }
-
 }
 
 @media (max-width: 767px) {
@@ -792,7 +690,6 @@
   .hero-features {
     margin: 0 auto 64px;
   }
-
 
   .direction-main-card .catalog-card__link::after {
     background: linear-gradient(
@@ -836,16 +733,10 @@
     width: 100%;
   }
 
-
-  .home-case-card__hero::after {
-    left: 24px;
-  }
-
   .home-case-card__row {
     grid-template-columns: 80px minmax(0, 1fr);
     gap: 16px;
   }
-
 
   .direction-main-card .catalog-card__link::after {
     background: linear-gradient(
