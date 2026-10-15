@@ -570,11 +570,6 @@
   width: 100%;
   height: 100%;
   padding: var(--card-padding);
-  text-decoration: none;
-}
-
-.work-stages__card-body[aria-disabled="true"] {
-  cursor: default;
 }
 
 .work-stages__number {

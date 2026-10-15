@@ -291,8 +291,7 @@ ol.list-content > li::before {
 .catalog-card__link,
 .home-case-card,
 .hero-feature-card,
-.work-with-card,
-a.work-stages__card-body[href] {
+.work-with-card {
   transition:
     transform 0.24s ease,
     box-shadow 0.24s ease;

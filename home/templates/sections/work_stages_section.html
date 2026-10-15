@@ -10,13 +10,12 @@
       <ol class="home-section__grid work-stages__grid" role="list">
         {% for stage in work_stages_block.value.stages %}
           <li class="work-stages__card">
-            <a class="work-stages__card-body"
-               {% if stage.page %}href="{{ stage.page.url }}"{% else %}aria-disabled="true"{% endif %}>
+            <div class="work-stages__card-body">
               <span class="work-stages__number">{{ forloop.counter }}</span>
               <h3 class="work-stages__card-title heading heading--h3">{{ stage.title }}</h3>
               <p class="work-stages__text text text--md">{{ stage.text }}</p>
               {% if stage.result_text %}<p class="work-stages__result text text--md">{{ stage.result_text }}</p>{% endif %}
-            </a>
+            </div>
           </li>
         {% endfor %}
       </ol>

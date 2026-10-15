@@ -205,11 +205,6 @@ class WorkStageItemBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=120, label="Название этапа")
     text = blocks.TextBlock(label="Описание этапа")
     result_text = blocks.TextBlock(label="Результат этапа")
-    page = blocks.PageChooserBlock(
-        required=False,
-        page_type=["home.WorkStagePage"],
-        label="Страница этапа",
-    )
 
     class Meta:
         icon = "list-ol"
@@ -396,77 +391,6 @@ class HeroFeaturePage(Page):
     class Meta:
         verbose_name = "Описание свойства"
         verbose_name_plural = "Описания свойств"
-
-
-class WorkStageIndexPage(Page):
-    """Служебный раздел для группировки страниц этапов работы."""
-
-    parent_page_types = ["home.HomePage"]
-    subpage_types = ["home.WorkStagePage"]
-    max_count_per_parent = 1
-
-    def serve(self, request, *args, **kwargs):
-        return redirect(self.get_parent().url)
-
-    class Meta:
-        verbose_name = "Раздел этапов работы"
-        verbose_name_plural = "Разделы этапов работы"
-
-
-class WorkStagePage(Page):
-    """Страница с подробным описанием этапа работы."""
-
-    template = "home/content_detail_page.html"
-
-    headline = models.CharField(
-        "Заголовок",
-        max_length=255,
-        blank=True,
-        help_text="Если оставить пустым, будет использовано название страницы.",
-    )
-    intro = models.TextField(
-        "Краткое описание",
-        blank=True,
-        help_text="Вводный текст для первого экрана.",
-    )
-    image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Изображение",
-    )
-    content = StreamField(
-        [
-            ("text_section", RichTextSectionBlock()),
-            ("table", TableSectionBlock()),
-            ("features", FeaturesBlock()),
-        ],
-        blank=True,
-        use_json_field=True,
-        verbose_name="Содержимое страницы",
-    )
-
-    content_panels = [
-        *Page.content_panels,
-        MultiFieldPanel(
-            [
-                FieldPanel("headline"),
-                FieldPanel("intro"),
-                FieldPanel("image"),
-            ],
-            heading="Основная информация",
-        ),
-        FieldPanel("content"),
-    ]
-
-    parent_page_types = ["home.WorkStageIndexPage"]
-    subpage_types = []
-
-    class Meta:
-        verbose_name = "Описание этапа работы"
-        verbose_name_plural = "Описания этапов работы"
 
 
 class HomePage(Page):

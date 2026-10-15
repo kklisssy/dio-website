@@ -5,30 +5,6 @@ import wagtail.fields
 from django.db import migrations, models
 
 
-def create_work_stage_indexes(apps, schema_editor):
-    from home.models import HomePage, WorkStageIndexPage
-
-    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
-        if WorkStageIndexPage.objects.child_of(home_page).exists():
-            continue
-
-        home_page.add_child(
-            instance=WorkStageIndexPage(
-                title="Этапы работы",
-                slug="work-stages",
-                show_in_menus=False,
-            )
-        )
-
-
-def delete_empty_work_stage_indexes(apps, schema_editor):
-    from home.models import HomePage, WorkStageIndexPage
-
-    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
-        for stage_index in WorkStageIndexPage.objects.child_of(home_page):
-            if not stage_index.get_children().exists():
-                stage_index.delete()
-
 
 class Migration(migrations.Migration):
 
@@ -66,7 +42,6 @@ class Migration(migrations.Migration):
             bases=('wagtailcore.page',),
         ),
         migrations.RunPython(
-            create_work_stage_indexes,
-            delete_empty_work_stage_indexes,
+            migrations.RunPython.noop, migrations.RunPython.noop
         ),
     ]
