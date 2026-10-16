@@ -182,8 +182,8 @@
   left: 50%;
   width: max-content;
   max-width: min(1120px, calc(100vw - (var(--container-padding) * 2)));
-  padding: 28px;
-  border-radius: 22px;
+  padding: var(--card-padding);
+  border-radius: var(--radius-large);
   transform: translate(-50%, 8px);
 }
 
@@ -202,13 +202,16 @@
 
 .main-nav__mega-header {
   display: grid;
-  gap: 10px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--color-border);
 }
 
-.main-nav__mega-header-title {
+.main-nav__mega-title {
+  font-size: var(--font-card-title);
   color: var(--color-brand);
+  font-weight: 700;
+  line-height: 1.2;
+  transition: color 0.2s ease;
 }
 
 .main-nav__mega-list {
@@ -224,7 +227,7 @@
 .main-nav__mega-card {
   display: flex;
   flex-direction: column;
-  padding: 18px 22px;
+  padding: 20px;
   border-radius: 14px;
   color: var(--color-text);
   text-decoration: none;
@@ -239,11 +242,9 @@ a.main-nav__mega-card[href]:is(:hover, :focus-visible) {
   transform: translateY(-2px);
 }
 
-.main-nav__mega-title {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.2;
-  transition: color 0.2s ease;
+.main-nav__mega-card-title {
+  font-size: var(--font-body);
+  color: var(--color-text);
 }
 
 a.main-nav__mega-card[href]:is(:hover, :focus-visible) .main-nav__mega-title {
@@ -252,7 +253,7 @@ a.main-nav__mega-card[href]:is(:hover, :focus-visible) .main-nav__mega-title {
 
 .main-nav__mega-description {
   color: var(--color-muted);
-  font-size: 18px;
+  font-size: var(--card-meta);
   line-height: 1.35;
 }
 

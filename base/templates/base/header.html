@@ -1,7 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
 <nav class="main-nav">
   <div class="main-nav__container">
-    <a href="{% slugurl 'home' %}" class="main-nav__brand-link" aria-label="На главную">
+    <a href="{% slugurl 'home' %}"
+       class="main-nav__brand-link"
+       aria-label="На главную">
       {% get_settings use_default_site=True as settings %}
       {% if settings.base.HeaderSettings.logo %}
         {% image settings.base.HeaderSettings.logo max-440x128 as logo %}
@@ -51,7 +53,7 @@
                   <div class="main-nav__mega-header">
                     <a class="main-nav__mega-heading"
                        {% if item.value.page %} href="{{ item.value.page.url }}" {% elif item.value.external_url %} href="{{ item.value.external_url }}" {% else %} aria-disabled="true" {% endif %}>
-                      <span class="main-nav__mega-title main-nav__mega-header-title">{{ item.value.name }}</span>
+                      <span class="main-nav__mega-title">{{ item.value.name }}</span>
                     </a>
                     {% if item.value.intro %}<span class="main-nav__mega-description">{{ item.value.intro }}</span>{% endif %}
                   </div>
@@ -60,7 +62,7 @@
                       <li class="main-nav__mega-list-item">
                         <a class="main-nav__mega-card"
                            {% if subitem.page %} href="{{ subitem.page.url }}" {% elif subitem.external_url %} href="{{ subitem.external_url }}" {% else %} aria-disabled="true" {% endif %}>
-                          <span class="main-nav__mega-title">{{ subitem.name }}</span>
+                          <span class="main-nav__mega-title main-nav__mega-card-title">{{ subitem.name }}</span>
                           {% if subitem.description %}<span class="main-nav__mega-description">{{ subitem.description }}</span>{% endif %}
                         </a>
                       </li>
