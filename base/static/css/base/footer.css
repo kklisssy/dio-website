@@ -1,6 +1,6 @@
 .site-footer {
   --footer-logo-height: 80px;
-  padding: 72px 0 42px;
+  padding: 64px 0 42px;
   background: var(--color-page);
   color: var(--color-text);
 }
