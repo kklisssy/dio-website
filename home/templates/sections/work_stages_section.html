@@ -7,7 +7,10 @@
           <p class="text text--xl work-stages__text">{{ work_stages_block.value.intro }}</p>
         {% endif %}
       </header>
-      <ol class="home-section__grid work-stages__grid" role="list">
+      <ol class="card-carousel card-carousel--responsive work-stages__grid"
+          role="list"
+          tabindex="0"
+          aria-label="Этапы работы">
         {% for stage in work_stages_block.value.stages %}
           <li class="work-stages__card">
             <div class="work-stages__card-body">
