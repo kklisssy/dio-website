@@ -58,7 +58,7 @@
 }
 
 .page-section {
-  padding: 110px 0 64px;
+  padding: 64px 0;
 }
 
 .page-content {
@@ -190,7 +190,6 @@
 
 .catalog-detail {
   overflow: hidden;
-  padding: 64px 0 0;
 }
 
 .catalog-card__image {
@@ -256,7 +255,11 @@
     linear-gradient(to bottom, rgb(255 255 255 / 5%) 1px, transparent 1px),
     radial-gradient(ellipse at 95% 45%, rgb(183 34 43 / 58%), transparent 68%),
     radial-gradient(ellipse at 35% 100%, rgb(122 27 37 / 32%), transparent 65%);
-  background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+  background-size:
+    48px 48px,
+    48px 48px,
+    100% 100%,
+    100% 100%;
 }
 
 .catalog-card-with-hero__heading {
@@ -308,7 +311,7 @@
     img {
     transform: none;
   }
-  
+
   .catalog-card__image {
     transition: none;
   }
