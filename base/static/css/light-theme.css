@@ -334,6 +334,9 @@ ol.list-content > li::before {
 
 .button__cta {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 20px;
   border: 1px solid rgb(158 77 77);
   border-radius: var(--radius-button);
@@ -342,7 +345,9 @@ ol.list-content > li::before {
   cursor: pointer;
   overflow: hidden;
   transition: background 0.2s ease;
+  font-family: var(--font-main);
   font-size: var(--font-body);
+  line-height: var(--line-body);
 }
 
 .button__cta:hover {
@@ -393,7 +398,10 @@ ol.list-content > li::before {
 }
 
 .button__cta--outline:hover {
-  background: #b8b8b8;
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-brand) inset;
+  background: transparent;
 }
 
 @media (max-width: 1279px) {
