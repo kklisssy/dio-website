@@ -602,8 +602,7 @@
   margin: 0;
   padding-top: 20px;
   border-top: 1px solid rgb(255 255 255 / 24%);
-  color: #cdcdcd;
-  font-weight: var(--weight-bold);
+  color: #ffffff;
 }
 
 @media (max-width: 1200px) {
