@@ -4,10 +4,12 @@
   <section class="contact-section" id="contacts">
     <div class="container contact-section__container">
       <div class="contact-card contact-card--info">
-        <h2 class="heading heading--h2 heading--inverse">{{ contact.title }}</h2>
-        {% if contact.description %}
-          <p class="contact-card__description text text--xl text--inverse">{{ contact.description }}</p>
-        {% endif %}
+        <div class="contact-card__header">
+          <h2 class="heading heading--h2 heading--inverse">{{ contact.title }}</h2>
+          {% if contact.description %}
+            <p class="contact-card__description text text--xl text--inverse">{{ contact.description }}</p>
+          {% endif %}
+        </div>
         <div class="contact-card__items">
           {% if contact.phone %}
             <div class="contact-info-item">
@@ -38,16 +40,18 @@
         </div>
       </div>
       <div class="contact-card contact-card--form">
-        <h2 class="heading heading--h2">{{ contact.form_title }}</h2>
-        {% if messages %}
-          <div class="contact-form__messages">
-            {% for message in messages %}
-              {% if "contact" in message.tags %}
-                <p class="contact-form__message contact-form__message--{{ message.level_tag }}">{{ message }}</p>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
+        <div class="contact-card__header">
+          <h2 class="heading heading--h2">{{ contact.form_title }}</h2>
+          {% if messages %}
+            <div class="contact-form__messages">
+              {% for message in messages %}
+                {% if "contact" in message.tags %}
+                  <p class="contact-form__message contact-form__message--{{ message.level_tag }}">{{ message }}</p>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
         <form class="contact-form"
               method="post"
               action="{% url 'consultation_request' %}">

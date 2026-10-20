@@ -13,11 +13,20 @@
 }
 
 .contact-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
   border-radius: var(--radius-large);
 }
 
+.contact-card__header {
+  display: grid;
+  gap: 12px;
+}
+
 .contact-card .heading--h2 {
-  margin-bottom: 24px;
+  margin: 0;
 }
 
 .contact-card--info {
@@ -33,7 +42,7 @@
 }
 
 .contact-card__description {
-  margin: 0 0 24px;
+  margin: 0;
   max-width: 643px;
 }
 
@@ -46,7 +55,7 @@
 .contact-info-item {
   padding: var(--inner-card-padding);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
+  border-radius: var(--radius-button);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -59,9 +68,18 @@
 }
 
 .contact-card--form {
+  justify-content: flex-start;
+  gap: 12px;
   padding: var(--card-padding);
   background: var(--color-page);
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+}
+
+.contact-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .contact-form__grid {
@@ -76,7 +94,8 @@
 }
 
 .contact-form__field--wide {
-  margin-top: 18px;
+  flex: 1;
+  grid-template-rows: auto minmax(150px, 1fr);
 }
 
 .contact-form__label {
@@ -95,7 +114,7 @@
 .contact-form textarea {
   width: 100%;
   border: 1px solid var(--color-border);
-  border-radius: 16px;
+  border-radius: var(--radius-button);
   background: var(--color-page);
   color: var(--color-text);
   font: inherit;
@@ -172,6 +191,7 @@
 }
 
 .contact-form__privacy-text {
+  margin: 0;
   color: var(--color-muted);
   line-height: 1.35;
 }
@@ -193,7 +213,7 @@
 .contact-form__messages {
   display: grid;
   gap: 10px;
-  margin: 0 0 20px;
+  margin: 0;
 }
 
 .contact-form__message {
@@ -222,9 +242,8 @@
 
 @media (max-width: 767px) {
   .contact-section {
-    padding: 64px 0 72px;
+    padding: 48px 0;
   }
-
 
   .contact-form__grid {
     grid-template-columns: 1fr;
