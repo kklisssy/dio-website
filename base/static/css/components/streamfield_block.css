@@ -36,7 +36,7 @@
 .rich-content ul,
 .rich-content ol {
   display: grid;
-  gap: 18px;
+  gap: 24px;
   margin: 20px 0;
   padding: 0;
   list-style: none;

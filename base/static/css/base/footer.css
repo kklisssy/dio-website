@@ -1,26 +1,26 @@
 .site-footer {
   --footer-logo-height: 80px;
-  padding: 64px 0 42px;
+  padding: 64px 0;
   background: var(--color-page);
   color: var(--color-text);
 }
 
 .site-footer__container {
   display: grid;
-  gap: 42px;
+  gap: 48px;
 }
 
 .site-footer__top {
   display: grid;
   grid-template-columns: minmax(520px, 1fr) minmax(640px, 0.9fr);
-  gap: 30px;
+  gap: 48px;
   align-items: start;
 }
 
 .site-footer__brand {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 
 .site-footer__brand-image {
@@ -118,13 +118,13 @@
 .site-footer__links {
   display: grid;
   grid-template-columns: repeat(3, minmax(160px, 1fr));
-  gap: 55px;
+  gap: 48px;
 }
 
 .site-footer__list,
 .site-footer__social-list {
   display: grid;
-  gap: 15px;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -161,7 +161,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding-top: 34px;
+  padding-top: 24px;
   border-top: 1px solid var(--color-border);
 }
 
@@ -175,7 +175,7 @@
 .site-footer__bottom-nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 12px;
 }
 
 .site-footer__bottom-nav a,
@@ -190,21 +190,22 @@
 }
 
 .site-footer__column .heading {
-  display: flex;
-  min-height: var(--footer-logo-height);
+  display: block;
+  min-height: 0;
   align-items: center;
   margin-top: 0;
+  margin: 0 0 24px;
 }
 
 @media (max-width: 1279px) {
   .site-footer__top {
     grid-template-columns: minmax(430px, 1fr) minmax(520px, 0.95fr);
-    gap: 18px;
+    gap: 48px;
   }
 
   .site-footer__links {
     grid-template-columns: repeat(3, minmax(170px, 1fr));
-    gap: 16px;
+    gap: 48px;
   }
 
   .site-footer__column .heading {
@@ -213,15 +214,15 @@
 
   .footer-subscribe__form {
     grid-template-columns: minmax(260px, 1fr) 170px;
-    gap: 16px;
+    gap: 12px;
   }
 
   .site-footer__bottom {
-    gap: 16px;
+    gap: 24px;
   }
 
   .site-footer__bottom-nav {
-    gap: 18px;
+    gap: 12px;
   }
 
   .site-footer__bottom-nav a,
@@ -239,6 +240,7 @@
 
   .site-footer__links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
   }
 
   .site-footer__column .heading {
@@ -249,12 +251,21 @@
 }
 
 @media (max-width: 767px) {
+
+  .site-footer__container {
+    gap: 24px;
+  }
+
+  .site-footer__top {
+    gap: 24px;
+  }
+
   .site-footer {
-    padding: 52px 0 34px;
+    padding: 48px 0;
   }
 
   .site-footer__brand {
-    margin-bottom: 36px;
+    margin-bottom: 24px;
   }
 
   .site-footer__brand-image {
@@ -264,6 +275,7 @@
 
   .footer-subscribe__form {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .footer-subscribe__form input,
@@ -274,7 +286,7 @@
 
   .site-footer__links {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
   }
 
   .site-footer__bottom {

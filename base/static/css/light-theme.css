@@ -372,7 +372,7 @@ ol.list-content > li::before {
   align-items: center;
   align-content: flex-start;
   padding: 0px;
-  gap: 16px;
+  gap: 12px;
 }
 
 .button__cta--secondary {
