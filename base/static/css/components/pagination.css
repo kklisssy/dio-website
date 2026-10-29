@@ -22,9 +22,11 @@
   gap: var(--carousel-gap);
   min-width: 0;
   margin-block: var(--carousel-margin-block);
-  margin-inline: 0;
+  /* Keep outer card shadows inside the scroll viewport. */
+  margin-inline: calc(-1 * var(--carousel-shadow-space));
   padding-block: var(--carousel-padding-block);
-  padding-inline: 0;
+  padding-inline: var(--carousel-shadow-space);
+  scroll-padding-inline: var(--carousel-shadow-space);
   list-style: none;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -47,6 +49,8 @@
 .card-carousel--responsive {
   --carousel-margin-block: 0px;
   --carousel-padding-block: 0px;
+  margin-inline: 0;
+  padding-inline: 0;
   grid-auto-flow: row;
   grid-auto-columns: auto;
   grid-template-columns: repeat(var(--carousel-desktop-columns, 3), minmax(0, 1fr));
@@ -59,6 +63,8 @@
   .card-carousel--responsive {
     --carousel-margin-block: calc(-1 * var(--carousel-shadow-space));
     --carousel-padding-block: var(--carousel-shadow-space);
+    margin-inline: calc(-1 * var(--carousel-shadow-space));
+    padding-inline: var(--carousel-shadow-space);
     grid-auto-flow: column;
     grid-template-columns: none;
     grid-auto-columns: calc((100% - (var(--carousel-visible) - 1) * var(--carousel-gap)) / var(--carousel-visible));
@@ -68,5 +74,15 @@
 }
 
 @media (max-width: 767px) {
-  .card-carousel { --carousel-visible: 1; }
+  .card-carousel {
+    --carousel-visible: 1;
+    --carousel-shadow-space: var(--container-padding);
+    --carousel-peek: 8px;
+  }
+
+  .card-carousel,
+  .card-carousel--responsive {
+    /* Show the same sliver of the next card, independently of nesting. */
+    grid-auto-columns: calc(100% + var(--carousel-shadow-space) - var(--carousel-gap) - var(--carousel-peek));
+  }
 }

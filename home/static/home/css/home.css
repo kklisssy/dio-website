@@ -198,8 +198,7 @@
 /* Карточки */
 .hero-features {
   --carousel-desktop-columns: 6;
-  width: min(100% - (var(--container-padding) * 2), var(--container-width));
-  margin: 0 auto 32px;
+  margin-block: 0;
 }
 
 .hero-feature-card {
@@ -639,7 +638,7 @@
   }
 
   .direction-cards-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .direction-main-card {
@@ -690,15 +689,16 @@
     grid-template-columns: none;
     grid-template-rows: repeat(4, auto);
   }
+
+  .work-stages__card-body {
+    /* Make the next step's content visible at the carousel edge. */
+    padding-inline: 0;
+  }
 }
 
 @media (max-width: 767px) {
   .direction-cards-carousel {
     --carousel-visible: 1;
-  }
-
-  .hero-features {
-    margin: 0 auto 64px;
   }
 
   .direction-main-card .catalog-card__link::after {
@@ -764,13 +764,8 @@
 
   .hero .button__cta {
     padding: 10px 14px;
-    font-size: 0.9375rem;
     line-height: 1.15;
     white-space: nowrap;
-  }
-
-  .hero-features {
-    margin: 0 auto;
   }
 
   .work-with-section__grid {
@@ -804,7 +799,6 @@
     width: 100%;
     flex: 0 1 auto;
     padding: 10px 8px;
-    font-size: 0.8125rem;
     text-align: center;
   }
 }
