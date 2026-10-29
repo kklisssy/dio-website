@@ -279,7 +279,7 @@ class ConsultationRequest(models.Model):
     name = models.CharField(max_length=255, verbose_name="Имя")
     company = models.CharField(max_length=255, blank=True, verbose_name="Компания")
     phone = models.CharField(max_length=50, verbose_name="Телефон")
-    email = models.EmailField(blank=True, verbose_name="Email")
+    email = models.EmailField(verbose_name="Email")
     message = models.TextField(verbose_name="Краткое описание задачи")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
