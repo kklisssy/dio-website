@@ -27,6 +27,8 @@ class ButtonBlock(blocks.StructBlock):
     )
 
 class RichTextSectionBlock(blocks.StructBlock):
+    """Блок для отображения рич текста"""
+
     title = blocks.CharBlock(required=False, label="Заголовок")
     text = blocks.RichTextBlock(features=RICH_TEXT_FEATURES, label="Текст")
 
@@ -36,6 +38,8 @@ class RichTextSectionBlock(blocks.StructBlock):
 
 
 class TableSectionBlock(blocks.StructBlock):
+    """Блок для отображения таблиц"""
+
     title = blocks.CharBlock(required=False, label="Заголовок")
     table = TableBlock(label="Таблица")
 
@@ -59,11 +63,14 @@ class FeatureItemBlock(blocks.StructBlock):
 
 
 class FeaturesBlock(blocks.StructBlock):
+    """Блок для отображения преимуществ"""
+
     title = blocks.CharBlock(
         required=False,
         default="Преимущества",
         label="Заголовок блока",
     )
+    description = blocks.TextBlock(required=False, label="Описание под заголовком")
     items = blocks.ListBlock(FeatureItemBlock(), label="Список пунктов")
 
     class Meta:
@@ -80,7 +87,10 @@ class ImageGalleryItemBlock(blocks.StructBlock):
         label = "Изображение"
 
 class ImageGalleryBlock(blocks.StructBlock):
+    """Блок для отображения галереи изображений"""
+
     title = blocks.CharBlock(required=False, max_length=250, label="Заголовок")
+    description = blocks.TextBlock(required=False, label="Описание под заголовком")
     images = blocks.ListBlock(ImageGalleryItemBlock(), label="Карточки")
 
     class Meta:
@@ -88,15 +98,22 @@ class ImageGalleryBlock(blocks.StructBlock):
         label = "Галерея изображений"
 
 class RateItemBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, label="Заголовок")
-    period = blocks.CharBlock(required=False, label="Период тарифа")
-
-    price_title = blocks.CharBlock(required=False, label="Заголовок цены", default="Цена продления")
-    price = blocks.CharBlock(required=True, label="Цена тарифа")
-    button = ButtonBlock()
-
-    rec_price_title = blocks.CharBlock(required=False, label="Заголовок рекомендованной цены", default="Рекомендованная цена")
-    rec_price = blocks.TextBlock(required=False, label="Рекомендованная цена")
+    title = blocks.CharBlock(required=True, label="Название тарифа")
+    price = blocks.CharBlock(
+        required=True,
+        label="Цена",
+        help_text="Например: от 5 000 ₽",
+    )
+    period = blocks.CharBlock(
+        required=False,
+        label="Период",
+        help_text="Например: месяц. Знак / добавляется в шаблоне.",
+    )
+    description = blocks.RichTextBlock(
+        required=False,
+        features=RICH_TEXT_FEATURES,
+        label="Описание",
+    )
 
     class Meta:
         icon = "tick"
@@ -104,7 +121,10 @@ class RateItemBlock(blocks.StructBlock):
 
 
 class RateBlock(blocks.StructBlock):
+    """Блок для отображения тарифов"""
+
     title = blocks.CharBlock(required=False, label="Заголовок")
+    description = blocks.TextBlock(required=False, label="Описание под заголовком")
     rates = blocks.ListBlock(RateItemBlock(),label="Список тарифов")
 
     class Meta:
@@ -112,7 +132,52 @@ class RateBlock(blocks.StructBlock):
         label = "Тарифы"
 
 
+class FaqItemBlock(blocks.StructBlock):
+    question = blocks.CharBlock(required=True, label="Вопрос")
+    answer = blocks.RichTextBlock(features=RICH_TEXT_FEATURES, label="Ответ")
+
+    class Meta:
+        icon = "help"
+        label = "Вопрос"
+
+
+class FaqBlock(blocks.StructBlock):
+    """Блок для отображения вопросов FAQ"""
+
+    title = blocks.CharBlock(
+        required=False,
+        default="Вопросы и ответы",
+        label="Заголовок блока",
+    )
+    description = blocks.TextBlock(required=False, label="Описание под заголовком")
+    items = blocks.ListBlock(FaqItemBlock(), label="Вопросы")
+
+    class Meta:
+        icon = "help"
+        label = "FAQ"
+
+class ChecklistBlock(blocks.StructBlock):
+    title = blocks.CharBlock(
+        required=False,
+        label="Заголовок",
+    )
+    description = blocks.TextBlock(
+        required=False,
+        label="Описание под заголовком",
+    )
+    items = blocks.ListBlock(
+        blocks.CharBlock(label="Текст пункта"),
+        min_num=1,
+        label="Пункты",
+    )
+
+    class Meta:
+        icon = "list-ul"
+        label = "Список с галочками"
+
 class LinkedCardBlock(blocks.StructBlock):
+    """Блок для типовой структуры карточек"""
+
     page = blocks.PageChooserBlock(
         required=True,
         label="Страница",

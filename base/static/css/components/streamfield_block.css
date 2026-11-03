@@ -1,6 +1,6 @@
 /* Текст */
 .rich-content {
-  font-size: var(--font-section-description);
+  font-size: var(--font-body);
   line-height: 1.65;
 }
 
@@ -49,7 +49,8 @@
 
 .rich-content ul li::before {
   position: absolute;
-  top: 0.62em;
+  top: 0.5lh;
+  transform: translateY(-50%);
   left: 0;
   width: 14px;
   height: 14px;
@@ -149,7 +150,7 @@
 
 .feature-card-list {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: 12px;
 }
 
 .feature-card-list--about {
@@ -157,26 +158,22 @@
 }
 
 .feature-card {
-  display: grid;
-  gap: 20px;
   align-content: start;
-  min-height: 350px;
-  padding: 40px;
-  border: 2px solid black;
+  padding: var(--card-padding);
+  border: 1px solid black;
   border-radius: var(--radius-large);
   background: var(--color-page);
-  box-shadow: 0 10px 30px rgba(17, 20, 24, 0.07);
 }
 
 .feature-card__top {
   display: flex;
-  min-height: 88px;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 12px;
 }
 
 .feature-card__number {
+  display: inline-block;
   color: #e2e2e2;
   font-size: 42px;
   line-height: 1;
@@ -200,35 +197,14 @@
   object-fit: contain;
 }
 
-.feature-card__accent {
-  width: 46px;
+.feature-card__number::after {
+  content: "";
+  display: block;
+  width: 100%;
   height: 3px;
-  margin-top: 4px;
+  margin-top: 16px;
   border-radius: 999px;
   background: var(--color-brand);
-}
-
-.feature-card h3 {
-  --heading-size: 34px;
-  --heading-line-height: 1.15;
-}
-
-.feature-card__text {
-  color: #292929;
-  --text-line-height: 1.32;
-  --text-weight: 400;
-}
-
-.feature-card__text p {
-  margin: 0;
-  text-align: left;
-}
-
-.feature-card__text,
-.feature-card__text p,
-.feature-card__text b,
-.feature-card__text strong {
-  font-weight: 400;
 }
 
 /* Галерея изображений */
@@ -262,41 +238,27 @@
 
 /* Тарифы */
 .rates-card-list {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
 .rate-card {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-width: 0;
-  padding: 35px 30px 30px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  align-content: start;
+  gap: 24px;
+  padding: var(--card-padding);
+  border: 1px solid rgb(45 20 20 / 15%);
   border-radius: var(--radius-large);
   background: var(--color-page);
-  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
 }
 
-.rate-top,
-.rate-main,
-.rate-bottom {
-  display: grid;
-  justify-items: center;
-  text-align: center;
+.rate-card .catalog-card__title {
+  color: var(--color-muted);
+  --heading-size: var(--font-body);
+  --heading-line-height: var(--line-tight);
 }
 
-.rate-top {
-  align-content: start;
-  gap: 6px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-}
-
-.rate-top .heading {
-  max-width: 220px;
-  --heading-size: 32px;
-  --heading-line-height: 1.2;
-  --heading-weight: 600;
+.rate-card > .catalog-card__text {
+  color: var(--color-muted);
 }
 
 .rate-card__period {
@@ -305,69 +267,101 @@
   --text-weight: 700;
 }
 
-.rate-main {
-  align-content: start;
+.rate-card__price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
   gap: 8px;
-  padding: 24px 0 14px;
 }
 
-.rate-main .heading {
-  color: var(--color-muted);
-  --heading-size: 17px;
-  --heading-line-height: 1.25;
-  --heading-weight: 700;
-}
-
-.rate-card__period-price {
+.text.rate-card__period-price {
   color: var(--color-text);
-  --text-size: 28px;
+  --text-size: clamp(28px, 3vw, 36px);
   --text-line-height: 1.2;
   --text-weight: 800;
 }
 
-.rate-card__period-button {
-  display: inline-flex;
+.catalog-card__text.rich-content {
+  max-width: none;
+  font-size: var(--font-body);
+  line-height: var(--line-tight);
+}
+
+.catalog-card__text.rich-content p {
+  text-align: left;
+}
+
+/* FAQ */
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.faq-list details {
+  padding: 24px 28px;
+  border: 1px solid rgb(45 20 20 / 15%);
+  border-radius: 18px;
+  background: var(--color-page);
+}
+
+.faq-list summary {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: min(100%, 205px);
-  margin-top: 14px;
-  padding: 20px;
+  justify-content: space-between;
+  gap: 12px;
+  list-style: none;
+  cursor: pointer;
+  color: #000000;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list .catalog-card__arrow {
+  flex-shrink: 0;
+}
+
+.faq-list details[open] .catalog-card__arrow {
+  transform: rotate(90deg);
+}
+
+.faq-list details > .catalog-card__text {
+  margin-top: 24px;
+}
+
+/* Список с галочками */
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist__item {
+  display: flex;
+  max-width: none;
+  align-items: baseline;
+  gap: 20px;
+  min-width: 0;
+  padding: var(--inner-card-padding);
+  padding-bottom: 20px;
+  border: 1px solid rgb(45 20 20 / 15%);
   border-radius: var(--radius-large);
-  background: var(--color-brand);
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1;
-  text-align: center;
-  text-transform: uppercase;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  background: var(--color-page);
 }
 
-.rate-card__period-button:hover {
-  border-color: var(--color-brand-light);
-  background: var(--color-brand-light);
-  transform: translateY(-1px);
+.checklist__item > span:first-child {
+  color: var(--color-brand);
 }
 
-.rate-bottom {
-  align-content: start;
-  gap: 6px;
-  min-height: 62px;
-  color: #a5adbe;
-}
-
-.rate-bottom .text {
-  --text-size: 15px;
-  --text-line-height: 1.3;
-  --text-weight: 500;
-}
-
-.rate-card__period-price--rec {
-  --text-size: 17px;
-  --text-line-height: 1.25;
-  --text-weight: 500;
+@media (max-width: 1279px) {
+  .feature-card-list,
+  .rates-card-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 767px) {
@@ -375,13 +369,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .feature-card-list {
+  .feature-card-list,
+  .rates-card-list,
+  .checklist {
     grid-template-columns: 1fr;
-  }
-
-  .feature-card {
-    min-height: auto;
-    padding: 30px 24px 36px;
   }
 
   .feature-card__top {
@@ -401,10 +392,6 @@
   .feature-card__icon {
     width: 34px;
     height: 34px;
-  }
-
-  .feature-card h3 {
-    --heading-size: 28px;
   }
 }
 

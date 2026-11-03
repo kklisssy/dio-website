@@ -3,9 +3,10 @@
   <div class="about-section__header">
     {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
   </div>
+  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
   <ul class="feature-card-list feature-card-list--about" role="list">
     {% for item in block.value.items %}
-      <li class="feature-card">
+      <li class="feature-card catalog-card catalog-card__content">
         <div class="feature-card__top">
           <span class="feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
           {% if item.icon %}
@@ -19,9 +20,8 @@
             </span>
           {% endif %}
         </div>
-        <span class="feature-card__accent" aria-hidden="true"></span>
-        <h3 class="heading heading--h3">{{ item.title }}</h3>
-        {% if item.text %}<div class="feature-card__text text text--md">{{ item.text|richtext }}</div>{% endif %}
+        <h3 class="heading heading--h3 catalog-card__title">{{ item.title }}</h3>
+        {% if item.text %}<div class="catalog-card__text">{{ item.text|richtext }}</div>{% endif %}
       </li>
     {% endfor %}
   </ul>

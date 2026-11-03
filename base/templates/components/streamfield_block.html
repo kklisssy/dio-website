@@ -7,10 +7,11 @@
   <div class="custom-table-wrapper">{% include_block block.value.bound_blocks.table %}</div>
 {% elif block.block_type == "features" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
   <ul class="feature-card-list{% if cards_class %} {{ cards_class }}{% endif %}"
       role="list">
     {% for item in block.value.items %}
-      <li class="feature-card{% if card_class %} {{ card_class }}{% endif %}">
+      <li class="feature-card catalog-card catalog-card__content{% if card_class %} {{ card_class }}{% endif %}">
         <div class="feature-card__top">
           <span class="feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
           {% if item.icon %}
@@ -24,20 +25,20 @@
             </span>
           {% endif %}
         </div>
-        <span class="feature-card__accent" aria-hidden="true"></span>
-        <h3 class="heading heading--h3">{{ item.title }}</h3>
+        <h3 class="heading heading--h3 catalog-card__title">{{ item.title }}</h3>
         {% if item.text %}
-          <div class="feature-card__text text text--md{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>
+          <div class="catalog-card__text{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>
         {% endif %}
       </li>
     {% endfor %}
   </ul>
 {% elif block.block_type == "gallery" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
   <ul class="gallery-grid" role="list">
     {% for item in block.value.images %}
       <li class="gallery-card">
-        {% if item.title %}<h3 class="heading heading--h3">{{ item.title }}</h3>{% endif %}
+        {% if item.title %}<h3 class="heading heading--h3 catalog-card__title">{{ item.title }}</h3>{% endif %}
         {% image item.image width-800 as image %}
         <div class="gallery-image-wrap">
           <img src="{{ image.url }}"
@@ -50,28 +51,41 @@
   </ul>
 {% elif block.block_type == "rates" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
   <ul class="rates-card-list{% if cards_class %} {{ cards_class }}{% endif %}"
       role="list">
     {% for rate in block.value.rates %}
-      <li class="rate-card{% if card_class %} {{ card_class }}{% endif %}">
-        <div class="rate-top">
-          <h3 class="heading heading--h3">{{ rate.title }}</h3>
-          {% if rate.period %}
-            <div class="rate-card__period text text--md{% if rate_text_class %} {{ rate_text_class }}{% endif %}">{{ rate.period }}</div>
-          {% endif %}
+      <li class="rate-card catalog-card catalog-card__content{% if card_class %} {{ card_class }}{% endif %}">
+        <h3 class="heading heading--h3 catalog-card__title">{{ rate.title }}</h3>
+        <div class="rate-card__price-row">
+          <span class="text rate-card__period-price">{{ rate.price }}</span>
+          {% if rate.period %}<span class="rate-card__period text text--md">/ {{ rate.period }}</span>{% endif %}
         </div>
-        <div class="rate-main">
-          <h3 class="heading heading--h4">{{ rate.price_title }}</h3>
-          {% if rate.price %}<div class="rate-card__period-price text">{{ rate.price }}</div>{% endif %}
-          {% if rate.button.text %}
-            <a class="button rate-card__period-button"
-               href="{{ rate.button.url|default:'#contacts' }}">{{ rate.button.text }}</a>
-          {% endif %}
-        </div>
-        <div class="rate-bottom">
-          <h3 class="text text--md">{{ rate.rec_price_title }}</h3>
-          {% if rate.rec_price %}<div class="rate-card__period-price--rec text">{{ rate.rec_price }}</div>{% endif %}
-        </div>
+        {% if rate.description %}<div class="catalog-card__text rich-content">{{ rate.description|richtext }}</div>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% elif block.block_type == "faq" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
+  <div class="faq-list">
+    {% for item in block.value.items %}
+      <details class="catalog-card">
+        <summary class="heading heading--h3 catalog-card__title">
+          {{ item.question }}<span class="catalog-card__arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="catalog-card__text rich-content">{{ item.answer|richtext }}</div>
+      </details>
+    {% endfor %}
+  </div>
+{% elif block.block_type == "checklist" %}
+  {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
+  <ul class="checklist" role="list">
+    {% for item in block.value.items %}
+      <li class="checklist__item catalog-card__text">
+        <span aria-hidden="true">✓</span>
+        <span>{{ item }}</span>
       </li>
     {% endfor %}
   </ul>
