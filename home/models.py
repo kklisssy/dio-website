@@ -7,6 +7,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
 from base.page_blocks import (
+    ButtonBlock,
     FeaturesBlock,
     LinkedCardBlock,
     RichTextSectionBlock,
@@ -15,17 +16,6 @@ from base.page_blocks import (
 
 
 # Hero блок
-class HeroButtonBlock(blocks.StructBlock):
-    """Блок для отображения кнопок слайда hero"""
-
-    text = blocks.CharBlock(max_length=50, required=True, label="Текст кнопки")
-    url = blocks.URLBlock(required=True, label="Ссылка")
-    is_secondary = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        label="Вторичная кнопка",
-    )
-
 class HeroPropertyBlock(blocks.StructBlock):
     """Блок для отображения небольших блоков"""
 
@@ -102,7 +92,7 @@ class HeroBlock(blocks.StructBlock):
         label="Описание",
     )
     buttons = blocks.ListBlock(
-        HeroButtonBlock(),
+        ButtonBlock(),
         required=True,
         max_num=2,
         label="Кнопки",

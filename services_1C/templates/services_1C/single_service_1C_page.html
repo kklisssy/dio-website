@@ -22,7 +22,7 @@
           {% if page.buttons %}
             <div class="buttons__cta">
               {% for button in page.buttons %}
-                <a class="button__cta" href="{{ button.value.url }}">{{ button.value.text }}</a>
+                <a href="{{ button.value.url }}" class="button__cta{% if button.value.is_secondary %} button__cta--secondary{% endif %}">{{ button.value.text }}</a>
               {% endfor %}
             </div>
           {% endif %}
@@ -47,9 +47,7 @@
             </section>
           {% elif block.block_type == "rates" %}
             <section class="page-section single-service-1c__rates">
-              <div class="container page-content__block">
-                {% include "components/streamfield_block.html" with block=block %}
-              </div>
+              <div class="container page-content__block">{% include "components/streamfield_block.html" with block=block %}</div>
             </section>
           {% else %}
             <section class="container page-content__block">

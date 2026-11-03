@@ -25,6 +25,12 @@ class ButtonBlock(blocks.StructBlock):
         label="Ссылка или якорь",
         help_text="Например: #contacts, /contacts/, https://example.com",
     )
+    is_secondary = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        label="Вторичная кнопка",
+    )
+
 
 class RichTextSectionBlock(blocks.StructBlock):
     """Блок для отображения рич текста"""
