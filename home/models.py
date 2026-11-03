@@ -393,6 +393,77 @@ class HeroFeaturePage(Page):
         verbose_name_plural = "Описания свойств"
 
 
+class CitiesIndexPage(Page):
+    """Служебный раздел для группировки посадочных страниц для разных городов."""
+
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["home.CityPage"]
+    max_count_per_parent = 1
+
+    def serve(self, request, *args, **kwargs):
+        return redirect(self.get_parent().url)
+
+    class Meta:
+        verbose_name = "Раздел посадочных страниц для городов"
+        verbose_name_plural = "Разделы посадочных страниц для городов"
+
+
+class CityPage(Page):
+    """Посадочная страница для города."""
+
+    template = "home/city_page.html"
+
+    headline = models.CharField(
+        "Заголовок",
+        max_length=255,
+        blank=True,
+        help_text="Если оставить пустым, будет использовано название страницы.",
+    )
+    intro = models.TextField(
+        "Краткое описание",
+        blank=True,
+        help_text="Вводный текст для первого экрана.",
+    )
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Изображение",
+    )
+    content = StreamField(
+        [
+            ("text_section", RichTextSectionBlock()),
+            ("table", TableSectionBlock()),
+            ("features", FeaturesBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Содержимое страницы",
+    )
+
+    content_panels = [
+        *Page.content_panels,
+        MultiFieldPanel(
+            [
+                FieldPanel("headline"),
+                FieldPanel("intro"),
+                FieldPanel("image"),
+            ],
+            heading="Основная информация",
+        ),
+        FieldPanel("content"),
+    ]
+
+    parent_page_types = ["home.CitiesIndexPage"]
+    subpage_types = []
+
+    class Meta:
+        verbose_name = "Посадочная страница города"
+        verbose_name_plural = "Посадочные страницы городов"
+
+
 class HomePage(Page):
     """Главная страница"""
 
