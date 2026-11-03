@@ -63,8 +63,8 @@
 
 .page-content {
   display: grid;
-  gap: 40px;
-  padding-top: 50px;
+  gap: 64px;
+  padding-top: 64px;
 }
 
 .page-content__block {
@@ -180,7 +180,7 @@
 }
 
 .catalog-related {
-  padding: 72px 0 50px;
+  padding: 64px 0 0;
 }
 
 .catalog-related__inner {
