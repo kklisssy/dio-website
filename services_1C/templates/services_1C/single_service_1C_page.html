@@ -18,7 +18,14 @@
         <div class="page-hero__content">
           {% if page.category %}<p class="page-hero__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="page-hero__intro text text--md">{{ page.intro }}</p>{% endif %}
+          {% if page.intro %}<p class="page-hero__intro text text--xl">{{ page.intro }}</p>{% endif %}
+          {% if page.buttons %}
+            <div class="buttons__cta">
+              {% for button in page.buttons %}
+                <a class="button__cta" href="{{ button.value.url }}">{{ button.value.text }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
       </div>
     </header>
@@ -36,6 +43,12 @@
                 {% else %}
                   <span class="single-service-1c__cta-button">{{ block.value.button_text }}</span>
                 {% endif %}
+              </div>
+            </section>
+          {% elif block.block_type == "rates" %}
+            <section class="page-section single-service-1c__rates">
+              <div class="container page-content__block">
+                {% include "components/streamfield_block.html" with block=block %}
               </div>
             </section>
           {% else %}

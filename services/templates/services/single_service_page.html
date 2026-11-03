@@ -26,7 +26,7 @@
       <div class="container page-content">
         {% for block in page.content %}
           <section class="page-content__block">
-            {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" or block.block_type == "gallery" or block.block_type == "rates" %}
+            {% if block.block_type == "text_section" or block.block_type == "table" or block.block_type == "features" or block.block_type == "gallery" or block.block_type == "rates" or block.block_type == "faq" or block.block_type == "checklist" %}
               {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" rate_text_class="rich-content" %}
             {% elif block.block_type == "image_text" %}
               <div class="single-service__image-text single-service__image-text--{{ block.value.image_position }}">
@@ -41,16 +41,6 @@
                   <h2 class="heading heading--h2">{{ block.value.title }}</h2>
                   <div class="rich-content">{{ block.value.text|richtext }}</div>
                 </div>
-              </div>
-            {% elif block.block_type == "faq" %}
-              {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-              <div class="single-service__faq">
-                {% for item in block.value.items %}
-                  <details>
-                    <summary>{{ item.question }}</summary>
-                    <div class="rich-content">{{ item.answer|richtext }}</div>
-                  </details>
-                {% endfor %}
               </div>
             {% endif %}
           </section>

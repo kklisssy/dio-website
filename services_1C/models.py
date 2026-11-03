@@ -10,7 +10,7 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
-from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, RateBlock
+from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, RateBlock, ButtonBlock, FaqBlock, ChecklistBlock
 
 
 @register_snippet
@@ -81,6 +81,12 @@ class SingleService1CPage(Page):
         blank=True,
         help_text="1-3 предложения для анонса и первого экрана",
     )
+    buttons = StreamField(
+        [("button", ButtonBlock())],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Кнопки",
+    )
     image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -99,11 +105,13 @@ class SingleService1CPage(Page):
     )
     content = StreamField(
         [
-            ("text_section", RichTextSectionBlock()),
-            ("table", TableSectionBlock()),
             ("features", FeaturesBlock()),
             ("cta", CallToActionBlock()),
             ("rates", RateBlock()),
+            ("faq", FaqBlock()),
+            ("checklist", ChecklistBlock()),
+            ("text_section", RichTextSectionBlock()),
+            ("table", TableSectionBlock()),
         ],
         blank=True,
         use_json_field=True,
@@ -118,6 +126,7 @@ class SingleService1CPage(Page):
                 FieldPanel("category"),
                 FieldPanel("headline"),
                 FieldPanel("intro"),
+                FieldPanel("buttons"),
                 FieldPanel("image"),
             ],
             heading="Основная информация",

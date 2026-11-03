@@ -14,24 +14,6 @@
   border-radius: 22px;
 }
 
-.single-service__faq {
-  display: grid;
-  gap: 12px;
-}
-
-.single-service__faq details {
-  padding: 24px 28px;
-  border-radius: 18px;
-  background: var(--color-surface);
-}
-
-.single-service__faq summary {
-  cursor: pointer;
-  color: #000000;
-  font-size: 22px;
-  font-weight: 700;
-}
-
 @media (max-width: 767px) {
   .single-service__image-text {
     grid-template-columns: 1fr;

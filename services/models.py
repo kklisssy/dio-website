@@ -18,6 +18,8 @@ from base.page_blocks import (
     TableSectionBlock,
     ImageGalleryBlock,
     RateBlock,
+    FaqBlock,
+    ChecklistBlock,
 )
 
 
@@ -56,28 +58,6 @@ class ImageTextBlock(blocks.StructBlock):
     class Meta:
         icon = "image"
         label = "Текст с изображением"
-
-
-class FaqItemBlock(blocks.StructBlock):
-    question = blocks.CharBlock(required=True, label="Вопрос")
-    answer = blocks.RichTextBlock(features=RICH_TEXT_FEATURES, label="Ответ")
-
-    class Meta:
-        icon = "help"
-        label = "Вопрос"
-
-
-class FaqBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        required=False,
-        default="Вопросы и ответы",
-        label="Заголовок блока",
-    )
-    items = blocks.ListBlock(FaqItemBlock(), label="Вопросы")
-
-    class Meta:
-        icon = "help"
-        label = "FAQ"
 
 
 class SingleServicePage(Page):
@@ -123,6 +103,7 @@ class SingleServicePage(Page):
             ("features", FeaturesBlock()),
             ("image_text", ImageTextBlock()),
             ("faq", FaqBlock()),
+            ("checklist", ChecklistBlock()),
             ("gallery", ImageGalleryBlock()),
             ("rates", RateBlock()),
         ],
