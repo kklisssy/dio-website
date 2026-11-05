@@ -551,7 +551,7 @@ class HomePage(Page):
 
     def get_services(self):
         from services.models import SingleServicePage
-        return SingleServicePage.objects.live().order_by("-date")[:9]
+        return SingleServicePage.objects.live().order_by("-date")[:6]
 
     def get_service_index(self):
         from services.models import ServiceIndexPage
