@@ -37,22 +37,6 @@
   padding: 88px 0;
 }
 
-.page-hero__category {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 12px 25px;
-  border-radius: var(--radius-pill);
-  background: var(--color-brand);
-  color: #ffffff;
-  font-size: var(--font-body);
-  line-height: 1.1;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
 .page-hero__intro p {
   margin: 0;
 }

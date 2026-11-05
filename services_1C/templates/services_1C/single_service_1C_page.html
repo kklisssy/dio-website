@@ -16,7 +16,7 @@
       {% endif %}
       <div class="container page-hero__inner">
         <div class="page-hero__content">
-          {% if page.category %}<p class="page-hero__category">{{ page.category.name }}</p>{% endif %}
+          {% if page.category %}<p class="catalog-card__category">{{ page.category.name }}</p>{% endif %}
           <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
           {% if page.intro %}<p class="page-hero__intro text text--xl">{{ page.intro }}</p>{% endif %}
           {% if page.buttons %}
