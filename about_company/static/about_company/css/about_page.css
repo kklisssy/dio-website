@@ -1,21 +1,6 @@
-.about-page {
-  overflow: hidden;
-  padding-top: 75px;
-}
-
 .about-hero__image {
   object-position: center;
   opacity: 0.55;
-}
-
-.about-hero__label {
-  margin: 0;
-  color: var(--color-brand);
-  font-size: 18px;
-  line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .about-section__header {

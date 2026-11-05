@@ -37,7 +37,7 @@
 .contact-page__socials {
   display: grid;
   align-content: start;
-  gap: 30px;
+  gap: 24px;
 }
 
 .contact-page__section-title {
@@ -46,10 +46,9 @@
 
 .contact-page__info-list {
   display: grid;
-  gap: 22px;
+  gap: 24px;
   color: var(--color-text);
-  font-size: 26px;
-  line-height: 1.25;
+  font-size: var(--font-section-description);
 }
 
 .contact-page__info-link {
@@ -74,16 +73,15 @@
 .contact-page__social-link {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   color: var(--color-text);
-  font-size: 22px;
-  line-height: 1.2;
+  font-size: var(--font-section-description);
 }
 
 .contact-page__social-icon {
   width: 56px;
   height: 56px;
-  border-radius: 12px;
+  border-radius: var(--radius-button);
   object-fit: contain;
 }
 
