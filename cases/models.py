@@ -10,7 +10,7 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
-from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, RateBlock
+from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, RateBlock, FaqBlock, ChecklistBlock, ButtonBlock
 @register_snippet
 class CaseIndustry(models.Model):
     name = models.CharField("Название", max_length=100)
@@ -123,6 +123,8 @@ class SingleCasePage(Page):
             ("text_section", RichTextSectionBlock()),
             ("table", TableSectionBlock()),
             ("features", FeaturesBlock()),
+            ("faq", FaqBlock()),
+            ("checklist", ChecklistBlock()),
             ("results", ResultsBlock()),
             ("technologies", TechnologiesBlock()),
             ("rates", RateBlock()),

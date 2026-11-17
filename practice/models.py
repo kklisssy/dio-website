@@ -9,7 +9,7 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
-from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
+from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock, FaqBlock, ChecklistBlock, ButtonBlock
 
 
 @register_snippet
@@ -85,6 +85,8 @@ class PracticeSinglePage(Page):
             ("text_section", RichTextSectionBlock()),
             ("table", TableSectionBlock()),
             ("features", FeaturesBlock()),
+            ("faq", FaqBlock()),
+            ("checklist", ChecklistBlock()),
         ],
         blank=True,
         use_json_field=True,
