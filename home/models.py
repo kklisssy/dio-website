@@ -8,6 +8,8 @@ from wagtail.models import Page
 
 from base.page_blocks import (
     ButtonBlock,
+    ChecklistBlock,
+    FaqBlock,
     FeaturesBlock,
     LinkedCardBlock,
     RichTextSectionBlock,
@@ -422,11 +424,16 @@ class CityPage(Page):
         related_name="+",
         verbose_name="Изображение",
     )
+    buttons = StreamField(
+        [("button", ButtonBlock())], blank=True, use_json_field=True, verbose_name="Кнопки",
+    )
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
             ("table", TableSectionBlock()),
             ("features", FeaturesBlock()),
+            ("checklist", ChecklistBlock()),
+            ("faq", FaqBlock()),
         ],
         blank=True,
         use_json_field=True,
@@ -440,6 +447,7 @@ class CityPage(Page):
                 FieldPanel("headline"),
                 FieldPanel("intro"),
                 FieldPanel("image"),
+                FieldPanel("buttons"),
             ],
             heading="Основная информация",
         ),
@@ -448,6 +456,19 @@ class CityPage(Page):
 
     parent_page_types = ["home.CitiesIndexPage"]
     subpage_types = []
+
+    def get_context(self, request):
+        from cases.models import CaseIndexPage, SingleCasePage
+
+        context = super().get_context(request)
+        context["cases"] = (
+            SingleCasePage.objects.live().public()
+            .filter(city=self)
+            .select_related("industry", "card_image")
+            .order_by("-project_date", "-pk")[:3]
+        )
+        context["case_index"] = CaseIndexPage.objects.live().public().in_site(self.get_site()).first()
+        return context
 
     class Meta:
         verbose_name = "Посадочная страница города"

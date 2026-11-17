@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/city.css' %}">
+{% endblock extra_css %}
+{% block content %}
+  <article class="catalog-detail">
+    {% include "components/catalog_detail_hero.html" with hero_image=page.image %}
+    <div class="city-page__body">
+    {% if page.content %}
+      <div class="container page-content">
+        {% for block in page.content %}
+          <section class="page-content__block">
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% include "sections/cases_section.html" with cases=cases case_index=case_index city_layout=True only %}
+    </div>
+  </article>
+{% endblock content %}

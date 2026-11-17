@@ -116,6 +116,11 @@ class SingleCasePage(Page):
     )
     project_date = models.DateField("Дата реализации проекта", default=timezone.now)
     duration = models.CharField("Длительность проекта", max_length=50, blank=True)
+    city = models.ForeignKey(
+        "home.CityPage", null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="city_cases", verbose_name="Город",
+        help_text="Кейс автоматически появится на странице выбранного города после публикации.",
+    )
     location = models.CharField("Местоположение", max_length=100, blank=True)
 
     buttons = StreamField(

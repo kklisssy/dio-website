@@ -1,0 +1,41 @@
+.city-page__body {
+  display: grid;
+  gap: 64px;
+  padding-top: 64px;
+}
+
+.city-page__body > .page-content {
+  padding-block: 0;
+}
+
+.city-page__body .city-cases {
+  background: transparent;
+  padding-block: 0;
+}
+
+.city-cases__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.city-cases__header .heading {
+  margin: 0;
+}
+
+.city-cases__header .button__cta {
+  flex-shrink: 0;
+}
+
+@media (max-width: 610px) {
+  .city-page__body {
+    gap: 48px;
+    padding-block: 48px;
+  }
+
+  .city-page__body > .page-content {
+    gap: 48px;
+  }
+}
