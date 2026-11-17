@@ -5,24 +5,7 @@
 {% endblock %}
 {% block content %}
   <article class="catalog-detail">
-    <header class="page-hero">
-      {% if page.image %}
-        {% image page.image fill-1500x760 as article_image %}
-        <img class="page-hero__image"
-             src="{{ article_image.url }}"
-             width="{{ article_image.width }}"
-             height="{{ article_image.height }}"
-             alt="">
-      {% endif %}
-      <div class="container page-hero__inner">
-        <div class="page-hero__content">
-          {% if page.category %}<p class="catalog-card__category">{{ page.category.name }}</p>{% endif %}
-          <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="page-hero__intro text text--xl">{{ page.intro }}</p>{% endif %}
-          {% if page.document %}<a class="button__cta" href="{{ page.document.url }}">Скачать материал</a>{% endif %}
-        </div>
-      </div>
-    </header>
+    {% include "components/catalog_detail_hero.html" with hero_image=page.image hero_category=page.category %}
     {% if page.content %}
       <div class="container page-content">
         {% for block in page.content %}

@@ -118,6 +118,12 @@ class SingleCasePage(Page):
     duration = models.CharField("Длительность проекта", max_length=50, blank=True)
     location = models.CharField("Местоположение", max_length=100, blank=True)
 
+    buttons = StreamField(
+        [("button", ButtonBlock())],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Кнопки",
+    )
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
@@ -154,9 +160,11 @@ class SingleCasePage(Page):
                 FieldPanel("project_date"),
                 FieldPanel("duration"),
                 FieldPanel("location"),
+                FieldPanel("city"),
             ],
             heading="Основная информация",
         ),
+        FieldPanel("buttons"),
         FieldPanel("content"),
     ]
 

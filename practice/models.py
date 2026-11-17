@@ -80,6 +80,12 @@ class PracticeSinglePage(Page):
         related_name="+",
         verbose_name="Фоновое изображение",
     )
+    buttons = StreamField(
+        [("button", ButtonBlock())],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Кнопки",
+    )
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
@@ -112,6 +118,7 @@ class PracticeSinglePage(Page):
             ],
             heading="Оформление карточки"
         ),
+        FieldPanel("buttons"),
         FieldPanel("content"),
     ]
 

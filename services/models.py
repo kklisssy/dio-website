@@ -13,6 +13,7 @@ from wagtail.snippets.models import register_snippet
 
 from base.page_blocks import (
     RICH_TEXT_FEATURES,
+    ButtonBlock,
     FeaturesBlock,
     RichTextSectionBlock,
     TableSectionBlock,
@@ -96,6 +97,12 @@ class SingleServicePage(Page):
         related_name="+",
         verbose_name="Фоновое изображение",
     )
+    buttons = StreamField(
+        [("button", ButtonBlock())],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Кнопки",
+    )
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
@@ -130,6 +137,7 @@ class SingleServicePage(Page):
             ],
             heading="Оформление карточки"
         ),
+        FieldPanel("buttons"),
         FieldPanel("content"),
     ]
 

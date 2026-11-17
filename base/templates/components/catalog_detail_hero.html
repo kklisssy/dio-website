@@ -1,0 +1,29 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<header class="page-hero">
+  {% if hero_image %}
+    {% image hero_image fill-1500x760 as image %}
+    <img class="page-hero__image" src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="">
+  {% endif %}
+  <div class="container page-hero__inner">
+    <div class="page-hero__content">
+      {% if hero_category %}<p class="catalog-card__category">{{ hero_category.name }}</p>{% endif %}
+      <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
+      {% if page.intro %}
+        {% if rich_intro %}
+          <div class="page-hero__intro text text--xl">{{ page.intro|richtext }}</div>
+        {% else %}
+          <p class="page-hero__intro text text--xl">{{ page.intro }}</p>
+        {% endif %}
+      {% endif %}
+      {% if page.price %}<p class="single-product__price">{{ page.price }}</p>{% endif %}
+      {% if page.buttons or page.document %}
+        <div class="buttons__cta">
+          {% for button in page.buttons %}
+            <a href="{{ button.value.url }}" class="button__cta{% if button.value.is_secondary %} button__cta--secondary{% endif %}">{{ button.value.text }}</a>
+          {% endfor %}
+          {% if page.document %}<a class="button__cta" href="{{ page.document.url }}">Скачать материал</a>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</header>

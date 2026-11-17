@@ -5,23 +5,7 @@
 {% endblock extra_css %}
 {% block content %}
   <article class="catalog-detail">
-    <header class="page-hero">
-      {% if page.main_image %}
-        {% image page.main_image fill-1500x760 as hero_image %}
-        <img class="page-hero__image"
-             src="{{ hero_image.url }}"
-             width="{{ hero_image.width }}"
-             height="{{ hero_image.height }}"
-             alt="">
-      {% endif %}
-      <div class="container page-hero__inner">
-        <div class="page-hero__content">
-          {% if page.industry %}<p class="catalog-card__category">{{ page.industry.name }}</p>{% endif %}
-          <h1 class="heading heading--h1">{{ page.title }}</h1>
-          {% if page.intro %}<div class="page-hero__intro text text--xl">{{ page.intro|richtext }}</div>{% endif %}
-        </div>
-      </div>
-    </header>
+    {% include "components/catalog_detail_hero.html" with hero_image=page.main_image hero_category=page.industry rich_intro=True %}
     <section class="case-detail__summary">
       <div class="container case-detail__summary-grid">
         <div class="case-detail__summary-item">
@@ -62,7 +46,7 @@
                 <div class="rich-content">{{ block.value.text|richtext }}</div>
               </div>
             </section>
-          {% elif block.block_type == "table" or block.block_type == "features" or block.block_type == "rates" %}
+          {% elif block.block_type == "table" or block.block_type == "features" or block.block_type == "rates" or block.block_type == "faq" or block.block_type == "checklist" %}
             <section class="case-detail__section">
               <div class="container case-detail__standard-block">
                 {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" rate_text_class="rich-content" %}
