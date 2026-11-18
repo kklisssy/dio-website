@@ -186,7 +186,7 @@ class ServiceIndexPage(Page):
         FieldPanel("items_per_page"),
     ]
 
-    subpage_types: ClassVar[list[str]] = ["services.SingleServicePage"]
+    subpage_types: ClassVar[list[str]] = ["services.SingleServicePage", "content_pages.ContentPage"]
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
 
     def get_context(self, request):

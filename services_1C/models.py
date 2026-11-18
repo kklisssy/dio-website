@@ -188,7 +188,7 @@ class Service1CIndexPage(Page):
         FieldPanel("items_per_page"),
     ]
 
-    subpage_types: ClassVar[list[str]] = ["services_1C.SingleService1CPage"]
+    subpage_types: ClassVar[list[str]] = ["services_1C.SingleService1CPage", "content_pages.ContentPage"]
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
 
     template = "services_1C/service_1C_index_page.html"

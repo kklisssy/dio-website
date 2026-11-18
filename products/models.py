@@ -165,7 +165,7 @@ class ProductIndexPage(Page):
         FieldPanel("items_per_page"),
     ]
 
-    subpage_types: ClassVar[list[str]] = ["products.SingleProductPage"]
+    subpage_types: ClassVar[list[str]] = ["products.SingleProductPage", "content_pages.ContentPage"]
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
 
     template = "products/product_index_page.html"

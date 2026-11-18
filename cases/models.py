@@ -217,7 +217,7 @@ class CaseIndexPage(Page):
         FieldPanel("items_per_page"),
     ]
 
-    subpage_types: ClassVar[list[str]] = ["cases.SingleCasePage"]
+    subpage_types: ClassVar[list[str]] = ["cases.SingleCasePage", "content_pages.ContentPage"]
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
 
     template = "cases/case_index_page.html"

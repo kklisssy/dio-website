@@ -170,7 +170,7 @@ class PracticeIndexPage(Page):
         FieldPanel("items_per_page"),
     ]
 
-    subpage_types: ClassVar[list[str]] = ["practice.PracticeSinglePage"]
+    subpage_types: ClassVar[list[str]] = ["practice.PracticeSinglePage", "content_pages.ContentPage"]
     parent_page_types: ClassVar[list[str]] = ["home.HomePage"]
 
     def get_context(self, request):
