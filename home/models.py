@@ -33,7 +33,7 @@ class HeroFeaturesBlock(blocks.StructBlock):
     description = blocks.TextBlock(max_length=200, required=False, label="Короткое описание")
     page = blocks.PageChooserBlock(
         required=False,
-        page_type=["home.HeroFeaturePage"],
+        page_type=["content_pages.ContentPage"],
         label="Страница",
     )
 
@@ -312,77 +312,6 @@ class GlobalPresenceBlock(blocks.StructBlock):
         label="Изображение для локации",
         help_text="Рекомендуемый размер: квадратное или 1x1"
     )
-
-
-class HeroFeatureIndexPage(Page):
-    """Служебный раздел для группировки страниц свойств."""
-
-    parent_page_types = ["home.HomePage"]
-    subpage_types = ["home.HeroFeaturePage"]
-    max_count_per_parent = 1
-
-    def serve(self, request, *args, **kwargs):
-        return redirect(self.get_parent().url)
-
-    class Meta:
-        verbose_name = "Раздел свойств"
-        verbose_name_plural = "Разделы свойств"
-
-
-class HeroFeaturePage(Page):
-    """Страница с подробным описанием свойства."""
-
-    template = "home/content_detail_page.html"
-
-    headline = models.CharField(
-        "Заголовок",
-        max_length=255,
-        blank=True,
-        help_text="Если оставить пустым, будет использовано название страницы.",
-    )
-    intro = models.TextField(
-        "Краткое описание",
-        blank=True,
-        help_text="Вводный текст для первого экрана.",
-    )
-    image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Изображение",
-    )
-    content = StreamField(
-        [
-            ("text_section", RichTextSectionBlock()),
-            ("table", TableSectionBlock()),
-            ("features", FeaturesBlock()),
-        ],
-        blank=True,
-        use_json_field=True,
-        verbose_name="Содержимое страницы",
-    )
-
-    content_panels = [
-        *Page.content_panels,
-        MultiFieldPanel(
-            [
-                FieldPanel("headline"),
-                FieldPanel("intro"),
-                FieldPanel("image"),
-            ],
-            heading="Основная информация",
-        ),
-        FieldPanel("content"),
-    ]
-
-    parent_page_types = ["home.HeroFeatureIndexPage"]
-    subpage_types = []
-
-    class Meta:
-        verbose_name = "Описание свойства"
-        verbose_name_plural = "Описания свойств"
 
 
 class CitiesIndexPage(Page):

@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'base',
     'home',
+    'content_pages',
     'services',
     'products',
     'services_1C',

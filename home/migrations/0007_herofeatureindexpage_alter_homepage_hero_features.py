@@ -5,45 +5,6 @@ import wagtail.fields
 from django.db import migrations, models
 
 
-def group_feature_pages(apps, schema_editor):
-    from home.models import HeroFeatureIndexPage, HeroFeaturePage, HomePage
-
-    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
-        feature_index = (
-            HeroFeatureIndexPage.objects.child_of(home_page)
-            .filter(slug="features")
-            .first()
-        )
-        if feature_index is None:
-            feature_index = HeroFeatureIndexPage(
-                title="Свойства",
-                slug="features",
-                show_in_menus=False,
-            )
-            home_page.add_child(instance=feature_index)
-
-        for feature_page in HeroFeaturePage.objects.child_of(home_page):
-            feature_page.move(feature_index, pos="last-child")
-
-
-def ungroup_feature_pages(apps, schema_editor):
-    from home.models import HeroFeatureIndexPage, HeroFeaturePage, HomePage
-
-    for home_page in HomePage.objects.only("pk", "path", "depth", "numchild"):
-        feature_index = (
-            HeroFeatureIndexPage.objects.child_of(home_page)
-            .filter(slug="features")
-            .first()
-        )
-        if feature_index is None:
-            continue
-
-        for feature_page in HeroFeaturePage.objects.child_of(feature_index):
-            feature_page.move(home_page, pos="last-child")
-
-        feature_index.delete()
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -63,10 +24,10 @@ class Migration(migrations.Migration):
             },
             bases=('wagtailcore.page',),
         ),
-        migrations.RunPython(group_feature_pages, ungroup_feature_pages),
+        # The temporary grouping is retired by the content page migration.
         migrations.AlterField(
             model_name='homepage',
             name='hero_features',
-            field=wagtail.fields.StreamField([('feature', 3)], block_lookup={0: ('wagtail.blocks.TextBlock', (), {'label': 'Заголовок свойства', 'max_length': 50, 'required': True}), 1: ('wagtail.blocks.TextBlock', (), {'label': 'Короткое описание', 'max_length': 200, 'required': False}), 2: ('wagtail.blocks.PageChooserBlock', (), {'label': 'Страница', 'page_type': ['home.HeroFeaturePage'], 'required': False}), 3: ('wagtail.blocks.StructBlock', [[('title', 0), ('description', 1), ('page', 2)]], {})}, default=list, verbose_name='Карточки под hero'),
+            field=wagtail.fields.StreamField([('feature', 3)], block_lookup={0: ('wagtail.blocks.TextBlock', (), {'label': 'Заголовок свойства', 'max_length': 50, 'required': True}), 1: ('wagtail.blocks.TextBlock', (), {'label': 'Короткое описание', 'max_length': 200, 'required': False}), 2: ('wagtail.blocks.PageChooserBlock', (), {'label': 'Страница', 'page_type': ['content_pages.ContentPage'], 'required': False}), 3: ('wagtail.blocks.StructBlock', [[('title', 0), ('description', 1), ('page', 2)]], {})}, default=list, verbose_name='Карточки под hero'),
         ),
     ]

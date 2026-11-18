@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='homepage',
             name='hero_features',
-            field=wagtail.fields.StreamField([('feature', 4)], block_lookup={0: ('wagtail.images.blocks.ImageChooserBlock', (), {'label': 'Иконка', 'required': False}), 1: ('wagtail.blocks.TextBlock', (), {'label': 'Заголовок свойства', 'max_length': 50, 'required': True}), 2: ('wagtail.blocks.TextBlock', (), {'label': 'Короткое описание', 'max_length': 200, 'required': False}), 3: ('wagtail.blocks.PageChooserBlock', (), {'label': 'Страница', 'page_type': ['home.HeroFeaturePage'], 'required': False}), 4: ('wagtail.blocks.StructBlock', [[('icon', 0), ('title', 1), ('description', 2), ('page', 3)]], {})}, default=list, verbose_name='Карточки под hero'),
+            field=wagtail.fields.StreamField([('feature', 4)], block_lookup={0: ('wagtail.images.blocks.ImageChooserBlock', (), {'label': 'Иконка', 'required': False}), 1: ('wagtail.blocks.TextBlock', (), {'label': 'Заголовок свойства', 'max_length': 50, 'required': True}), 2: ('wagtail.blocks.TextBlock', (), {'label': 'Короткое описание', 'max_length': 200, 'required': False}), 3: ('wagtail.blocks.PageChooserBlock', (), {'label': 'Страница', 'page_type': ['content_pages.ContentPage'], 'required': False}), 4: ('wagtail.blocks.StructBlock', [[('icon', 0), ('title', 1), ('description', 2), ('page', 3)]], {})}, default=list, verbose_name='Карточки под hero'),
         ),
     ]

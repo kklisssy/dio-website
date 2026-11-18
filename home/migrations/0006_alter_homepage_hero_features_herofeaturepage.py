@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='homepage',
             name='hero_features',
-            field=wagtail.fields.StreamField([('feature', 4)], block_lookup={0: ('wagtail.blocks.TextBlock', (), {'label': 'Заголовок свойства', 'max_length': 50, 'required': True}), 1: ('wagtail.blocks.TextBlock', (), {'label': 'Короткое описание', 'max_length': 200, 'required': False}), 2: ('wagtail.blocks.PageChooserBlock', (), {'label': 'Страница', 'page_type': ['home.HeroFeaturePage'], 'required': False}), 3: ('wagtail.blocks.URLBlock', (), {'label': 'Внешняя ссылка', 'required': False}), 4: ('wagtail.blocks.StructBlock', [[('title', 0), ('description', 1), ('page', 2), ('external_url', 3)]], {})}, default=list, verbose_name='Карточки под hero'),
+            field=wagtail.fields.StreamField([('feature', 4)], block_lookup={0: ('wagtail.blocks.TextBlock', (), {'label': 'Заголовок свойства', 'max_length': 50, 'required': True}), 1: ('wagtail.blocks.TextBlock', (), {'label': 'Короткое описание', 'max_length': 200, 'required': False}), 2: ('wagtail.blocks.PageChooserBlock', (), {'label': 'Страница', 'page_type': ['content_pages.ContentPage'], 'required': False}), 3: ('wagtail.blocks.URLBlock', (), {'label': 'Внешняя ссылка', 'required': False}), 4: ('wagtail.blocks.StructBlock', [[('title', 0), ('description', 1), ('page', 2), ('external_url', 3)]], {})}, default=list, verbose_name='Карточки под hero'),
         ),
         migrations.CreateModel(
             name='HeroFeaturePage',
