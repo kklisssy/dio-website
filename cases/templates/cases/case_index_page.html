@@ -8,7 +8,7 @@
     <div class="container case-index__container page-section__container">
       <header class="case-index__header page-header">
         <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-        {% if page.intro %}<div class="case-index__intro text text--md">{{ page.intro|richtext }}</div>{% endif %}
+        {% if page.intro %}<div class="case-index__intro text text--xl">{{ page.intro|richtext }}</div>{% endif %}
       </header>
       {% if industry_choices %}
         <nav class="case-index__filters filter-list" aria-label="Отрасли">
