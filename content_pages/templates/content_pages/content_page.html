@@ -1,36 +1,15 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
-{% block extra_css %}
-  <link rel="stylesheet"
-        href="{% static 'content_pages/css/content.css' %}">
-{% endblock extra_css %}
 {% block content %}
-  <article class="content-page">
-    <header class="content-page__hero">
-      {% if page.image %}
-        {% image page.image fill-1500x760 as hero_image %}
-        <img class="content-page__hero-image"
-             src="{{ hero_image.url }}"
-             width="{{ hero_image.width }}"
-             height="{{ hero_image.height }}"
-             alt="">
-      {% endif %}
-      <div class="container content-page__hero-inner">
-        <div class="content-page__hero-content">
-          <h1 class="heading heading--h1">{{ page.headline|default:page.title }}</h1>
-          {% if page.intro %}<p class="content-page__intro text text--md">{{ page.intro }}</p>{% endif %}
-        </div>
-      </div>
-    </header>
-
+  <article class="catalog-detail">
+    {% include "components/catalog_detail_hero.html" with hero_image=page.image %}
     {% if page.content %}
-      <div class="container content-page__content">
+      <div class="container page-content">
         {% for block in page.content %}
-          <section class="content-page__block content-page__block--{{ block.block_type }}">
-            {% include "components/streamfield_block.html" with block=block text_class="list-content" cards_class="content-page__cards" card_class="content-page__card" %}
+          <section class="page-content__block">
+            {% include "components/streamfield_block.html" with block=block text_class="rich-content" item_text_class="rich-content" %}
           </section>
         {% endfor %}
       </div>
     {% endif %}
   </article>
-{% endblock %}
+{% endblock content %}

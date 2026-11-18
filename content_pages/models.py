@@ -3,7 +3,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 
-from base.page_blocks import FeaturesBlock, RichTextSectionBlock, TableSectionBlock
+from base.page_blocks import ButtonBlock, FeaturesBlock, RichTextSectionBlock, TableSectionBlock
 
 
 class ContentPage(Page):
@@ -30,6 +30,12 @@ class ContentPage(Page):
         related_name="+",
         verbose_name="Изображение",
     )
+    buttons = StreamField(
+        [("button", ButtonBlock())],
+        blank=True,
+        use_json_field=True,
+        verbose_name="Кнопки",
+    )
     content = StreamField(
         [
             ("text_section", RichTextSectionBlock()),
@@ -48,6 +54,7 @@ class ContentPage(Page):
                 FieldPanel("headline"),
                 FieldPanel("intro"),
                 FieldPanel("image"),
+                FieldPanel("buttons"),
             ],
             heading="Основная информация",
         ),
