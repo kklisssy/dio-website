@@ -1,7 +1,3 @@
 <section class="page-content__block">
-  <div class="about-section__header">
-    {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
-  </div>
-  {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
-  {% include "components/feature_cards.html" with block=block cards_class="feature-card-list--about" card_class="" item_text_class="" %}
+  {% include "components/streamfield_block.html" with block=block heading_wrapper_class="about-section__header" cards_class="feature-card-list--about" card_class="" item_text_class="" %}
 </section>

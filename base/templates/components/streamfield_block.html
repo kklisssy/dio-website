@@ -6,9 +6,40 @@
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
   <div class="custom-table-wrapper">{% include_block block.value.bound_blocks.table %}</div>
 {% elif block.block_type == "features" %}
+  {% if heading_wrapper_class %}<div class="{{ heading_wrapper_class }}">{% endif %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
+  {% if heading_wrapper_class %}</div>{% endif %}
   {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
-  {% include "components/feature_cards.html" %}
+  <ul class="feature-card-list{% if cards_class %} {{ cards_class }}{% endif %}"
+      role="list">
+    {% for item in block.value.items %}
+      {% with card_url=None %}
+        {% if item.link_page %}{% pageurl item.link_page as card_url %}{% endif %}
+        <li class="feature-card catalog-card catalog-card__content{% if card_class %} {{ card_class }}{% endif %}">
+          <div class="feature-card__top">
+            <span class="feature-card__number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+            {% if item.icon %}
+              {% image item.icon max-96x96 as item_icon %}
+              <span class="feature-card__icon-wrap">
+                <img class="feature-card__icon"
+                     src="{{ item_icon.url }}"
+                     width="{{ item_icon.width }}"
+                     height="{{ item_icon.height }}"
+                     alt="">
+              </span>
+            {% endif %}
+          </div>
+          <h3 class="heading heading--h3 catalog-card__title">{% if card_url and not item.button_text %}<a class="feature-card__link" href="{{ card_url }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}</h3>
+          {% if item.text %}
+            <div class="catalog-card__text{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>
+          {% endif %}
+          {% if card_url and item.button_text %}
+            <a class="feature-card__link feature-card__button" href="{{ card_url }}" aria-label="{{ item.button_text }} — {{ item.title }}">{{ item.button_text }}</a>
+          {% endif %}
+        </li>
+      {% endwith %}
+    {% endfor %}
+  </ul>
 {% elif block.block_type == "gallery" %}
   {% if block.value.title %}<h2 class="heading heading--h2">{{ block.value.title }}</h2>{% endif %}
   {% if block.value.description %}<p class="text text--xl">{{ block.value.description }}</p>{% endif %}
