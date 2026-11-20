@@ -165,6 +165,28 @@
   background: var(--color-page);
 }
 
+.feature-card__link::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+}
+
+.feature-card__link:focus-visible::after {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -3px;
+}
+
+.feature-card .feature-card__button {
+  position: static;
+  justify-self: start;
+}
+
+.feature-card .catalog-card__text a {
+  position: relative;
+  z-index: 1;
+}
+
 .feature-card__top {
   display: flex;
   align-items: center;

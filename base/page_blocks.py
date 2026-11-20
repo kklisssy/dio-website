@@ -62,6 +62,13 @@ class FeatureItemBlock(blocks.StructBlock):
         label="Описание",
     )
     icon = ImageChooserBlock(required=False, label="Иконка")
+    link_page = blocks.PageChooserBlock(required=False, label="Страница для перехода")
+    button_text = blocks.CharBlock(
+        required=False,
+        max_length=50,
+        label="Текст кнопки",
+        help_text="Кнопка отображается, если выбрана страница и заполнен текст.",
+    )
 
     class Meta:
         icon = "tick"
