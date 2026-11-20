@@ -158,7 +158,7 @@
 }
 
 .feature-card {
-  align-content: start;
+  grid-template-rows: auto auto 1fr auto;
   padding: var(--card-padding);
   border: 1px solid black;
   border-radius: var(--radius-large);
@@ -177,9 +177,18 @@
   outline-offset: -3px;
 }
 
-.feature-card .feature-card__button {
-  position: static;
+.feature-card__button {
+  grid-row: 4;
+  align-self: end;
   justify-self: start;
+  color: var(--color-brand);
+  font-size: var(--font-body);
+  font-weight: var(--weight-bold);
+}
+
+.feature-card:hover .feature-card__button,
+.feature-card__button:focus-visible {
+  text-decoration: underline;
 }
 
 .feature-card .catalog-card__text a {

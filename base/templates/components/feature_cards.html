@@ -23,7 +23,7 @@
             <div class="catalog-card__text{% if item_text_class %} {{ item_text_class }}{% endif %}">{{ item.text|richtext }}</div>
           {% endif %}
           {% if card_url and item.button_text %}
-            <a class="feature-card__link feature-card__button button__cta" href="{{ card_url }}" aria-label="{{ item.button_text }} — {{ item.title }}">{{ item.button_text }}</a>
+            <a class="feature-card__link feature-card__button" href="{{ card_url }}" aria-label="{{ item.button_text }} — {{ item.title }}">{{ item.button_text }}</a>
           {% endif %}
         </li>
       {% endwith %}
